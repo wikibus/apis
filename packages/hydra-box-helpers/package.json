@@ -1,0 +1,17 @@
+{
+  "name": "@wikibus/hydra-box-helpers",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@fcostarodrigo/walk": "^5.0.0",
+    "http-problem-details": "^0.1.5",
+    "@tpluscode/fun-ddr": "^0.6.1",
+    "@tpluscode/sparql-builder": "^0.3.6",
+    "http-problem-details-mapper": "^0.1.6",
+    "express-http-problem-details": "^0.2.0",
+    "debug": "^4.1.1",
+    "middleware-async": "^1.2.1",
+    "rdf-ext": "^1.3.0",
+    "sparql-http-client": "^2.2.2"
+  }
+}

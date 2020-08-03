@@ -1,0 +1,34 @@
+name: wikibus-apis
+services:
+  sources:
+    type: node:13
+    command: yarn nodemon -w packages/sources --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
+    port: 34566
+    overrides:
+      ports:
+        - '34567:34567'
+      environment:
+        BASE_URI: https://wikibus-sources.lndo.site/
+        SPARQL_ENDPOINT: http://store:3030/wikibus/query
+        SPARQL_UPDATE_ENDPOINT: http://store:3030/wikibus/update
+        SPARQL_GRAPH_ENDPOINT: http://store:3030/wikibus/data
+        DEBUG: app,app:*,hydra,hydra:*
+    moreHttpPorts:
+      - 34567
+  store:
+    type: compose
+    services:
+      image: blankdots/jena-fuseki:fuseki3.13.1
+      command: /docker-entrypoint.sh /jena-fuseki/start-fuseki.sh
+      environment:
+        ADMIN_PASSWORD: password
+        ENABLE_DATA_WRITE: "true"
+        ENABLE_UPDATE: "true"
+        ENABLE_UPLOAD: "true"
+      volumes:
+        - ./fuseki/config.ttl:/data/fuseki/config/config.ttl
+proxy:
+  store:
+    - wikibus-store.lndo.site:3030
+  sources:
+    - wikibus-sources.lndo.site:34566

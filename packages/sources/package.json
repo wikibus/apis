@@ -1,0 +1,30 @@
+{
+  "name": "@wikibus/sources",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "commander": "^6.0.0",
+    "cors": "^2.8.5",
+    "hydra-box": "zazuko/hydra-box",
+    "clownface-io": "zazuko/clownface-io#tpluscode-proposals",
+    "string-to-stream": "^3.0.1",
+    "@rdfjs/data-model": "^1.1.2",
+    "@wikibus/core": "*",
+    "alcaeus": "^1.0.0-beta.7",
+    "@tpluscode/rdf-string": "^0.2.17",
+    "@tpluscode/sparql-builder": "^0.3.7",
+    "@tpluscode/rdf-ns-builders": "^0.3.7",
+    "@wikibus/hydra-box-helpers": "*",
+    "set-link": "^1.0.0",
+    "rdf-loader-code": "^0.3.1",
+    "rdf-loaders-registry": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7",
+    "@types/set-link": "^1.0.0"
+  }
+}
