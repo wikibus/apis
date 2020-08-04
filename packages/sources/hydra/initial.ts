@@ -15,6 +15,31 @@ export default (baseUri: string) => toStream(turtle`
         ${wba.wishlist} <wishlist> ;
 }
 
+<books> {
+  <books> a ${hydra.Collection}, ${wba.BookCollection} ;
+    ${hydra.manages} [
+        ${hydra.property} ${rdf.type} ;
+        ${hydra.object} ${wbo.Book}
+    ] ;
+    ${rdfs.label} "Book collection" ;
+    ${hydra.search} [
+      a ${hydra.IriTemplate} ;
+      ${hydra.mapping} [
+        a ${hydra.IriTemplateMapping} ;
+        ${hydra.property} ${dcterms.title} ;
+        ${hydra.required} false ;
+        ${hydra.variable} "title" ;
+      ] , [
+        a ${hydra.IriTemplateMapping} ;
+        ${hydra.property} ${schema.author} ;
+        ${hydra.required} false ;
+        ${hydra.variable} "author" ;
+      ] ;
+      ${hydra.template} "${baseUri}books{?page,title,author}" ;
+      ${hydra.variableRepresentation} ${hydra.BasicRepresentation} 
+    ]
+}
+
 <brochures> {
   <brochures> a ${hydra.Collection}, ${wba.BrochureCollection} ;
     ${hydra.manages} [
