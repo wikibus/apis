@@ -2,7 +2,7 @@ name: wikibus-apis
 services:
   sources:
     type: node:13
-    command: yarn nodemon -w packages/sources --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
+    command: yarn nodemon -w packages --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
     port: 34566
     overrides:
       ports:
