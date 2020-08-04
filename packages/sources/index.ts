@@ -11,7 +11,7 @@ import { error, log } from '@wikibus/hydra-box-helpers/log'
 import env from '@wikibus/hydra-box-helpers/env'
 import Api from '@wikibus/hydra-box-helpers/setup'
 import {SparqlStore} from '@wikibus/hydra-box-helpers/setup/store';
-import Client from 'sparql-http-client'
+import Client from '@wikibus/hydra-box-helpers/sparql/Client'
 import {bootstrapResources} from './initialize'
 
 //import('./lib/handlers')
@@ -19,11 +19,13 @@ import {bootstrapResources} from './initialize'
 const baseUri = env.BASE_URI
 const endpointUrl = process.env.SPARQL_ENDPOINT
 const storeUrl = process.env.SPARQL_GRAPH_ENDPOINT
+const updateUrl = process.env.SPARQL_UPDATE_ENDPOINT
 const codePath = path.join(__dirname, 'express/handlers/')
 const apiSourcePath = path.join(__dirname, 'hydra/')
 
 const sparql = new Client({
   endpointUrl,
+  updateUrl,
   storeUrl,
 })
 
