@@ -1,19 +1,7 @@
-import { sparql, SparqlTemplateResult } from '@tpluscode/rdf-string'
-import { namedNode, variable } from '@rdfjs/data-model'
+import { sparql } from '@tpluscode/rdf-string'
+import { namedNode } from '@rdfjs/data-model'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { Term, Variable } from 'rdf-js'
-import { SingleContextClownface } from 'clownface'
-
-interface Pattern {
-  subject: Variable
-  predicate: Term
-  object: SingleContextClownface
-}
-
-let counter = 0
-function nextVar() {
-  return variable(`v${++counter}`)
-}
+import { Pattern } from './index'
 
 export function byContributor({ subject, predicate, object }: Pattern) {
   return sparql`${subject} ${predicate} ${namedNode(encodeURI(object.value))} .`
@@ -27,26 +15,4 @@ export function withoutImages({ subject }: Pattern) {
   return sparql`MINUS {
         ${subject} ${schema.image} ?image
     }`
-}
-
-export function byTitle({ subject, predicate, object }: Pattern) {
-  const variable = nextVar()
-  return sparql`
-    ${subject} ${predicate} ${variable} .
-    
-    FILTER (regex(${variable}, "${object.value}", 'i'))`
-}
-
-export function byLanguage({ subject, predicate, object }: Pattern) {
-  const existsFilters = object.values.reduce<SparqlTemplateResult | null>((patterns, language) => {
-    const pattern = sparql`EXISTS { ${subject} ${predicate} ${namedNode(language)} }`
-
-    if (patterns === null) {
-      return pattern
-    }
-
-    return sparql`${patterns} || ${pattern}`
-  }, null)
-
-  return sparql`FILTER ( ${existsFilters} )`
 }

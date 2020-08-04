@@ -24,7 +24,7 @@ wba:MagazineCollection-search a              hydra:IriTemplate ;
                                                hydra:required         false ;
                                                hydra:variable         "title" ;
                                                hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                        code:link <file:filter/brochure#byTitle> ] ; ] ;
+                                                                        code:link <file:filter/source#byTitle> ] ; ] ;
                               hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                                hydra:property hydra:pageIndex ;
                                                hydra:required false ;

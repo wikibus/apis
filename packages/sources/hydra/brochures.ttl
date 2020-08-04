@@ -25,7 +25,7 @@ wba:BrochureCollection-search a                            hydra:IriTemplate ;
                                                              hydra:required         false ;
                                                              hydra:variable         "title" ;
                                                              hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byTitle> ] ; ],
+                                                                                      code:link <file:filter/source#byTitle> ] ; ],
                                                            [ a                      hydra:IriTemplateMapping ;
                                                              hydra:property         wba:withPdfOnly ;
                                                              hydra:required         false ;
@@ -49,7 +49,7 @@ wba:BrochureCollection-search a                            hydra:IriTemplate ;
                                                              hydra:required         false ;
                                                              hydra:variable         "language" ;
                                                              hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byLanguage> ] ; ],
+                                                                                      code:link <file:filter/source#byLanguage> ] ; ],
                                                            [ a              hydra:IriTemplateMapping ;
                                                              hydra:property hydra:pageIndex ;
                                                              hydra:required false ;

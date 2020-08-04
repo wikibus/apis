@@ -1,7 +1,7 @@
-import { turtle } from '@tpluscode/rdf-string'
-import { hydra, schema, rdf, rdfs, dcterms, xsd } from '@tpluscode/rdf-ns-builders'
+import {turtle} from '@tpluscode/rdf-string'
+import {hydra, schema, rdf, rdfs, dcterms, xsd} from '@tpluscode/rdf-ns-builders'
 import toStream from 'string-to-stream'
-import { wba, wbo } from '@wikibus/core/namespace'
+import {wba, wbo} from '@wikibus/core/namespace'
 
 export default (baseUri: string) => toStream(turtle`
 <> {
@@ -55,8 +55,13 @@ export default (baseUri: string) => toStream(turtle`
         ${hydra.property} ${schema.author} ;
         ${hydra.required} false ;
         ${hydra.variable} "author" ;
-      ] ;
-      ${hydra.template} "${baseUri}books{?page,title,author}" ;
+      ] , [
+            a ${hydra.IriTemplateMapping} ;
+            ${hydra.property} ${dcterms.language} ;
+            ${hydra.required} false ;
+            ${hydra.variable} "language" ;
+        ];
+      ${hydra.template} "${baseUri}books{?page,title,author,language}" ;
       ${hydra.variableRepresentation} ${hydra.BasicRepresentation} 
     ]
 }
@@ -90,7 +95,7 @@ export default (baseUri: string) => toStream(turtle`
             ${hydra.property} ${schema.contributor} ;
             ${hydra.required} false ;
             ${hydra.variable} "contributor" ;
-        ] ,  [
+        ] , [
             a ${hydra.IriTemplateMapping} ;
             ${hydra.property} ${dcterms.language} ;
             ${hydra.required} false ;
