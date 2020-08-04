@@ -1,27 +1,27 @@
 import cors from 'cors'
-import express, {Request} from 'express'
+import express from 'express'
 import * as hydraBox from 'hydra-box'
 import * as path from 'path'
 import program from 'commander'
 import { NotFoundError } from '@wikibus/hydra-box-helpers/error'
 import { httpProblemMiddleware } from '@wikibus/hydra-box-helpers/express/problemDetails'
-//import authentication from './lib/express/authentication'
+// import authentication from './lib/express/authentication'
 import { logRequest, logRequestError } from '@wikibus/hydra-box-helpers/express/logger'
 import { error, log } from '@wikibus/hydra-box-helpers/log'
 import env from '@wikibus/hydra-box-helpers/env'
 import Api from '@wikibus/hydra-box-helpers/setup'
-import {SparqlStore} from '@wikibus/hydra-box-helpers/setup/store';
+import { SparqlStore } from '@wikibus/hydra-box-helpers/setup/store'
 import Client from '@wikibus/hydra-box-helpers/sparql/Client'
-import {bootstrapResources} from './initialize'
+import { bootstrapResources } from './initialize'
 import * as Hydra from '@rdfine/hydra'
 import RdfResource from '@tpluscode/rdfine'
 
 RdfResource.factory.addMixin(...Object.values(Hydra))
 
-const baseUri = env.BASE_URI
-const endpointUrl = process.env.SPARQL_ENDPOINT
-const storeUrl = process.env.SPARQL_GRAPH_ENDPOINT
-const updateUrl = process.env.SPARQL_UPDATE_ENDPOINT
+const baseUri = env.BASE_URI!
+const endpointUrl = process.env.SPARQL_ENDPOINT!
+const storeUrl = process.env.SPARQL_GRAPH_ENDPOINT!
+const updateUrl = process.env.SPARQL_UPDATE_ENDPOINT!
 const codePath = path.join(__dirname, 'express/handlers/')
 const apiSourcePath = path.join(__dirname, 'hydra/')
 
@@ -41,15 +41,15 @@ program
       app.use(cors({
         exposedHeaders: ['link', 'location'],
       }))
-      //app.use(authentication)
+      // app.use(authentication)
       const store = new SparqlStore({
         endpointUrl,
       })
-      app.use((req: Request, _, next) => {
+      app.use((req, _, next) => {
         req.sparql = sparql
         next()
       })
-      app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath, }), { store }))
+      app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { store }))
 
       app.use(function (req, res, next) {
         next(new NotFoundError())

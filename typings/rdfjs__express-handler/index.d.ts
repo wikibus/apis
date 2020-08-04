@@ -1,8 +1,7 @@
-import { Params, ParamsDictionary } from 'express-serve-static-core'
 import { DatasetCore, Stream } from 'rdf-js'
 
-declare module 'express' {
-  interface Request<P extends Params = ParamsDictionary> {
+declare module 'express-serve-static-core' {
+  interface Request {
     dataset(): Promise<DatasetCore>;
     quadStream(): Stream;
   }

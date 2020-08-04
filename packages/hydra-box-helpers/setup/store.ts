@@ -1,7 +1,6 @@
 import Client, { StreamClient } from 'sparql-http-client'
 import { Quad, Source, Store, Stream, Term } from 'rdf-js'
 import rdf from 'rdf-ext'
-import { EventEmitter } from 'events'
 import { CONSTRUCT } from '@tpluscode/sparql-builder'
 import { readable } from './stream-now'
 import debug from 'debug'
@@ -17,19 +16,19 @@ export class SparqlStore implements Source, Store {
     })
   }
 
-  public deleteGraph(graph: Quad['graph'] | string): EventEmitter {
+  public deleteGraph(graph: Quad['graph'] | string): any {
     return undefined
   }
 
-  public import(stream: Stream): EventEmitter {
+  public import(stream: Stream): any {
     return undefined
   }
 
-  public remove(stream: Stream): EventEmitter {
+  public remove(stream: Stream): any {
     return undefined
   }
 
-  public removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): EventEmitter {
+  public removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): any {
     return undefined
   }
 

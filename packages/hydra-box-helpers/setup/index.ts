@@ -1,5 +1,5 @@
 import * as hb from 'hydra-box'
-import { Api, ApiOptions } from 'hydra-box/Api'
+import type { Api, ApiOptions } from 'hydra-box/Api'
 import walk from '@fcostarodrigo/walk'
 
 interface ApiInit {
@@ -15,9 +15,9 @@ export default async function ({ apiSourcePath, baseUri, codePath, defaultBase =
     codePath,
   }
 
-  let api: Api
+  let api: Api | undefined
   const apiDocSources: Promise<unknown>[] = []
-  for await (const file of walk(apiSourcePath) as AsyncIterable<string>) {
+  for await (const file of walk(apiSourcePath)) {
     if (!file.match(/\.ttl$/)) {
       continue
     }
@@ -29,6 +29,10 @@ export default async function ({ apiSourcePath, baseUri, codePath, defaultBase =
     }
   }
   await Promise.all(apiDocSources)
+
+  if (!api) {
+    throw new Error('No API files found')
+  }
 
   api.rebase(defaultBase, baseUri)
   return api

@@ -1,5 +1,5 @@
 const handler = {
-  get (env, prop: string) {
+  get(env: typeof process.env, prop: string) {
     if (prop === 'has') {
       return (name: string) => {
         return !!env[name]

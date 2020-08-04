@@ -1,9 +1,9 @@
-import {turtle} from '@tpluscode/rdf-string'
-import {hydra, schema, rdf, rdfs, dcterms, xsd} from '@tpluscode/rdf-ns-builders'
+import { turtle } from '@tpluscode/rdf-string'
+import { hydra, schema, rdf, rdfs, dcterms, xsd } from '@tpluscode/rdf-ns-builders'
 import toStream from 'string-to-stream'
-import {wba, wbo} from '@wikibus/core/namespace'
+import { wba, wbo } from '@wikibus/core/namespace'
 
-export default (baseUri) => toStream(turtle`
+export default (baseUri: string) => toStream(turtle`
 <> {
     <> a ${hydra.Resource}, ${wba.EntryPoint} ;
         ${hydra.title} "wikibus.org library" ;

@@ -11,7 +11,10 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "pretty": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "strictNullChecks": true
   },
   "exclude": ["test"]
 }

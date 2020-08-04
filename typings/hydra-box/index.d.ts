@@ -3,8 +3,8 @@ declare module 'hydra-box' {
   import middleware = require('hydra-box/middleware');
 
   const hydraBox: {
-    Api;
-    middleware;
+    Api: Api;
+    middleware: typeof middleware;
   }
 
   export = hydraBox

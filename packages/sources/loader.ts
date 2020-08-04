@@ -1,6 +1,6 @@
-const LoaderRegistry = require('rdf-loaders-registry')
-const EcmaScriptLoader = require('rdf-loader-code/ecmaScript')
-const EcmaScriptLiteralLoader = require('rdf-loader-code/ecmaScriptLiteral')
+import LoaderRegistry from 'rdf-loaders-registry'
+import EcmaScriptLoader from 'rdf-loader-code/ecmaScript'
+import EcmaScriptLiteralLoader from 'rdf-loader-code/ecmaScriptLiteral'
 
 export const loaders = new LoaderRegistry()
 EcmaScriptLoader.register(loaders)

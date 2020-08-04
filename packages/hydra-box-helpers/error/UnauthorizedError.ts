@@ -4,11 +4,11 @@ import { ProblemDocument } from 'http-problem-details'
 export class UnauthorizedErrorMapper implements IErrorMapper {
   public readonly error: string
 
-  public constructor () {
+  public constructor() {
     this.error = 'UnauthorizedError'
   }
 
-  public mapError (error: Error): ProblemDocument {
+  public mapError(error: Error): ProblemDocument {
     return new ProblemDocument({
       title: 'Unauthorized',
       detail: error.message,

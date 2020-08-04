@@ -1,11 +1,11 @@
-import { Request } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import { log } from '../log'
 
 const requestLogger = log.extend('request')
 const requestErrorLogger = requestLogger.extend('error')
 const headersLogger = requestLogger.extend('headers')
 
-export function logRequest (req: Request, res, next) {
+export function logRequest(req: Request, res: Response, next: NextFunction) {
   requestLogger(`${req.method} ${req.url}`)
 
   if (headersLogger.enabled) {
@@ -19,7 +19,7 @@ export function logRequest (req: Request, res, next) {
   next()
 }
 
-export function logRequestError (err, req, res, next) {
+export function logRequestError(err: Error, req: Request, res: Response, next: NextFunction) {
   requestErrorLogger('Request failed: %o', err)
   next(err)
 }

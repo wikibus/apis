@@ -18,7 +18,7 @@ declare module 'hydra-box/Api' {
       dataset: DatasetCore;
       term: Term;
       init(): void;
-      fromFile(filePath: string): Promise<this>;
+      fromFile(filePath: string, options?: ApiOptions): Promise<this>;
       rebase(from: string, to: string): this;
     }
   }
