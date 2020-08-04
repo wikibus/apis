@@ -6,7 +6,7 @@ import { hydra, rdf } from '@tpluscode/rdf-ns-builders'
 import { hex, hydraBox } from '@wikibus/core/namespace'
 import { IriTemplateMixin } from '@rdfine/hydra'
 
-const pageSize = 10
+const pageSize = 12
 
 function templateParamsForPage(query: Clownface, page: number) {
   const clone = clownface({ dataset: $rdf.dataset([...query.dataset]) })

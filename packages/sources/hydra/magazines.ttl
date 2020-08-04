@@ -1,0 +1,33 @@
+@base              <https://wikibus-sources.lndo.site/> .
+
+@prefix wba:       <https://wikibus.org/api#> .
+@prefix hydra:     <http://www.w3.org/ns/hydra/core#> .
+@prefix hydra-box: <http://hydra-box.org/schema/> .
+@prefix code:      <https://code.described.at/> .
+@prefix dcterms:   <http://purl.org/dc/terms/> .
+@prefix schema:    <http://schema.org/> .
+
+<api> hydra:supportedClass wba:MagazineCollection .
+
+wba:MagazineCollection a                        hydra:Class ;
+                       hydra:supportedOperation [ a                   hydra:SupportedOperation ;
+                                                  hydra:title         "Get magazines" ;
+                                                  hydra-box:variables wba:MagazineCollection-search ;
+                                                  hydra:method        "GET" ;
+                                                  code:implementedBy  [ a         code:EcmaScript ;
+                                                                        code:link <file:source-collection#get> ] ]
+.
+
+wba:MagazineCollection-search a              hydra:IriTemplate ;
+                              hydra:mapping  [ a                      hydra:IriTemplateMapping ;
+                                               hydra:property         dcterms:title ;
+                                               hydra:required         false ;
+                                               hydra:variable         "title" ;
+                                               hydra-box:queryPattern [ a         code:EcmaScript ;
+                                                                        code:link <file:filter/brochure#byTitle> ] ; ] ;
+                              hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                               hydra:property hydra:pageIndex ;
+                                               hydra:required false ;
+                                               hydra:variable "page" ; ] ;
+                              hydra:template "/magazines{?page,title}" ;
+.

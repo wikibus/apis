@@ -15,6 +15,27 @@ export default (baseUri: string) => toStream(turtle`
         ${wba.wishlist} <wishlist> ;
 }
 
+<magazines> {
+    <magazines> a ${hydra.Collection}, ${wba.MagazineCollection} ;
+        ${rdfs.label} "Magazine collection" ;
+        ${hydra.description} "Periodicals such as weekly/monthly magazines as well as yearly catalogs" ;
+        ${hydra.manages} [
+            ${hydra.property} ${rdf.type} ;
+            ${hydra.object} ${schema.Periodical}
+        ] ;
+        ${hydra.search} [
+            a ${hydra.IriTemplate} ;
+            ${hydra.mapping} [
+                a ${hydra.IriTemplateMapping} ;
+                ${hydra.property} ${dcterms.title} ;
+                ${hydra.required} false ;
+                ${hydra.variable} "title" ;
+            ] ;
+            ${hydra.template} "${baseUri}magazines{?page,title}" ;
+            ${hydra.variableRepresentation} ${hydra.BasicRepresentation} 
+        ]
+}
+
 <books> {
   <books> a ${hydra.Collection}, ${wba.BookCollection} ;
     ${hydra.manages} [
