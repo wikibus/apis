@@ -15,7 +15,8 @@
       hydra:supportedClass hydra:Resource,
                            <api#Entrypoint>,
                            wbo:Source,
-                           wba:EntryPoint .
+                           wba:EntryPoint,
+                           <> .
 
 wba:EntryPoint a                       hydra:Class ;
                hydra:supportedProperty [ hydra:property    wba:brochures ;
@@ -53,58 +54,6 @@ wbo:Source a                        hydra:Class ;
                                       code:implementedBy [ a         code:EcmaScript ;
                                                            code:link <node:@wikibus/hydra-box-helpers/handlers/hydraResource#get> ] ]
 .
-
-wba:BrochureCollection a                        hydra:Class ;
-                       hydra:supportedOperation [ a                   hydra:SupportedOperation ;
-                                                  hydra:title         "Get brochures" ;
-                                                  hydra-box:variables wba:BrochureCollection-search ;
-                                                  hydra:method        "GET" ;
-                                                  code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:source-collection#get> ] ]
-.
-
-wba:BrochureCollection-search a                            hydra:IriTemplate ;
-                              hydra:mapping                [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         dcterms:title ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "title" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byTitle> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         wba:withPdfOnly ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "withPdfOnly" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#withPdfOnly> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         wba:withoutImages ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "withoutImages" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#withoutImages> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         schema:contributor ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "contributor" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byContributor> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         dcterms:language ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "language" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byLanguage> ] ; ],
-                                                           [ a              hydra:IriTemplateMapping ;
-                                                             hydra:property hydra:pageIndex ;
-                                                             hydra:required false ;
-                                                             hydra:variable "page" ; ] ;
-                              hydra:template               "/brochures{?page,title,withPdfOnly,withoutImages,contributor,language}" ;
-                              hydra:variableRepresentation hydra:BasicRepresentation ;
-.
-
-wba:withPdfOnly rdfs:range xsd:boolean .
-
-wba:withoutImages rdfs:range xsd:boolean .
 
 <> a           hydra:Class ;
    hydra:title "Wikibus sources home" ;

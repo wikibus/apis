@@ -13,8 +13,10 @@ import Api from '@wikibus/hydra-box-helpers/setup'
 import {SparqlStore} from '@wikibus/hydra-box-helpers/setup/store';
 import Client from '@wikibus/hydra-box-helpers/sparql/Client'
 import {bootstrapResources} from './initialize'
+import * as Hydra from '@rdfine/hydra'
+import RdfResource from '@tpluscode/rdfine'
 
-//import('./lib/handlers')
+RdfResource.factory.addMixin(...Object.values(Hydra))
 
 const baseUri = env.BASE_URI
 const endpointUrl = process.env.SPARQL_ENDPOINT

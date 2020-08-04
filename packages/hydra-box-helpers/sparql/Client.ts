@@ -20,7 +20,7 @@ class SparqlUpdateStore extends StreamStore {
     readonly client: StreamQuery
 
     constructor({ endpoint, factory, maxQuadsPerRequest }) {
-        super({ endpoint, factory, maxQuadsPerRequest });
+        super({ endpoint, factory, maxQuadsPerRequest } as any);
 
         this.client = new StreamQuery({ endpoint, factory })
     }
