@@ -10,11 +10,12 @@ import { logRequest, logRequestError } from '@wikibus/hydra-box-helpers/express/
 import { error, log } from '@wikibus/hydra-box-helpers/log'
 import env from '@wikibus/hydra-box-helpers/env'
 import Api from '@wikibus/hydra-box-helpers/setup'
-import { SparqlStore } from '@wikibus/hydra-box-helpers/setup/store'
+import { SparqlQueryLoader } from '@wikibus/hydra-box-helpers/setup/loader'
 import Client from '@wikibus/hydra-box-helpers/sparql/Client'
 import { bootstrapResources } from './initialize'
 import * as Hydra from '@rdfine/hydra'
 import RdfResource from '@tpluscode/rdfine'
+import ParsingClient from 'sparql-http-client/ParsingClient'
 
 RdfResource.factory.addMixin(...Object.values(Hydra))
 
@@ -37,24 +38,24 @@ program
       const app = express()
 
       app.enable('trust proxy')
-      app.use(logRequest)
+      app.use(logRequest as any)
       app.use(cors({
         exposedHeaders: ['link', 'location'],
       }))
       // app.use(authentication)
-      const store = new SparqlStore({
-        endpointUrl,
+      const loader = new SparqlQueryLoader({
+        client: new ParsingClient({ endpointUrl }),
       })
       app.use((req, _, next) => {
         req.sparql = sparql
         next()
       })
-      app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { store }))
+      app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { loader }))
 
       app.use(function (req, res, next) {
         next(new NotFoundError())
       })
-      app.use(logRequestError)
+      app.use(logRequestError as any)
       app.use(httpProblemMiddleware)
 
       await bootstrapResources(sparql, baseUri)

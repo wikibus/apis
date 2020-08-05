@@ -21,6 +21,7 @@
     "@types/rdf-ext": "^1.3.7",
     "@types/rdf-js": "^3.0.3",
     "@types/rdfjs__parser-n3": "^1.1.2",
+    "@types/rdfjs__term-set": "^1.0.1",
     "@types/sparql-http-client": "^2.2.3",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",

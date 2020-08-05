@@ -1,8 +1,15 @@
 declare module 'hydra-box/middleware' {
   import { Router } from 'express'
-  import { Api } from 'hydra-box/Api'
+  import Api = require('hydra-box/Api')
+  import {ResourceLoader} from 'hydra-box';
 
-  function middleware(api: Api, store: any): Router
+  interface Options {
+    baseIriFromRequest?: boolean
+    loader?: ResourceLoader
+    store?: any
+  }
+
+  function middleware(api: Api, options: Options): Router
 
   export = middleware
 }
