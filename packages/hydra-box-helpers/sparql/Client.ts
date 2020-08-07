@@ -18,10 +18,12 @@ function graphPattern(graph: Term, data: any) {
 
 class SparqlUpdateStore extends StreamStore {
   readonly client: StreamQuery
+  readonly baseUri: string
 
   constructor(options: any) {
     super(options)
 
+    this.baseUri = options.baseUri
     this.client = new StreamQuery(options)
   }
 
@@ -53,12 +55,12 @@ class SparqlUpdateStore extends StreamStore {
         throw new Error(`Unexpected HTTP method ${method}`)
     }
 
-    return this.client.update(query.toString())
+    return this.client.update(query.toString({ base: this.baseUri }))
   }
 }
 
 export default class HybridClient extends BaseClient<StreamQuery, Quad, SparqlUpdateStore> {
-  constructor(options: SparqlHttp.StreamClientOptions) {
+  constructor(options: SparqlHttp.StreamClientOptions & { baseUri: string }) {
     super({
       endpoint: new Endpoint(options),
       Query: StreamQuery,

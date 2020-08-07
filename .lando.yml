@@ -12,7 +12,7 @@ services:
         SPARQL_ENDPOINT: http://store:3030/wikibus/query
         SPARQL_UPDATE_ENDPOINT: http://store:3030/wikibus/update
         SPARQL_GRAPH_ENDPOINT: http://store:3030/wikibus/data
-        DEBUG: app,app:*,hydra,hydra:*
+        DEBUG: app,app:*,hydra,hydra:*,fun-ddr:*
     moreHttpPorts:
       - 34567
   store:

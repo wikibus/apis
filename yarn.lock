@@ -1382,9 +1382,21 @@
     "@zazuko/rdf-vocabularies" "^2020.6.29"
 
 "@tpluscode/rdfine@^0.4.20":
-  version "0.4.20"
-  resolved "https://registry.yarnpkg.com/@tpluscode/rdfine/-/rdfine-0.4.20.tgz#58952a20677721b8236dbab850e8f5fd8f521746"
-  integrity sha512-P87z/oi6aqidwVLvtOAIRRTk7Xx1pzr8LAqsvkyCOSAayiwEZ6lojxBtD449/nvP5OxNg61ZsvOT4tG5VDc84w==
+  version "0.4.21"
+  resolved "https://registry.yarnpkg.com/@tpluscode/rdfine/-/rdfine-0.4.21.tgz#88b6ee8b7c014a9f214ba9aa7952e033f09a5e6a"
+  integrity sha512-lze01jyYUSiAN0vbtqhegEw12aOfNDwT9pMNocKQJNWEfFIJRxo5RiSikcK7LXT7D3AANXZkar/pbgaBbpTrIg==
+  dependencies:
+    "@rdfjs/data-model" "^1.1.2"
+    "@rdfjs/namespace" "^1.1.0"
+    "@rdfjs/term-set" "^1.0.1"
+    "@tpluscode/rdf-ns-builders" "^0.3.6"
+    clownface "^0.12.3"
+    once "^1.4.0"
+
+"@tpluscode/rdfine@^0.4.22":
+  version "0.4.22"
+  resolved "https://registry.yarnpkg.com/@tpluscode/rdfine/-/rdfine-0.4.22.tgz#4c05da6d84e8a1e5d45dca91c9c277219cef9753"
+  integrity sha512-0HSYZky1QXVrLiGyNO/SbJFYNcEMT3S0lXyok22n4ocXSXM2ul48dQ8eF08y3biuW4qPHAbkmJpsUQtsST8BEQ==
   dependencies:
     "@rdfjs/data-model" "^1.1.2"
     "@rdfjs/namespace" "^1.1.0"
@@ -1534,6 +1546,13 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
 
+"@types/rdf-dataset-ext@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rdf-dataset-ext/-/rdf-dataset-ext-1.0.0.tgz#7ca02e6850ca93808b3e2c66ca75914841ee6687"
+  integrity sha512-ocFZzjWzTnuV1Gg/P9jy1FGcwbn9hGQZfeQo9lwt2APmOQR09EViYl1eYDqkWbf8DwotCSpk5VdRaCNe666Cog==
+  dependencies:
+    "@types/rdf-js" "*"
+
 "@types/rdf-dataset-indexed@*":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@types/rdf-dataset-indexed/-/rdf-dataset-indexed-0.4.5.tgz#23ced6eda037575bedb9479485efe9fb965b9cac"
@@ -1562,6 +1581,13 @@
   integrity sha512-NBzHFHp2vHOJkPlSqzsOrkEsD9grKn+PdFjZieIw59pc0FlRG6WEQAjQZvHzFxJlYzC6ZDCFyTA1wBvUnnzUQw==
   dependencies:
     "@types/node" "*"
+
+"@types/rdf-transform-triple-to-quad@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rdf-transform-triple-to-quad/-/rdf-transform-triple-to-quad-1.0.0.tgz#548ad610f44a81dfdd8623c6f7c23de6d0d7c6e2"
+  integrity sha512-tRapMPDJW1rsK3h2Pecu7+/4meEk4KykaRBLTNByGuRNAkAL4N7P6I2/NezgheaPojq5ZRdgNNtO6KwMHNSXLw==
+  dependencies:
+    "@types/rdf-js" "*"
 
 "@types/rdfjs__namespace@^1.1.1":
   version "1.1.1"
@@ -2442,7 +2468,7 @@ clone@^1.0.2:
 
 clownface-io@zazuko/clownface-io#tpluscode-proposals:
   version "0.0.0"
-  resolved "https://codeload.github.com/zazuko/clownface-io/tar.gz/7f8fd53ecf5843fa9e2da0599a5ae436ad0a7f21"
+  resolved "https://codeload.github.com/zazuko/clownface-io/tar.gz/9c54960c03042b1c781a64b249155532709b6f67"
   dependencies:
     "@rdfjs/fetch" "^2.0.0"
     "@rdfjs/term-map" "^1.0.0"
@@ -2452,15 +2478,7 @@ clownface-io@zazuko/clownface-io#tpluscode-proposals:
     proto-fetch "^1.0.0"
     rdf-ext "^1.3.0"
 
-clownface@0.12.4, clownface@^0.12.0, clownface@^0.12.1, clownface@^0.12.3:
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/clownface/-/clownface-0.12.4.tgz#32b835453a0b86ab74a78a3bd4622da79d7e8265"
-  integrity sha512-Y2SSy8pME3gg79sDoIj1AYUlrQNoq19DfEfiu7S4wv3R6P+wlXXhDmq7I78SOnYglwJudqhh7FgLbMMx//+ryw==
-  dependencies:
-    "@rdfjs/data-model" "^1.1.0"
-    "@rdfjs/namespace" "^1.0.0"
-
-clownface@^1.0.0:
+clownface@0.12.4, clownface@1.0.0, clownface@^0.12.0, clownface@^0.12.1, clownface@^0.12.3, clownface@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/clownface/-/clownface-1.0.0.tgz#77c8937241f02c08a49ac0370cb8628cde324e91"
   integrity sha512-8gAAqdD5ueYt62FHE9Zd4OTrcYEfiyQlxV/5NYxzKY5uO/HZbTv1+jhFHgYa3XD7BC+mkg+LFR9Mh168wj9aQQ==

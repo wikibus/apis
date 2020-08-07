@@ -16,6 +16,7 @@ import { bootstrapResources } from './initialize'
 import * as Hydra from '@rdfine/hydra'
 import RdfResource from '@tpluscode/rdfine'
 import ParsingClient from 'sparql-http-client/ParsingClient'
+import { createRepositories } from './repository'
 
 RdfResource.factory.addMixin(...Object.values(Hydra))
 
@@ -30,6 +31,7 @@ const sparql = new Client({
   endpointUrl,
   updateUrl,
   storeUrl,
+  baseUri,
 })
 
 program
@@ -48,6 +50,10 @@ program
       })
       app.use((req, _, next) => {
         req.sparql = sparql
+        next()
+      })
+      app.use((req, _, next) => {
+        req.repositories = createRepositories(sparql)
         next()
       })
       app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { loader }))
