@@ -49,7 +49,7 @@ wba:magazines a          hydra:Link ;
 .
 
 hydra:Resource a                        hydra:Class ;
-               hydra:supportedOperation [ a                  hydra:SupportedOperation ;
+               hydra:supportedOperation [ a                  hydra:Operation ;
                                           hydra:title        "Get resource" ;
                                           hydra:method       "GET" ;
                                           code:implementedBy [ a         code:EcmaScript ;
@@ -57,7 +57,7 @@ hydra:Resource a                        hydra:Class ;
 .
 
 wbo:Source a                        hydra:Class ;
-           hydra:supportedOperation [ a                  hydra:SupportedOperation ;
+           hydra:supportedOperation [ a                  hydra:Operation ;
                                       hydra:title        "Get source" ;
                                       hydra:method       "GET" ;
                                       code:implementedBy [ a         code:EcmaScript ;

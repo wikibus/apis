@@ -18,7 +18,6 @@ export class SparqlQueryLoader implements ResourceLoader {
   }
 
   async load(term: Term): Promise<Resource | null> {
-    log(`loading resource ${term.value}`)
     const dataset = $rdf.dataset(await CONSTRUCT`?s ?p ?o`.WHERE`GRAPH ${term} { ?s ?p ?o }`.execute(this.__client.query))
 
     if (dataset.size === 0) {
@@ -34,7 +33,8 @@ export class SparqlQueryLoader implements ResourceLoader {
     }
   }
 
-  async forClassOperation(term: Term) {
+  async forClassOperation(term: Term): Promise<[Resource] | []> {
+    log(`loading resource ${term.value}`)
     const resource = await this.load(term)
 
     return resource ? [resource] : []
@@ -42,7 +42,7 @@ export class SparqlQueryLoader implements ResourceLoader {
 
   async forPropertyOperation(term: Term): Promise<PropertyResource[]> {
     log(`loading resource ${term.value} by object usage`)
-    const bindings = await SELECT`?g ?link ${term}`
+    const bindings = await SELECT`?g ?link`
       .WHERE`GRAPH ?g { ?g ?link ${term} }`
       .execute(this.__client.query)
 

@@ -7,11 +7,125 @@
 @prefix wba:       <https://wikibus.org/api#> .
 @prefix dcterms:   <http://purl.org/dc/terms/> .
 @prefix schema:    <http://schema.org/> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix bibo:      <http://purl.org/ontology/bibo/> .
+@prefix opus:      <http://lsdis.cs.uga.edu/projects/semdis/opus#> .
+@prefix owl:       <http://www.w3.org/2002/07/owl#> .
 
-<api> hydra:supportedClass wba:BrochureCollection .
+<api> hydra:supportedClass wba:BrochureCollection,
+                           wbo:Brochure .
+
+wbo:Brochure a                       hydra:Class ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  dcterms:title ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "title " ;
+                                       hydra:required  true ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  dcterms:language ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "languages" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  rdfs:comment ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "description" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  dcterms:identifier ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "code" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  wba:storageLocation ;
+                                       hydra:readable  true ;
+                                       hydra:writeable false ;
+                                       hydra:title     "location" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  bibo:pages ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "pages" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  dcterms:date ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "date" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  opus:year ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "year" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  opus:month ;
+                                       hydra:readable  true ;
+                                       hydra:writeable true ;
+                                       hydra:title     "month" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  wba:images ;
+                                       hydra:readable  true ;
+                                       hydra:writeable false ;
+                                       hydra:title     "images" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  schema:primaryImageOfPage ;
+                                       hydra:readable  false ;
+                                       hydra:writeable false ;
+                                       hydra:title     "cover image" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  schema:image ;
+                                       hydra:readable  false ;
+                                       hydra:writeable false ;
+                                       hydra:title     "image" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  schema:associatedMedia ;
+                                       hydra:readable  true ;
+                                       hydra:writeable false ;
+                                       hydra:title     "content" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  schema:contributor ;
+                                       hydra:readable  true ;
+                                       hydra:writeable false ;
+                                       hydra:title     "contributor" ;
+                                       hydra:required  false ] ;
+             hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                       hydra:property  wba:wishlistItem ;
+                                       hydra:readable  true ;
+                                       hydra:writeable false ;
+                                       hydra:title     "wishlist" ;
+                                       hydra:required  false ] ;
+.
+
+wba:wishlistItem a                        rdf:Property,
+                                          hydra:Link ;
+                 rdfs:range               hydra:Resource ;
+                 hydra:supportedOperation [ a                 hydra:Operation,
+                                                              wba:AddToWishlistAction ;
+                                            hydra:method      "PUT" ;
+                                            hydra:expects     hydra:Resource ;
+                                            hydra:returns     owl:Nothing ;
+                                            hydra:title       "Add to wishlist" ;
+                                            hydra:description "Brochure will be scanned to PDF with highest priority" ;
+                                            code:implementedBy [ a code:EcmaScript ;
+                                                                 code:link <file:source#addToWishlistHandler> ]
+                                          ] ;
+.
 
 wba:BrochureCollection a                        hydra:Class ;
-                       hydra:supportedOperation [ a                   hydra:SupportedOperation ;
+                       hydra:supportedOperation [ a                   hydra:Operation ;
                                                   hydra:title         "Get brochures" ;
                                                   hydra-box:variables wba:BrochureCollection-search ;
                                                   hydra:method        "GET" ;
