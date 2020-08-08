@@ -112,16 +112,15 @@ wbo:Brochure a                       hydra:Class ;
 wba:wishlistItem a                        rdf:Property,
                                           hydra:Link ;
                  rdfs:range               hydra:Resource ;
-                 hydra:supportedOperation [ a                 hydra:Operation,
-                                                              wba:AddToWishlistAction ;
-                                            hydra:method      "PUT" ;
-                                            hydra:expects     hydra:Resource ;
-                                            hydra:returns     owl:Nothing ;
-                                            hydra:title       "Add to wishlist" ;
-                                            hydra:description "Brochure will be scanned to PDF with highest priority" ;
-                                            code:implementedBy [ a code:EcmaScript ;
-                                                                 code:link <file:source#addToWishlistHandler> ]
-                                          ] ;
+                 hydra:supportedOperation [ a                  hydra:Operation,
+                                                               wba:AddToWishlistAction ;
+                                            hydra:method       "PUT" ;
+                                            hydra:expects      hydra:Resource ;
+                                            hydra:returns      owl:Nothing ;
+                                            hydra:title        "Add to wishlist" ;
+                                            hydra:description  "Brochure will be scanned to PDF with highest priority" ;
+                                            code:implementedBy [ a         code:EcmaScript ;
+                                                                 code:link <file:source#addToWishlistHandler> ] ] ;
 .
 
 wba:BrochureCollection a                        hydra:Class ;
@@ -129,6 +128,7 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:title         "Get brochures" ;
                                                   hydra-box:variables wba:BrochureCollection-search ;
                                                   hydra:method        "GET" ;
+                                                  wba:include         schema:primaryImageOfPage ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
                                                                         code:link <file:source-collection#get> ] ]
 .
