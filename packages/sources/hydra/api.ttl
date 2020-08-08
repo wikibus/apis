@@ -34,6 +34,11 @@ wba:EntryPoint a                       hydra:Class ;
                                          hydra:title       "Magazines" ;
                                          hydra:description "Periodicals such as weekly/monthly magazines as well as yearly catalogs" ;
                                          hydra:readable    true ; ] ;
+               hydra:supportedProperty [ hydra:property    wba:wishlist ;
+                                         hydra:writable    false ;
+                                         hydra:title       "Wishlist" ;
+                                         hydra:description "Requests to scan brochures from the collection" ;
+                                         hydra:readable    true ; ] ;
 .
 
 wba:brochures a          hydra:Link ;
@@ -47,6 +52,8 @@ wba:books a          hydra:Link ;
 wba:magazines a          hydra:Link ;
               rdfs:range wba:MagazineCollection ;
 .
+
+wba:wishlist a hydra:Link .
 
 hydra:Resource a                        hydra:Class ;
                hydra:supportedOperation [ a                  hydra:Operation ;

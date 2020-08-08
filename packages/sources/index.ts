@@ -5,7 +5,7 @@ import * as path from 'path'
 import program from 'commander'
 import { NotFoundError } from '@wikibus/hydra-box-helpers/error'
 import { httpProblemMiddleware } from '@wikibus/hydra-box-helpers/express/problemDetails'
-// import authentication from './lib/express/authentication'
+import authentication from '@wikibus/hydra-box-helpers/express/authentication'
 import { logRequest, logRequestError } from '@wikibus/hydra-box-helpers/express/logger'
 import { error, log } from '@wikibus/hydra-box-helpers/log'
 import env from '@wikibus/hydra-box-helpers/env'
@@ -44,7 +44,7 @@ program
       app.use(cors({
         exposedHeaders: ['link', 'location'],
       }))
-      // app.use(authentication)
+      app.use(authentication)
       const loader = new SparqlQueryLoader({
         client: new ParsingClient({ endpointUrl }),
       })

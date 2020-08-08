@@ -103,7 +103,7 @@ wbo:Brochure a                       hydra:Class ;
                                        hydra:required  false ] ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  wba:wishlistItem ;
-                                       hydra:readable  true ;
+                                       hydra:readable  false ;
                                        hydra:writeable false ;
                                        hydra:title     "wishlist" ;
                                        hydra:required  false ] ;

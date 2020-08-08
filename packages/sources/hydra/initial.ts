@@ -1,7 +1,7 @@
-import {turtle} from '@tpluscode/rdf-string'
-import {hydra, schema, rdf, rdfs, dcterms, xsd} from '@tpluscode/rdf-ns-builders'
+import { turtle } from '@tpluscode/rdf-string'
+import { hydra, schema, rdf, rdfs, dcterms, xsd } from '@tpluscode/rdf-ns-builders'
 import toStream from 'string-to-stream'
-import {wba, wbo} from '@wikibus/core/namespace'
+import { wba, wbo } from '@wikibus/core/namespace'
 
 export default (baseUri: string) => toStream(turtle`
 <> {
@@ -107,5 +107,12 @@ export default (baseUri: string) => toStream(turtle`
 
   ${wba.withPdfOnly} ${rdfs.range} ${xsd.boolean} .
   ${wba.withoutImages} ${rdfs.range} ${xsd.boolean} .
+}
+
+<wishlist> {
+  <wishlist> a ${wba.Wishlist}, ${schema.WebPageElement} ;
+    ${rdfs.label} "Build your own wishlist" ;
+    ${schema.hasPart} <https://cms.wikibus.org/wishlist/about> ;
+  .
 }
 `.toString())

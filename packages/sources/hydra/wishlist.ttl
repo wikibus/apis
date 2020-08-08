@@ -1,0 +1,24 @@
+@base          <https://wikibus-sources.lndo.site/> .
+
+@prefix wba:   <https://wikibus.org/api#> .
+@prefix wbo:   <https://wikibus.org/ontology#> .
+@prefix hydra: <http://www.w3.org/ns/hydra/core#> .
+@prefix code:  <https://code.described.at/> .
+
+<api> hydra:supportedClass wba:WishlistCollection,
+                           wba:Wishlist .
+
+wba:WishlistCollection a                        hydra:Class ;
+                       hydra:supportedOperation [ a                  hydra:Operation ;
+                                                  hydra:method       "GET" ;
+                                                  wba:include        wbo:source ;
+                                                  code:implementedBy [ a         code:EcmaScript ;
+                                                                       code:link <file:source-collection#get> ] ] ;
+.
+
+wba:Wishlist a                        hydra:Class ;
+             hydra:supportedOperation [ a                  hydra:Operation ;
+                                        hydra:method       "GET" ;
+                                        code:implementedBy [ a         code:EcmaScript ;
+                                                             code:link <file:wishlist#get> ] ] ;
+.

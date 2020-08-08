@@ -1,0 +1,15 @@
+@base          <https://wikibus-sources.lndo.site/> .
+
+@prefix wba:   <https://wikibus.org/api#> .
+@prefix wbo:   <https://wikibus.org/ontology#> .
+@prefix hydra: <http://www.w3.org/ns/hydra/core#> .
+@prefix code:  <https://code.described.at/> .
+
+<api> hydra:supportedClass wbo:WishlistItem .
+
+wbo:WishlistItem a                       hydra:Class ;
+                 hydra:supportedProperty [ hydra:property wbo:source ;
+                                           hydra:title    "brochure" ; ] ;
+                 hydra:supportedProperty [ hydra:property wbo:done ;
+                                           hydra:title    "done" ; ] ;
+.
