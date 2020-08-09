@@ -3,7 +3,7 @@ import clownface, { Clownface } from 'clownface'
 import $rdf from 'rdf-ext'
 import { DatasetCore } from 'rdf-js'
 import { hydra, rdf } from '@tpluscode/rdf-ns-builders'
-import { hex, hydraBox, wba } from '@wikibus/core/namespace'
+import { hex, hydraBox, query } from '@wikibus/core/namespace'
 import { IriTemplate, IriTemplateMixin } from '@rdfine/hydra'
 import { getMemberQuery, getLinkedResources } from '../../query/collection'
 
@@ -24,18 +24,18 @@ export const get = asyncMiddleware(async (req, res) => {
   const dataset = $rdf.dataset([...req.hydra.resource.dataset])
   const collection = clownface({ dataset }).namedNode(req.hydra.resource.term)
 
-  let query = clownface<DatasetCore>({ dataset: $rdf.dataset() })
+  let request = clownface<DatasetCore>({ dataset: $rdf.dataset() })
   if (req.dataset) {
-    query = clownface({ dataset: await req.dataset() })
+    request = clownface({ dataset: await req.dataset() })
   }
   const templateVariables = req.hydra.operation.out(hydraBox.variables)
-  const includeLinked = req.hydra.operation.out(wba.include)
+  const includeLinked = req.hydra.operation.out(query.include)
 
   let template: IriTemplate | null = null
   if (templateVariables.term) {
     template = new IriTemplateMixin.Class(templateVariables.toArray()[0])
   }
-  const pageQuery = getMemberQuery(collection, query, template, pageSize)
+  const pageQuery = getMemberQuery(collection, request, template, pageSize)
 
   const page = await pageQuery.members.execute(req.sparql.query)
   let total = 0
@@ -65,23 +65,23 @@ export const get = asyncMiddleware(async (req, res) => {
     collection.addOut(hex.currentMappings, currMappings => {
       template!.mapping.forEach(mapping => {
         const property = mapping.property.id
-        currMappings.addOut(property, query.out(property))
+        currMappings.addOut(property, request.out(property))
       })
     })
 
     collection.addOut(hydra.totalItems, total)
       .addOut(hydra.view, view => {
-        const pageIndex = Number.parseInt(query.out(hydra.pageIndex).value || '1')
+        const pageIndex = Number.parseInt(request.out(hydra.pageIndex).value || '1')
         const totalPages = Math.floor(total / pageSize) + 1
 
         view.addOut(rdf.type, hydra.PartialCollectionView)
-        view.addOut(hydra.first, $rdf.namedNode(template!.expand(templateParamsForPage(query, 1))))
-        view.addOut(hydra.last, $rdf.namedNode(template!.expand(templateParamsForPage(query, totalPages))))
+        view.addOut(hydra.first, $rdf.namedNode(template!.expand(templateParamsForPage(request, 1))))
+        view.addOut(hydra.last, $rdf.namedNode(template!.expand(templateParamsForPage(request, totalPages))))
         if (pageIndex > 1) {
-          view.addOut(hydra.previous, $rdf.namedNode(template!.expand(templateParamsForPage(query, pageIndex - 1))))
+          view.addOut(hydra.previous, $rdf.namedNode(template!.expand(templateParamsForPage(request, pageIndex - 1))))
         }
         if (pageIndex < totalPages) {
-          view.addOut(hydra.next, $rdf.namedNode(template!.expand(templateParamsForPage(query, pageIndex + 1))))
+          view.addOut(hydra.next, $rdf.namedNode(template!.expand(templateParamsForPage(request, pageIndex + 1))))
         }
       })
   }

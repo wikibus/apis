@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fcostarodrigo/walk": "^5.0.0",
+    "@wikibus/core": "*",
     "clownface": "0.12.4",
     "http-problem-details": "^0.1.5",
     "express-jwt": "^6.0.0",

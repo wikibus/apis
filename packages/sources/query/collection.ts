@@ -1,6 +1,6 @@
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
 import type { SparqlGraphQueryExecutable } from '@tpluscode/sparql-builder/lib'
-import { hydraBox } from '@wikibus/core/namespace'
+import { query } from '@wikibus/core/namespace'
 import { dcterms, dtype, hydra } from '@tpluscode/rdf-ns-builders'
 import * as $rdf from '@rdfjs/data-model'
 import { Clownface, SingleContextClownface } from 'clownface'
@@ -9,7 +9,7 @@ import { sparql, SparqlTemplateResult } from '@tpluscode/rdf-string'
 import { IriTemplate, IriTemplateMapping } from '@rdfine/hydra'
 import { NamedNode, Variable } from 'rdf-js'
 
-function createTemplateVariablePatterns(subject: Variable, query: Clownface) {
+function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownface) {
   return (patterns: unknown[], mapping: IriTemplateMapping): unknown[] => {
     const property = mapping.property
 
@@ -17,17 +17,17 @@ function createTemplateVariablePatterns(subject: Variable, query: Clownface) {
       return patterns
     }
 
-    const value = query.out(property.id)
+    const value = queryPointer.out(property.id)
     if (value.values.length === 0) {
       return patterns
     }
 
-    const queryPattern = mapping._selfGraph.out(hydraBox.queryPattern)
-    if (!queryPattern.value) {
+    const queryFilters = mapping._selfGraph.out(query.filter)
+    if (!queryFilters.value) {
       return patterns
     }
 
-    const createPattern = loaders.load(queryPattern, { basePath: __dirname })
+    const createPattern = loaders.load(queryFilters, { basePath: __dirname })
     return [...patterns, createPattern({
       subject,
       predicate: property.id,

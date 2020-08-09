@@ -12,11 +12,13 @@
 @prefix bibo:      <http://purl.org/ontology/bibo/> .
 @prefix opus:      <http://lsdis.cs.uga.edu/projects/semdis/opus#> .
 @prefix owl:       <http://www.w3.org/2002/07/owl#> .
+@prefix query:     <http://query.described.at/> .
 
 <api> hydra:supportedClass wba:BrochureCollection,
                            wbo:Brochure .
 
 wbo:Brochure a                       hydra:Class ;
+             query:restrict          wba:storageLocation ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  dcterms:title ;
                                        hydra:readable  true ;
@@ -93,7 +95,7 @@ wbo:Brochure a                       hydra:Class ;
                                        hydra:property  schema:associatedMedia ;
                                        hydra:readable  true ;
                                        hydra:writeable false ;
-                                       hydra:title     "content" ;
+                                       hydra:title     "Download PDF" ;
                                        hydra:required  false ] ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  schema:contributor ;
@@ -128,46 +130,45 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:title         "Get brochures" ;
                                                   hydra-box:variables wba:BrochureCollection-search ;
                                                   hydra:method        "GET" ;
-                                                  wba:include         schema:primaryImageOfPage ;
+                                                  query:include       schema:primaryImageOfPage ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
                                                                         code:link <file:source-collection#get> ] ]
 .
 
-wba:BrochureCollection-search a                            hydra:IriTemplate ;
-                              hydra:mapping                [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         dcterms:title ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "title" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/source#byTitle> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         wba:withPdfOnly ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "withPdfOnly" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#withPdfOnly> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         wba:withoutImages ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "withoutImages" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#withoutImages> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         schema:contributor ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "contributor" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/brochure#byContributor> ] ; ],
-                                                           [ a                      hydra:IriTemplateMapping ;
-                                                             hydra:property         dcterms:language ;
-                                                             hydra:required         false ;
-                                                             hydra:variable         "language" ;
-                                                             hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                                      code:link <file:filter/source#byLanguage> ] ; ],
-                                                           [ a              hydra:IriTemplateMapping ;
-                                                             hydra:property hydra:pageIndex ;
-                                                             hydra:required false ;
-                                                             hydra:variable "page" ; ] ;
-                              hydra:template               "/brochures{?page,title,withPdfOnly,withoutImages,contributor,language}" ;
-                              hydra:variableRepresentation hydra:BasicRepresentation ;
+wba:BrochureCollection-search a              hydra:IriTemplate ;
+                              hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                               hydra:property dcterms:title ;
+                                               hydra:required false ;
+                                               hydra:variable "title" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/source#byTitle> ] ; ],
+                                             [ a              hydra:IriTemplateMapping ;
+                                               hydra:property wba:withPdfOnly ;
+                                               hydra:required false ;
+                                               hydra:variable "withPdfOnly" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/brochure#withPdfOnly> ] ; ],
+                                             [ a              hydra:IriTemplateMapping ;
+                                               hydra:property wba:withoutImages ;
+                                               hydra:required false ;
+                                               hydra:variable "withoutImages" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/brochure#withoutImages> ] ; ],
+                                             [ a              hydra:IriTemplateMapping ;
+                                               hydra:property schema:contributor ;
+                                               hydra:required false ;
+                                               hydra:variable "contributor" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/brochure#byContributor> ] ; ],
+                                             [ a              hydra:IriTemplateMapping ;
+                                               hydra:property dcterms:language ;
+                                               hydra:required false ;
+                                               hydra:variable "language" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/source#byLanguage> ] ; ],
+                                             [ a              hydra:IriTemplateMapping ;
+                                               hydra:property hydra:pageIndex ;
+                                               hydra:required false ;
+                                               hydra:variable "page" ; ] ;
+                              hydra:template "/brochures{?page,title,withPdfOnly,withoutImages,contributor,language}" ;
 .

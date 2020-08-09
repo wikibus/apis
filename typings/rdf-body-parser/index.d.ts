@@ -7,6 +7,10 @@ declare module 'express-serve-static-core' {
 
   interface Request {
     sparql: SparqlHttp;
+    user?: {
+      id: NamedNode
+      sub: string
+    },
     hydra: {
       api: typeof Api;
       store: Store & Source;

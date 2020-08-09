@@ -6,6 +6,7 @@
 @prefix code:      <https://code.described.at/> .
 @prefix dcterms:   <http://purl.org/dc/terms/> .
 @prefix schema:    <http://schema.org/> .
+@prefix query:     <http://query.described.at/> .
 
 <api> hydra:supportedClass wba:BookCollection .
 
@@ -19,27 +20,27 @@ wba:BookCollection a                        hydra:Class ;
 .
 
 wba:BookCollection-search a              hydra:IriTemplate ;
-                          hydra:mapping  [ a                      hydra:IriTemplateMapping ;
-                                           hydra:property         dcterms:title ;
-                                           hydra:required         false ;
-                                           hydra:variable         "title" ;
-                                           hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                    code:link <file:filter/source#byTitle> ] ; ] ;
-                          hydra:mapping  [ a                      hydra:IriTemplateMapping ;
-                                           hydra:property         schema:author ;
-                                           hydra:required         false ;
-                                           hydra:variable         "author" ;
-                                           hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                    code:link <file:filter/book#byAuthor> ] ; ] ;
+                          hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                           hydra:property dcterms:title ;
+                                           hydra:required false ;
+                                           hydra:variable "title" ;
+                                           query:filter   [ a         code:EcmaScript ;
+                                                            code:link <file:filter/source#byTitle> ] ; ] ;
+                          hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                           hydra:property schema:author ;
+                                           hydra:required false ;
+                                           hydra:variable "author" ;
+                                           query:filter   [ a         code:EcmaScript ;
+                                                            code:link <file:filter/book#byAuthor> ] ; ] ;
                           hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                            hydra:property hydra:pageIndex ;
                                            hydra:required false ;
                                            hydra:variable "page" ; ] ;
-                          hydra:mapping  [ a                      hydra:IriTemplateMapping ;
-                                           hydra:property         dcterms:language ;
-                                           hydra:required         false ;
-                                           hydra:variable         "language" ;
-                                           hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                    code:link <file:filter/source#byLanguage> ] ; ] ;
+                          hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                           hydra:property dcterms:language ;
+                                           hydra:required false ;
+                                           hydra:variable "language" ;
+                                           query:filter   [ a         code:EcmaScript ;
+                                                            code:link <file:filter/source#byLanguage> ] ; ] ;
                           hydra:template "/books{?page,title,author,language}" ;
 .

@@ -6,6 +6,7 @@
 @prefix code:      <https://code.described.at/> .
 @prefix dcterms:   <http://purl.org/dc/terms/> .
 @prefix schema:    <http://schema.org/> .
+@prefix query:     <http://query.described.at/> .
 
 <api> hydra:supportedClass wba:MagazineCollection .
 
@@ -19,12 +20,12 @@ wba:MagazineCollection a                        hydra:Class ;
 .
 
 wba:MagazineCollection-search a              hydra:IriTemplate ;
-                              hydra:mapping  [ a                      hydra:IriTemplateMapping ;
-                                               hydra:property         dcterms:title ;
-                                               hydra:required         false ;
-                                               hydra:variable         "title" ;
-                                               hydra-box:queryPattern [ a         code:EcmaScript ;
-                                                                        code:link <file:filter/source#byTitle> ] ; ] ;
+                              hydra:mapping  [ a              hydra:IriTemplateMapping ;
+                                               hydra:property dcterms:title ;
+                                               hydra:required false ;
+                                               hydra:variable "title" ;
+                                               query:filter   [ a         code:EcmaScript ;
+                                                                code:link <file:filter/source#byTitle> ] ; ] ;
                               hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                                hydra:property hydra:pageIndex ;
                                                hydra:required false ;
