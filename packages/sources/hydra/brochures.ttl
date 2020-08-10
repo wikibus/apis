@@ -13,6 +13,7 @@
 @prefix opus:      <http://lsdis.cs.uga.edu/projects/semdis/opus#> .
 @prefix owl:       <http://www.w3.org/2002/07/owl#> .
 @prefix query:     <http://query.described.at/> .
+@prefix auth:      <http://auth.described.at/> .
 
 <api> hydra:supportedClass wba:BrochureCollection,
                            wbo:Brochure .
@@ -114,15 +115,16 @@ wbo:Brochure a                       hydra:Class ;
 wba:wishlistItem a                        rdf:Property,
                                           hydra:Link ;
                  rdfs:range               hydra:Resource ;
-                 hydra:supportedOperation [ a                  hydra:Operation,
-                                                               wba:AddToWishlistAction ;
-                                            hydra:method       "PUT" ;
-                                            hydra:expects      hydra:Resource ;
-                                            hydra:returns      owl:Nothing ;
-                                            hydra:title        "Add to wishlist" ;
-                                            hydra:description  "Brochure will be scanned to PDF with highest priority" ;
-                                            code:implementedBy [ a         code:EcmaScript ;
-                                                                 code:link <file:source#addToWishlistHandler> ] ] ;
+                 hydra:supportedOperation [ a                      hydra:Operation,
+                                                                   wba:AddToWishlistAction ;
+                                            hydra:method           "PUT" ;
+                                            hydra:expects          hydra:Resource ;
+                                            hydra:returns          owl:Nothing ;
+                                            hydra:title            "Add to wishlist" ;
+                                            hydra:description      "Brochure will be scanned to PDF with highest priority" ;
+                                            code:implementedBy     [ a         code:EcmaScript ;
+                                                                     code:link <file:source/addToWishlist#put> ; ] ;
+                                            auth:required          true ; ] ;
 .
 
 wba:BrochureCollection a                        hydra:Class ;

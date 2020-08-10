@@ -1,7 +1,8 @@
 import asyncMiddleware from 'middleware-async'
-import { addToWishlist } from '../../domain/brochure/addToWishlist'
+import { addToWishlist } from '../../../domain/brochure/addToWishlist'
+import { restrictedHandler } from '@wikibus/hydra-box-helpers/handlers/restrictedResource'
 
-export const addToWishlistHandler = asyncMiddleware(async (req, res, next) => {
+export const put = restrictedHandler(asyncMiddleware(async (req, res, next) => {
   const brochure = await req.repositories.brochures.load(req.hydra.resource.term)
   const command = {
     user: req.user!.id,
@@ -16,10 +17,10 @@ export const addToWishlistHandler = asyncMiddleware(async (req, res, next) => {
   }
 
   return wishlistItem.commit(req.repositories.wishlistItems)
-    .then((saved: any) => {
+    .then(saved => {
       res.status(201)
       res.setLink('Location', saved['@id'])
       res.dataset(saved._selfGraph.dataset)
     })
     .catch(next)
-})
+}))

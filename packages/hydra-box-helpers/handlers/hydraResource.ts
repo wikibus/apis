@@ -3,8 +3,9 @@ import clownface from 'clownface'
 import { query } from '@wikibus/core/namespace'
 import $rdf from 'rdf-ext'
 import TermSet from '@rdfjs/term-set'
+import { restrictedHandler } from './restrictedResource'
 
-export const get = asyncMiddleware(async (req, res) => {
+export const get = restrictedHandler(asyncMiddleware(async (req, res) => {
   const types = clownface({
     dataset: req.hydra.api.dataset,
     term: [...req.hydra.resource.types],
@@ -20,4 +21,4 @@ export const get = asyncMiddleware(async (req, res) => {
   res.dataset(
     $rdf.dataset([...req.hydra.resource.dataset])
       .filter(quad => !restrictedProperties.has(quad.predicate)))
-})
+}))
