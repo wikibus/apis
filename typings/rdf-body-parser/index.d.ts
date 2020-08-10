@@ -10,6 +10,7 @@ declare module 'express-serve-static-core' {
     user?: {
       id: NamedNode
       sub: string
+      permissions: string[]
     },
     hydra: {
       api: typeof Api;

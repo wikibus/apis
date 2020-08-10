@@ -2,7 +2,7 @@ name: wikibus-apis
 services:
   sources:
     type: node:13
-    command: yarn nodemon -w packages --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
+    command: yarn nodemon --delay 1 -w packages --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
     port: 34566
     overrides:
       ports:
@@ -13,6 +13,7 @@ services:
         SPARQL_UPDATE_ENDPOINT: http://store:3030/wikibus/update
         SPARQL_GRAPH_ENDPOINT: http://store:3030/wikibus/data
         DEBUG: app,app:*,hydra,hydra:*,fun-ddr:*
+        NODE_ENV: development
     moreHttpPorts:
       - 34567
   store:

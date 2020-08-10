@@ -17,7 +17,6 @@ import * as Hydra from '@rdfine/hydra'
 import RdfResource from '@tpluscode/rdfine'
 import ParsingClient from 'sparql-http-client/ParsingClient'
 import { createRepositories } from './repository'
-import { namedNode } from '@rdfjs/data-model'
 
 RdfResource.factory.addMixin(...Object.values(Hydra))
 
@@ -45,16 +44,13 @@ program
       app.use(cors({
         exposedHeaders: ['link', 'location'],
       }))
-      app.use(authentication)
+      app.use(authentication(process.env.NODE_ENV !== 'development'))
       const loader = new SparqlQueryLoader({
         client: new ParsingClient({ endpointUrl }),
       })
       app.use((req, _, next) => {
         req.sparql = sparql
         req.repositories = createRepositories(sparql)
-        if (req.user) {
-          req.user.id = namedNode(`https://users.wikibus.org/user/${encodeURIComponent(req.user.sub)}`)
-        }
         next()
       })
       app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { loader }))

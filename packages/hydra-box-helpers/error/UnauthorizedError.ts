@@ -12,7 +12,7 @@ export class UnauthorizedErrorMapper implements IErrorMapper {
     return new ProblemDocument({
       title: 'Unauthorized',
       detail: error.message,
-      status: 401,
+      status: error.message === 'Permission denied' ? 403 : 401,
     })
   }
 }

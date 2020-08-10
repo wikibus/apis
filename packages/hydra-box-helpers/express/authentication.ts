@@ -1,3 +1,6 @@
+import * as e from 'express'
+import { namedNode } from '@rdfjs/data-model'
+import { Router } from 'express'
 import jwt = require('express-jwt');
 import jwksRsa = require('jwks-rsa')
 
@@ -19,5 +22,39 @@ const createJwtHandler = (credentialsRequired: boolean) => jwt({
   credentialsRequired,
 })
 
-export default createJwtHandler(false)
-export const requireToken = createJwtHandler(true)
+function devAuthHandler(req: e.Request, res: e.Response, next: e.NextFunction) {
+  const sub = req.header('X-User')
+
+  if (sub) {
+    const permissionHeader = req.headers['x-permission']
+    const permissions = typeof permissionHeader === 'string' ? [permissionHeader] : permissionHeader || []
+
+    req.user = {
+      sub,
+      permissions,
+    } as any
+  }
+
+  next()
+}
+
+function setUserUri(req: e.Request, _: e.Response, next: e.NextFunction) {
+  if (req.user) {
+    req.user.id = namedNode(`https://users.wikibus.org/user/${encodeURIComponent(req.user.sub)}`)
+  }
+
+  next()
+}
+
+export default (production: boolean) => {
+  const router = Router()
+
+  if (production) {
+    router.use(createJwtHandler(false))
+  } else {
+    router.use(devAuthHandler as any)
+  }
+  router.use(setUserUri as any)
+
+  return router
+}
