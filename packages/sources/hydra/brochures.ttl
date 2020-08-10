@@ -76,7 +76,7 @@ wbo:Brochure a                       hydra:Class ;
                                        hydra:required  false ] ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  wba:images ;
-                                       hydra:readable  true ;
+                                       hydra:readable  false ;
                                        hydra:writeable false ;
                                        hydra:title     "images" ;
                                        hydra:required  false ] ;
@@ -134,7 +134,15 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:method        "GET" ;
                                                   query:include       schema:primaryImageOfPage ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:source-collection#get> ] ]
+                                                                        code:link <file:source-collection#get> ] ] ;
+                       hydra:supportedOperation [ a                   hydra:Operation, schema:CreateAction ;
+                                                  hydra:title         "Create brochure" ;
+                                                  hydra:method        "POST" ;
+                                                  hydra:expects       wbo:Brochure ;
+                                                  hydra:returns       wbo:Brochure ;
+                                                  code:implementedBy  [ a         code:EcmaScript ;
+                                                                        code:link <file:source/brochure#post> ] ;
+                                                  auth:permissions    ("write:sources") ]
 .
 
 wba:BrochureCollection-search a              hydra:IriTemplate ;

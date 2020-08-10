@@ -5,4 +5,9 @@ export interface BrochureEvents {
     brochure: NamedNode
     user: NamedNode
   }
+  created: {
+    title: string
+    identifier: string
+    id: NamedNode
+  }
 }

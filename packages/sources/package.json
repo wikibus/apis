@@ -28,7 +28,8 @@
     "set-link": "^1.0.0",
     "rdf-loader-code": "^0.3.1",
     "rdf-loaders-registry": "^0.2.0",
-    "sparql-http-client": "^2.2.2"
+    "sparql-http-client": "^2.2.2",
+    "url-slugify": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",

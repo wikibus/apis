@@ -3,9 +3,24 @@ import { RdfineEntity } from '@tpluscode/fun-ddr-rdfine'
 import { BrochureMixin } from './brochure'
 import { WishlistItemMixin } from './wishlistItem'
 
-export interface Brochure extends RdfineEntity {
+export interface Source {
+  readonly file: NamedNode
+  readonly images: NamedNode
+}
+
+export interface Brochure extends RdfineEntity, Source {
   identifier: string
   title: string
+  languages: NamedNode[]
+  description?: string
+  code?: string
+  location?: NamedNode
+  pages?: number
+  date?: Date
+  year?: number
+  month?: number
+  readonly contributor: NamedNode
+  readonly wishlistItem: NamedNode
 }
 
 export interface WishlistItem extends RdfineEntity {

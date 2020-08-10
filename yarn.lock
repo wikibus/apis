@@ -2489,7 +2489,7 @@ clownface-io@zazuko/clownface-io#tpluscode-proposals:
     proto-fetch "^1.0.0"
     rdf-ext "^1.3.0"
 
-clownface@0.12.4, clownface@1.0.0, clownface@^0.12.0, clownface@^0.12.1, clownface@^0.12.3, clownface@^1.0.0:
+clownface@1.0.0, clownface@^0.12.0, clownface@^0.12.1, clownface@^0.12.3, clownface@^1, clownface@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/clownface/-/clownface-1.0.0.tgz#77c8937241f02c08a49ac0370cb8628cde324e91"
   integrity sha512-8gAAqdD5ueYt62FHE9Zd4OTrcYEfiyQlxV/5NYxzKY5uO/HZbTv1+jhFHgYa3XD7BC+mkg+LFR9Mh168wj9aQQ==
@@ -4250,6 +4250,11 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
+
+hashids@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/hashids/-/hashids-1.2.2.tgz#28635c7f2f7360ba463686078eee837479e8eafb"
+  integrity sha512-dEHCG2LraR6PNvSGxosZHIRgxF5sNLOIBFEHbj8lfP9WWmu/PWPMzsip1drdVSOFi51N2pU7gZavrgn7sbGFuw==
 
 hasurl@^1.0.0:
   version "1.0.0"
@@ -8151,6 +8156,13 @@ url-parse-lax@^3.0.0:
   integrity sha1-FrXK/Afb42dsGxmZF3gj1lA6yww=
   dependencies:
     prepend-http "^2.0.0"
+
+url-slugify@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/url-slugify/-/url-slugify-1.0.6.tgz#015d5dde92f6aea3a4f325eb2e48a5fb84734ff7"
+  integrity sha512-OV7cP+l47nB3ixWcgKg3WUVeCdD8GjDAPGfm/iic3tj1pfQeZ2HtnmbJG/s2krfF4FfW7Z+OERY8hEJWOWD7OQ==
+  dependencies:
+    hashids "^1.2.2"
 
 use@^3.1.0:
   version "3.1.1"
