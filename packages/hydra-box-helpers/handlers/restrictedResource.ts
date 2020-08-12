@@ -4,7 +4,7 @@ import guard = require('express-jwt-permissions')
 
 const permission = guard()
 
-export function restrictedHandler(handler: any) {
+export function restrictedHandler(...handlers: any[]) {
   const router = Router()
 
   router.use((req, res, next) => {
@@ -17,7 +17,7 @@ export function restrictedHandler(handler: any) {
 
     next()
   })
-  router.use(handler)
+  router.use(...handlers)
 
   return router
 }

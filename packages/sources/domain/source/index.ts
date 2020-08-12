@@ -11,7 +11,13 @@ export function SourceMixin<Base extends Constructor<RdfineEntity>>(base: Base) 
     file!: NamedNode
 
     @property({ path: wba.images })
-    images!: NamedNode
+    imagesLink!: NamedNode
+
+    @property({ path: schema.image, values: 'array' })
+    images!: NamedNode[]
+
+    @property.literal({ path: schema.identifier })
+    identifier!: string
   }
 
   return SourceClass

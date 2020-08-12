@@ -2,14 +2,20 @@ import { NamedNode } from 'rdf-js'
 import { RdfineEntity } from '@tpluscode/fun-ddr-rdfine'
 import { BrochureMixin } from './brochure'
 import { WishlistItemMixin } from './wishlistItem'
+import { ImageObject } from '@rdfine/schema'
+import { Entity } from '@tpluscode/fun-ddr'
+import { EntityResource } from '@tpluscode/fun-ddr-rdfine/lib/RdfineEntity'
 
-export interface Source {
+import './brochure/eventHandlers'
+
+export interface Source extends EntityResource, Entity {
   readonly file: NamedNode
-  readonly images: NamedNode
+  readonly imagesLink: NamedNode
+  images: NamedNode[]
+  identifier: string
 }
 
-export interface Brochure extends RdfineEntity, Source {
-  identifier: string
+export interface Brochure extends Source {
   title: string
   languages: NamedNode[]
   description?: string
@@ -23,10 +29,13 @@ export interface Brochure extends RdfineEntity, Source {
   readonly wishlistItem: NamedNode
 }
 
-export interface WishlistItem extends RdfineEntity {
+export interface WishlistItem extends EntityResource, Entity {
   source: NamedNode
   done: boolean
   user: NamedNode
+}
+
+export interface Image extends Omit<ImageObject, 'id'>, EntityResource {
 }
 
 RdfineEntity.factory.addMixin(BrochureMixin)

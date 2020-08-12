@@ -16,4 +16,11 @@ const handler = {
   },
 }
 
-export default new Proxy(process.env, handler)
+export default new Proxy(process.env, handler) as typeof process['env'] & {
+  has(name: string): boolean
+  BASE_URI: string
+  CLOUDINARY_BROCHURES_FOLDER: string
+  SPARQL_ENDPOINT: string
+  SPARQL_GRAPH_ENDPOINT: string
+  SPARQL_UPDATE_ENDPOINT: string
+}

@@ -1,6 +1,6 @@
 import { Repository } from '@tpluscode/fun-ddr'
 import { AggregateRootImpl } from '@tpluscode/fun-ddr/lib/AggregateRootImpl'
-import { RdfineEntity } from './RdfineEntity'
+import { EntityResource, RdfineEntity } from './RdfineEntity'
 import { AggregateRoot } from '@tpluscode/fun-ddr/lib'
 import { NamedNode } from 'rdf-js'
 import { namedNode } from '@rdfjs/data-model'
@@ -13,7 +13,7 @@ import toStream = require('rdf-dataset-ext/toStream')
 import clownface = require('clownface')
 import ToQuad = require('rdf-transform-triple-to-quad')
 
-export class SparqlRepository<E extends RdfineEntity, T extends Record<string, any> = Record<string, any>> implements Repository<E> {
+export class SparqlRepository<E extends EntityResource, T extends Record<string, any> = Record<string, any>> implements Repository<E> {
   private client: StreamClient;
   private metaGraph = namedNode('urn:fun-ddr:meta')
 
@@ -41,7 +41,6 @@ export class SparqlRepository<E extends RdfineEntity, T extends Record<string, a
       graph: term,
     })
     const state = RdfineEntity.factory.createEntity<E>(pointer, [RdfineEntity])
-    state._selfGraph.dataset.addAll(dataset.map(({ subject, predicate, object }) => rdf.quad(subject, predicate, object, term)))
 
     const version = await this.__getVersion(state.id) || 1
     return new AggregateRootImpl<E, T>(state, version)

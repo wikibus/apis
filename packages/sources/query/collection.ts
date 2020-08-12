@@ -1,5 +1,4 @@
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
-import type { SparqlGraphQueryExecutable } from '@tpluscode/sparql-builder/lib'
 import { query } from '@wikibus/core/namespace'
 import { dcterms, dtype, hydra } from '@tpluscode/rdf-ns-builders'
 import * as $rdf from '@rdfjs/data-model'
@@ -7,7 +6,7 @@ import { Clownface, SingleContextClownface } from 'clownface'
 import { loaders } from '../loader'
 import { sparql, SparqlTemplateResult } from '@tpluscode/rdf-string'
 import { IriTemplate, IriTemplateMapping } from '@rdfine/hydra'
-import { NamedNode, Variable } from 'rdf-js'
+import { Variable } from 'rdf-js'
 
 function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownface) {
   return (patterns: unknown[], mapping: IriTemplateMapping): unknown[] => {
@@ -91,20 +90,4 @@ export function getMemberQuery(collection: SingleContextClownface, query: Clownf
         GRAPH ?g { ?s ?p ?o }`,
     totals: SELECT`(count(${subject}) as ?count)`.WHERE`GRAPH ?g { ${memberPatterns} }`,
   }
-}
-
-export function getLinkedResources(collection: SingleContextClownface, property: NamedNode): SparqlGraphQueryExecutable | null {
-  const linked = collection.out(hydra.member).out(property)
-
-  if (linked.values.length === 0) {
-    return null
-  }
-
-  return [...linked.terms].reduce((current, graph) => {
-    if (graph.termType === 'NamedNode') {
-      return current.FROM(graph)
-    }
-
-    return current
-  }, CONSTRUCT`?s ?p ?o`.WHERE`?s ?p ?o`)
 }

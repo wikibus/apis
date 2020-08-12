@@ -6,7 +6,11 @@ import { Entity } from '@tpluscode/fun-ddr'
 import { Initializer, ResourceNode } from '@tpluscode/rdfine/RdfResource'
 import DatasetExt from 'rdf-ext/lib/Dataset'
 
-export class RdfineEntity extends RdfResourceImpl<DatasetExt> implements Entity {
+export interface EntityResource extends RdfResource, Entity {
+  id: NamedNode
+}
+
+export class RdfineEntity extends RdfResourceImpl implements EntityResource, Entity {
   constructor(term: NamedNode | ResourceNode<DatasetExt>, initializer?: Initializer<RdfResource>) {
     if ('termType' in term) {
       super(clownface({ dataset: rdf.dataset(), term, graph: term }), initializer)

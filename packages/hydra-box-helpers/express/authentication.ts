@@ -25,7 +25,7 @@ const createJwtHandler = (credentialsRequired: boolean) => jwt({
 function devAuthHandler(req: e.Request, res: e.Response, next: e.NextFunction) {
   const sub = req.header('X-User')
 
-  if (sub) {
+  if (!req.user && sub) {
     const permissionHeader = req.headers['x-permission']
     const permissions = typeof permissionHeader === 'string' ? [permissionHeader] : permissionHeader || []
 
@@ -49,9 +49,9 @@ function setUserUri(req: e.Request, _: e.Response, next: e.NextFunction) {
 export default (production: boolean) => {
   const router = Router()
 
-  if (production) {
-    router.use(createJwtHandler(false))
-  } else {
+  router.use(createJwtHandler(false))
+
+  if (!production) {
     router.use(devAuthHandler as any)
   }
   router.use(setUserUri as any)

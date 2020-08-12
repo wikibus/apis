@@ -6,7 +6,7 @@ import { dcterms, hydra, rdfs, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { NamedNode } from 'rdf-js'
 import { Initializer } from '@tpluscode/rdfine/RdfResource'
 import { literal, namedNode } from '@rdfjs/data-model'
-import env from '@wikibus/hydra-box-helpers/env'
+import env from '@wikibus/core/env'
 import { SourceMixin } from '../source'
 import URLSlugify = require('url-slugify')
 
@@ -14,9 +14,6 @@ const urlSlugify = new URLSlugify()
 
 export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base) {
   class BrochureClass extends SourceMixin(base) implements Brochure {
-    @property.literal({ path: schema.identifier })
-    identifier!: string
-
     @property.literal({ path: dcterms.title })
     title!: string
 
@@ -94,7 +91,7 @@ export default function (title: string, contributor: NamedNode, moreProps?: Init
 
       this.identifier = slug
       this.file = namedNode(`${id.value}/file`)
-      this.images = namedNode(`${id.value}/images`)
+      this.imagesLink = namedNode(`${id.value}/images`)
     }
   }
 

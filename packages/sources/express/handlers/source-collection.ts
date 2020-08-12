@@ -5,7 +5,8 @@ import { DatasetCore } from 'rdf-js'
 import { hydra, rdf } from '@tpluscode/rdf-ns-builders'
 import { hex, hydraBox, query } from '@wikibus/core/namespace'
 import { IriTemplate, IriTemplateMixin } from '@rdfine/hydra'
-import { getMemberQuery, getLinkedResources } from '../../query/collection'
+import { getMemberQuery } from '../../query/collection'
+import { loadLinkedResources } from '@wikibus/hydra-box-helpers/query/eagerLinks'
 
 const pageSize = 12
 
@@ -47,19 +48,7 @@ export const get = asyncMiddleware(async (req, res) => {
   collection.namedNode(req.hydra.resource.term)
     .addOut(hydra.member, clownface({ dataset }).has(rdf.type, collection.out(hydra.manages).has(hydra.property, rdf.type).out(hydra.object)))
 
-  await Promise.all((includeLinked.toArray().reduce((promises, property) => {
-    const { term } = property
-    if (term.termType === 'NamedNode') {
-      promises.push((async () => {
-        const query = getLinkedResources(collection, term)
-        if (query) {
-          const stream = await query.execute(req.sparql.query)
-          await dataset.import(stream)
-        }
-      })())
-    }
-    return promises
-  }, [] as Promise<void>[])))
+  dataset.addAll(await loadLinkedResources(collection.out(hydra.member), includeLinked, req.sparql))
 
   if (template) {
     collection.addOut(hex.currentMappings, currMappings => {

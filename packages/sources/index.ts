@@ -8,31 +8,23 @@ import { httpProblemMiddleware } from '@wikibus/hydra-box-helpers/express/proble
 import authentication from '@wikibus/hydra-box-helpers/express/authentication'
 import { logRequest, logRequestError } from '@wikibus/hydra-box-helpers/express/logger'
 import { error, log } from '@wikibus/hydra-box-helpers/log'
-import env from '@wikibus/hydra-box-helpers/env'
+import env from '@wikibus/core/env'
 import Api from '@wikibus/hydra-box-helpers/setup'
 import { SparqlQueryLoader } from '@wikibus/hydra-box-helpers/setup/loader'
-import Client from '@wikibus/hydra-box-helpers/sparql/Client'
+import { client } from '@wikibus/sparql'
 import { bootstrapResources } from './initialize'
 import * as Hydra from '@rdfine/hydra'
+import { ImageObjectBundle } from '@rdfine/schema/bundles'
 import RdfResource from '@tpluscode/rdfine'
 import ParsingClient from 'sparql-http-client/ParsingClient'
-import { createRepositories } from './repository'
 
 RdfResource.factory.addMixin(...Object.values(Hydra))
+RdfResource.factory.addMixin(...ImageObjectBundle)
 
 const baseUri = env.BASE_URI!
-const endpointUrl = process.env.SPARQL_ENDPOINT!
-const storeUrl = process.env.SPARQL_GRAPH_ENDPOINT!
-const updateUrl = process.env.SPARQL_UPDATE_ENDPOINT!
+const endpointUrl = env.SPARQL_ENDPOINT
 const codePath = path.join(__dirname, 'express/handlers/')
 const apiSourcePath = path.join(__dirname, 'hydra/')
-
-const sparql = new Client({
-  endpointUrl,
-  updateUrl,
-  storeUrl,
-  baseUri,
-})
 
 program
   .action(() => {
@@ -49,8 +41,7 @@ program
         client: new ParsingClient({ endpointUrl }),
       })
       app.use((req, _, next) => {
-        req.sparql = sparql
-        req.repositories = createRepositories(sparql)
+        req.sparql = client
         next()
       })
       app.use(hydraBox.middleware(await Api({ baseUri, codePath, apiSourcePath }), { loader }))
@@ -61,7 +52,7 @@ program
       app.use(logRequestError as any)
       app.use(httpProblemMiddleware)
 
-      await bootstrapResources(sparql, baseUri)
+      await bootstrapResources(client, baseUri)
 
       app.listen(34566, () => log('App ready'))
     }).catch(err => {

@@ -1,0 +1,29 @@
+@base           <https://wikibus-sources.lndo.site/> .
+
+@prefix hydra:  <http://www.w3.org/ns/hydra/core#> .
+@prefix wba:    <https://wikibus.org/api#> .
+@prefix schema: <http://schema.org/> .
+@prefix auth:   <http://auth.described.at/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix code:      <https://code.described.at/> .
+
+<api> hydra:supportedClass wba:ImageUpload .
+
+wba:ImageUpload a                       hydra:Class ;
+                hydra:supportedProperty [ hydra:property schema:image ;
+                                          hydra:title    "files" ]
+.
+
+schema:image rdfs:range schema:ImageObject .
+
+wba:images a                        hydra:link ;
+           hydra:supportedOperation [ a                hydra:Operation,
+                                                       schema:TransferAction ;
+                                      hydra:method     "POST" ;
+                                      hydra:title      "Upload image" ;
+                                      hydra:expects    wba:ImageUpload ;
+                                      auth:permissions ( "write:sources" ) ;
+                                    code:implementedBy [a         code:EcmaScript ;
+                                                        code:link <file:image/upload#post>
+                                                       ]] ;
+.

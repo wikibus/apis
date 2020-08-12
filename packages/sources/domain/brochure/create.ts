@@ -1,6 +1,6 @@
 import { DomainError, initialize } from '@tpluscode/fun-ddr'
 import { Brochure } from '../index'
-import createBrochure from '../../domain/brochure/index'
+import createBrochure from '.'
 import { NamedNode } from 'rdf-js'
 import { BrochureEvents } from './events'
 

@@ -6,7 +6,7 @@ import { namedNode } from '@rdfjs/data-model'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { Brochure, WishlistItem } from '../index'
 import create from '../wishlistItem'
-import env from '@wikibus/hydra-box-helpers/env'
+import env from '@wikibus/core/env'
 
 interface AddToWishlistCommand {
   user: NamedNode
