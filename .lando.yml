@@ -14,7 +14,7 @@ services:
         SPARQL_ENDPOINT: http://store:3030/wikibus/query
         SPARQL_UPDATE_ENDPOINT: http://store:3030/wikibus/update
         SPARQL_GRAPH_ENDPOINT: http://store:3030/wikibus/data
-        DEBUG: app,app:*,hydra,hydra:*,fun-ddr:*
+        DEBUG: app,app:*,hydra,hydra:*,fun-ddr:*,hydra-box,hydra-box:*
         CLOUDINARY_BROCHURES_FOLDER: "wikibus test/brochures"
         CLOUDINARY_DEFAULT_TRANSFORMATION: default_downsize
         CLOUDINARY_THUMB_TRANSFORMATION: media_lib_thumb

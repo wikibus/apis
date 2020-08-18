@@ -8,6 +8,8 @@ import { EntityResource } from '@tpluscode/fun-ddr-rdfine/lib/RdfineEntity'
 
 import './brochure/eventHandlers'
 
+export { BrochureEvents } from './brochure/events'
+
 export interface Source extends EntityResource, Entity {
   readonly file: NamedNode
   readonly imagesLink: NamedNode
@@ -27,6 +29,7 @@ export interface Brochure extends Source {
   month?: number
   readonly contributor: NamedNode
   readonly wishlistItem: NamedNode
+  ownedBy(userId: NamedNode): boolean
 }
 
 export interface WishlistItem extends EntityResource, Entity {

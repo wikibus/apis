@@ -29,7 +29,7 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
     @property({ path: dcterms.language, values: 'array' })
     languages!: NamedNode[];
 
-    @property({ path: wba.storageLocation })
+    @property({ path: schema.containedInPlace })
     location?: NamedNode;
 
     @property.literal({ path: bibo.pages, type: Number })
@@ -71,6 +71,10 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
       if (value) {
         this._selfGraph.addOut(opus.year, literal(value.toString(), xsd.gYear))
       }
+    }
+
+    ownedBy(userId: NamedNode) {
+      return this.contributor.equals(userId)
     }
   }
 

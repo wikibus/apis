@@ -23,7 +23,7 @@ RdfResource.factory.addMixin(...ImageObjectBundle)
 
 const baseUri = env.BASE_URI!
 const endpointUrl = env.SPARQL_ENDPOINT
-const codePath = path.join(__dirname, 'express/handlers/')
+const codePath = __dirname
 const apiSourcePath = path.join(__dirname, 'hydra/')
 
 program
@@ -39,6 +39,7 @@ program
       app.use(authentication(process.env.NODE_ENV !== 'development'))
       const loader = new SparqlQueryLoader({
         client: new ParsingClient({ endpointUrl }),
+        codePath,
       })
       app.use((req, _, next) => {
         req.sparql = client

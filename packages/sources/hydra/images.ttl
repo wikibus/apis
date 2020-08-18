@@ -24,6 +24,6 @@ wba:images a                        hydra:link ;
                                       hydra:expects    wba:ImageUpload ;
                                       auth:permissions ( "write:sources" ) ;
                                     code:implementedBy [a         code:EcmaScript ;
-                                                        code:link <file:image/upload#post>
+                                                        code:link <file:express/handlers/image/upload#post>
                                                        ]] ;
 .

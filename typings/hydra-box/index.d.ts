@@ -1,4 +1,5 @@
 declare module 'hydra-box' {
+  import {Request} from 'express';
   import Api = require('hydra-box/Api');
   import middleware = require('hydra-box/middleware');
   import {DatasetCore, Term} from 'rdf-js';
@@ -16,8 +17,8 @@ declare module 'hydra-box' {
     }
 
     interface ResourceLoader {
-      forClassOperation (term: Term): Promise<Array<Resource>>
-      forPropertyOperation (term: Term): Promise<Array<PropertyResource>>
+      forClassOperation (term: Term, req: Request): Promise<Array<Resource>>
+      forPropertyOperation (term: Term, req: Request): Promise<Array<PropertyResource>>
     }
   }
 

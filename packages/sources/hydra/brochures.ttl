@@ -16,11 +16,16 @@
 @prefix auth:      <http://auth.described.at/> .
 
 <api> hydra:supportedClass wba:BrochureCollection,
-                           wbo:Brochure .
+                           wbo:Brochure ,
+                           wba:EditableBrochure .
 
 wbo:Brochure a                       hydra:Class ;
-             query:restrict          wba:storageLocation ;
-             query:include           schema:image ;
+             query:restrict          schema:containedInPlace,
+                                     wba:images ;
+             query:enrichment        [ a         code:EcmaScript ;
+                                       code:link <file:query/source/brochure#enrich> ; ] ;
+             query:include           schema:image,
+                                     schema:containedInPlace ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  dcterms:title ;
                                        hydra:readable  true ;
@@ -46,7 +51,7 @@ wbo:Brochure a                       hydra:Class ;
                                        hydra:title     "code" ;
                                        hydra:required  false ] ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
-                                       hydra:property  wba:storageLocation ;
+                                       hydra:property  schema:containedInPlace ;
                                        hydra:readable  true ;
                                        hydra:writeable false ;
                                        hydra:title     "location" ;
@@ -113,6 +118,18 @@ wbo:Brochure a                       hydra:Class ;
                                        hydra:required  false ] ;
 .
 
+wba:EditableBrochure rdfs:subclassOf          wbo:Brochure ;
+                     hydra:supportedOperation [ a                  hydra:Operation,
+                                                                   schema:UpdateAction ;
+                                                hydra:method       "PUT" ;
+                                                hydra:expects      wbo:Brochure ;
+                                                hydra:title        "Update brochure" ;
+                                                code:implementedBy [ a         code:EcmaScript ;
+                                                                     code:link <file:express/handlers/source/brochure#put> ; ] ;
+                                                auth:required      true ;
+                                                auth:permissions ( "write:sources" ), ( "admin:sources" ) ; ] ;
+.
+
 wba:wishlistItem a                        rdf:Property,
                                           hydra:Link ;
                  rdfs:range               hydra:Resource ;
@@ -124,7 +141,7 @@ wba:wishlistItem a                        rdf:Property,
                                             hydra:title        "Add to wishlist" ;
                                             hydra:description  "Brochure will be scanned to PDF with highest priority" ;
                                             code:implementedBy [ a         code:EcmaScript ;
-                                                                 code:link <file:source/addToWishlist#put> ; ] ;
+                                                                 code:link <file:express/handlers/source/addToWishlist#put> ; ] ;
                                             auth:required      true ; ] ;
 .
 
@@ -135,7 +152,7 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:method        "GET" ;
                                                   query:include       schema:primaryImageOfPage ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:source-collection#get> ] ] ;
+                                                                        code:link <file:express/handlers/source-collection#get> ] ] ;
                        hydra:supportedOperation [ a                  hydra:Operation,
                                                                      schema:CreateAction ;
                                                   hydra:title        "Create brochure" ;
@@ -143,7 +160,7 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:expects      wbo:Brochure ;
                                                   hydra:returns      wbo:Brochure ;
                                                   code:implementedBy [ a         code:EcmaScript ;
-                                                                       code:link <file:source/brochure#post> ] ;
+                                                                       code:link <file:express/handlers/source/brochure#post> ] ;
                                                   auth:permissions   ( "write:sources" ) ]
 .
 

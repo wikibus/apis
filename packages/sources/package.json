@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "hydra-box": "zazuko/hydra-box",
     "clownface-io": "zazuko/clownface-io#tpluscode-proposals",
+    "http-errors": "^1.8.0",
     "string-to-stream": "^3.0.1",
     "@rdfjs/data-model": "^1.1.2",
     "@tpluscode/rdfine": "^0.4.22",
@@ -29,8 +30,6 @@
     "@wikibus/hydra-box-helpers": "*",
     "multer": "^1.4.2",
     "set-link": "^1.0.0",
-    "rdf-loader-code": "^0.3.1",
-    "rdf-loaders-registry": "^0.2.0",
     "sparql-http-client": "^2.2.2",
     "url-slugify": "^1.0.6",
     "@wikibus/sparql": "*"
@@ -39,6 +38,7 @@
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7",
+    "@types/http-errors": "^1.8.0",
     "@types/multer": "^1.4.3",
     "@types/set-link": "^1.0.0"
   }

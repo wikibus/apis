@@ -16,7 +16,7 @@ wba:MagazineCollection a                        hydra:Class ;
                                                   hydra-box:variables wba:MagazineCollection-search ;
                                                   hydra:method        "GET" ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:source-collection#get> ] ]
+                                                                        code:link <file:express/handlers/source-collection#get> ] ]
 .
 
 wba:MagazineCollection-search a              hydra:IriTemplate ;

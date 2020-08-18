@@ -16,7 +16,7 @@ wba:BookCollection a                        hydra:Class ;
                                               hydra-box:variables wba:BookCollection-search ;
                                               hydra:method        "GET" ;
                                               code:implementedBy  [ a         code:EcmaScript ;
-                                                                    code:link <file:source-collection#get> ] ]
+                                                                    code:link <file:express/handlers/source-collection#get> ] ]
 .
 
 wba:BookCollection-search a              hydra:IriTemplate ;
