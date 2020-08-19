@@ -11,7 +11,6 @@ export const get = restrictedHandler(asyncMiddleware(async (req, res) => {
     dataset: req.hydra.api.dataset,
     term: [...req.hydra.resource.types],
   })
-  const pointer = clownface(req.hydra.resource)
 
   let dataset = $rdf.dataset([...req.hydra.resource.dataset])
   if (!(req.user && req.user.id)) {
@@ -19,5 +18,6 @@ export const get = restrictedHandler(asyncMiddleware(async (req, res) => {
     dataset = dataset.filter(quad => !restrictedProperties.has(quad.predicate))
   }
 
+  const pointer = clownface({ dataset, term: req.hydra.resource.term })
   res.dataset(dataset.merge(await loadLinkedResources(pointer, types.out(query.include), req.sparql)))
 }))
