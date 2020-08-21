@@ -14,9 +14,10 @@
 @prefix owl:       <http://www.w3.org/2002/07/owl#> .
 @prefix query:     <http://query.described.at/> .
 @prefix auth:      <http://auth.described.at/> .
+@prefix ldp:       <http://www.w3.org/ns/ldp#> .
 
 <api> hydra:supportedClass wba:BrochureCollection,
-                           wbo:Brochure ,
+                           wbo:Brochure,
                            wba:EditableBrochure .
 
 wbo:Brochure a                       hydra:Class ;
@@ -127,7 +128,8 @@ wba:EditableBrochure rdfs:subclassOf          wbo:Brochure ;
                                                 code:implementedBy [ a         code:EcmaScript ;
                                                                      code:link <file:express/handlers/source/brochure#put> ; ] ;
                                                 auth:required      true ;
-                                                auth:permissions ( "write:sources" ), ( "admin:sources" ) ; ] ;
+                                                auth:permissions   ( "write:sources" ),
+                                                                   ( "admin:sources" ) ; ] ;
 .
 
 wba:wishlistItem a                        rdf:Property,
@@ -161,7 +163,12 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:returns      wbo:Brochure ;
                                                   code:implementedBy [ a         code:EcmaScript ;
                                                                        code:link <file:express/handlers/source/brochure#post> ] ;
-                                                  auth:permissions   ( "write:sources" ) ]
+                                                  auth:permissions   ( "write:sources" ) ] ;
+                       query:order             ( [ query:path      ( dcterms:created ) ;
+                                                   query:direction ldp:Descending ]
+                                                 [ query:path      ( dcterms:modified ) ;
+                                                   query:direction ldp:Descending ]
+                                                 [ query:path ( dcterms:title ) ] ) ;
 .
 
 wba:BrochureCollection-search a              hydra:IriTemplate ;

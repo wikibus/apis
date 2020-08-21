@@ -1,6 +1,6 @@
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
 import { query } from '@wikibus/core/namespace'
-import { dcterms, dtype, hydra } from '@tpluscode/rdf-ns-builders'
+import { hydra, ldp, rdf } from '@tpluscode/rdf-ns-builders'
 import * as $rdf from '@rdfjs/data-model'
 import { Clownface, SingleContextClownface } from 'clownface'
 import { loaders } from '@wikibus/hydra-box-helpers/loader'
@@ -55,13 +55,57 @@ function createManagesBlockPatterns(member: Variable) {
   }
 }
 
-export function getMemberQuery(collection: SingleContextClownface, query: Clownface, variables: IriTemplate | null, pageSize: number) {
+type SelectBuilder = ReturnType<typeof SELECT>
+
+function createOrdering(api: SingleContextClownface, collection: SingleContextClownface, subject: Variable): { patterns: SparqlTemplateResult; addClauses(q: SelectBuilder): SelectBuilder } {
+  const orders = api.node(collection.out(rdf.type) as any).out(query.order).list()
+  if (!orders) {
+    return {
+      patterns: sparql``,
+      addClauses: q => q,
+    }
+  }
+
+  let orderIndex = 0
+  let patterns = sparql``
+  const clauses: Array<{ variable: Variable; descending: boolean }> = []
+
+  for (const order of orders) {
+    const propertyPath = order.out(query.path).list()
+    if (!propertyPath) continue
+
+    const path = [...propertyPath].reduce((current, prop, index) => {
+      const next = index ? sparql`/${prop.term}` : sparql`${prop.term}`
+
+      return sparql`${current}${next}`
+    }, sparql``)
+    const variable = $rdf.variable(`order${++orderIndex}`)
+
+    const pattern = sparql`OPTIONAL { ${subject} ${path} ${variable} } .`
+    patterns = sparql`${patterns}\n${pattern}`
+
+    clauses.push({
+      variable,
+      descending: ldp.Descending.equals(order.out(query.direction).term),
+    })
+  }
+
+  return {
+    patterns,
+    addClauses(query) {
+      return clauses.reduce((orderedQuery, { variable, descending }) => {
+        return orderedQuery.ORDER().BY(variable, descending)
+      }, query)
+    },
+  }
+}
+
+export function getMemberQuery(api: SingleContextClownface, collection: SingleContextClownface, query: Clownface, variables: IriTemplate | null, pageSize: number) {
   const subject = $rdf.variable('member')
   const managesBlockPatterns = collection.out(hydra.manages).toArray().reduce(createManagesBlockPatterns(subject), sparql``)
   const filterPatters = variables ? variables.mapping.reduce(createTemplateVariablePatterns(subject, query), []) : []
 
-  const order = $rdf.variable('order')
-  const title = $rdf.variable('title')
+  const order = createOrdering(api, collection, subject)
 
   const memberPatterns = sparql`${managesBlockPatterns}\n${filterPatters}`
 
@@ -69,16 +113,13 @@ export function getMemberQuery(collection: SingleContextClownface, query: Clownf
               GRAPH ?g {
                 ${memberPatterns}
                 
-                OPTIONAL { ${subject} ${dtype.orderIndex} ${order} } .
-                OPTIONAL { ${subject} ${dcterms.title} ${title} } .
+                ${order.patterns}
               }`
 
   if (variables && variables.mapping.some(mapping => mapping.property.equals(hydra.pageIndex))) {
     const page = Number.parseInt(query.out(hydra.pageIndex).value || '1')
-    subselect = subselect
-      .LIMIT(pageSize).OFFSET((page - 1) * pageSize)
-      .ORDER().BY(order, true)
-      .ORDER().BY(title)
+    subselect = subselect.LIMIT(pageSize).OFFSET((page - 1) * pageSize)
+    subselect = order.addClauses(subselect)
   }
 
   return {

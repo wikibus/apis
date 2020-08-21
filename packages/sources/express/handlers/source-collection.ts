@@ -36,7 +36,7 @@ export const get = asyncMiddleware(async (req, res) => {
   if (templateVariables.term) {
     template = new IriTemplateMixin.Class(templateVariables.toArray()[0])
   }
-  const pageQuery = getMemberQuery(collection, request, template, pageSize)
+  const pageQuery = getMemberQuery(clownface(req.hydra.api), collection, request, template, pageSize)
 
   const page = await pageQuery.members.execute(req.sparql.query)
   let total = 0
