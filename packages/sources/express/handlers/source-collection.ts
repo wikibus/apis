@@ -42,6 +42,7 @@ export const get = asyncMiddleware(async (req, res) => {
   let total = 0
   for await (const result of await pageQuery.totals.execute(req.sparql.query)) {
     total = Number.parseInt(result.count.value)
+    collection.addOut(hydra.totalItems, total)
   }
   await dataset.import(page)
 
@@ -58,7 +59,7 @@ export const get = asyncMiddleware(async (req, res) => {
       })
     })
 
-    collection.addOut(hydra.totalItems, total)
+    collection
       .addOut(hydra.view, view => {
         const pageIndex = Number.parseInt(request.out(hydra.pageIndex).value || '1')
         const totalPages = Math.floor(total / pageSize) + 1
