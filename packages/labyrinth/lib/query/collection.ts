@@ -1,14 +1,14 @@
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
-import { query } from '@wikibus/core/namespace'
 import { hydra, ldp, rdf } from '@tpluscode/rdf-ns-builders'
 import * as $rdf from '@rdfjs/data-model'
 import { Clownface, SingleContextClownface } from 'clownface'
-import { loaders } from '@wikibus/hydra-box-helpers/loader'
 import { sparql, SparqlTemplateResult } from '@tpluscode/rdf-string'
 import { IriTemplate, IriTemplateMapping } from '@rdfine/hydra'
 import { Variable } from 'rdf-js'
+import { loaders } from '../rdfLoaders'
+import { query } from '../namespace'
 
-function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownface) {
+function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownface, basePath: string) {
   return (patterns: unknown[], mapping: IriTemplateMapping): unknown[] => {
     const property = mapping.property
 
@@ -26,7 +26,7 @@ function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownfa
       return patterns
     }
 
-    const createPattern = loaders.load(queryFilters, { basePath: __dirname })
+    const createPattern = loaders.load(queryFilters, { basePath })
     return [...patterns, createPattern({
       subject,
       predicate: property.id,
@@ -100,10 +100,10 @@ function createOrdering(api: SingleContextClownface, collection: SingleContextCl
   }
 }
 
-export function getMemberQuery(api: SingleContextClownface, collection: SingleContextClownface, query: Clownface, variables: IriTemplate | null, pageSize: number) {
+export function getMemberQuery(api: SingleContextClownface, collection: SingleContextClownface, query: Clownface, variables: IriTemplate | null, pageSize: number, basePath: string) {
   const subject = $rdf.variable('member')
   const managesBlockPatterns = collection.out(hydra.manages).toArray().reduce(createManagesBlockPatterns(subject), sparql``)
-  const filterPatters = variables ? variables.mapping.reduce(createTemplateVariablePatterns(subject, query), []) : []
+  const filterPatters = variables ? variables.mapping.reduce(createTemplateVariablePatterns(subject, query, basePath), []) : []
 
   const order = createOrdering(api, collection, subject)
 

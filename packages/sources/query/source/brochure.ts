@@ -4,7 +4,7 @@ import { rdf, schema } from '@tpluscode/rdf-ns-builders'
 import { wba } from '@wikibus/core/namespace'
 import { Sources } from '@wikibus/core/permissions'
 
-export const enrich = (req: Request, resource: SingleContextClownface): void => {
+export const preprocess = (req: Request, resource: SingleContextClownface): void => {
   if (!(req.user && req.user.id)) {
     return
   }

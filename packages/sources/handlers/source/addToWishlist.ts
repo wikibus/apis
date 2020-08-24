@@ -1,9 +1,9 @@
 import asyncMiddleware from 'middleware-async'
-import { addToWishlist } from '../../../domain/brochure/addToWishlist'
-import { restrictedHandler } from '@wikibus/hydra-box-helpers/handlers/restrictedResource'
-import { brochures, wishlistItems } from '../../../repository'
+import { addToWishlist } from '../../domain/brochure/addToWishlist'
+import { protectedResource } from '@hydrofoil/labyrinth/resource'
+import { brochures, wishlistItems } from '../../repository'
 
-export const put = restrictedHandler(asyncMiddleware(async (req, res, next) => {
+export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   const brochure = await brochures.load(req.hydra.resource.term)
   const command = {
     user: req.user!.id,

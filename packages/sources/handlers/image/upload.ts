@@ -1,12 +1,12 @@
-import { restrictedHandler } from '@wikibus/hydra-box-helpers/handlers/restrictedResource'
+import { protectedResource } from '@hydrofoil/labyrinth/resource'
 import asyncMiddleware from 'middleware-async'
-import { uploadImage } from '../../../domain/source/uploadImage'
+import { uploadImage } from '../../domain/source/uploadImage'
 import multer from 'multer'
-import { uploadBrochureImage, storage } from '../../../services/images'
+import { uploadBrochureImage, storage } from '../../services/images'
 import { error } from '@wikibus/hydra-box-helpers/log'
-import { images, sources } from '../../../repository'
+import { images, sources } from '../../repository'
 
-export const post = restrictedHandler(multer().any(), asyncMiddleware(async (req, res, next) => {
+export const post = protectedResource(multer().any(), asyncMiddleware(async (req, res, next) => {
   const source = await sources.load(req.hydra.resource.term)
 
   const { files } = req

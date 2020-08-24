@@ -16,7 +16,7 @@ wba:BookCollection a                        hydra:Class ;
                                               hydra-box:variables wba:BookCollection-search ;
                                               hydra:method        "GET" ;
                                               code:implementedBy  [ a         code:EcmaScript ;
-                                                                    code:link <file:express/handlers/source-collection#get> ] ]
+                                                                    code:link <node:@hydrofoil/labyrinth/collection#get> ] ]
 .
 
 wba:BookCollection-search a              hydra:IriTemplate ;
@@ -25,13 +25,13 @@ wba:BookCollection-search a              hydra:IriTemplate ;
                                            hydra:required false ;
                                            hydra:variable "title" ;
                                            query:filter   [ a         code:EcmaScript ;
-                                                            code:link <file:filter/source#byTitle> ] ; ] ;
+                                                            code:link <file:query/filter/source#byTitle> ] ; ] ;
                           hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                            hydra:property schema:author ;
                                            hydra:required false ;
                                            hydra:variable "author" ;
                                            query:filter   [ a         code:EcmaScript ;
-                                                            code:link <file:filter/book#byAuthor> ] ; ] ;
+                                                            code:link <file:query/filter/book#byAuthor> ] ; ] ;
                           hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                            hydra:property hydra:pageIndex ;
                                            hydra:required false ;
@@ -41,6 +41,6 @@ wba:BookCollection-search a              hydra:IriTemplate ;
                                            hydra:required false ;
                                            hydra:variable "language" ;
                                            query:filter   [ a         code:EcmaScript ;
-                                                            code:link <file:filter/source#byLanguage> ] ; ] ;
+                                                            code:link <file:query/filter/source#byLanguage> ] ; ] ;
                           hydra:template "/books{?page,title,author,language}" ;
 .

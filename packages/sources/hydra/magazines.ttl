@@ -16,7 +16,7 @@ wba:MagazineCollection a                        hydra:Class ;
                                                   hydra-box:variables wba:MagazineCollection-search ;
                                                   hydra:method        "GET" ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:express/handlers/source-collection#get> ] ]
+                                                                        code:link <node:@hydrofoil/labyrinth/collection#get> ] ]
 .
 
 wba:MagazineCollection-search a              hydra:IriTemplate ;
@@ -25,7 +25,7 @@ wba:MagazineCollection-search a              hydra:IriTemplate ;
                                                hydra:required false ;
                                                hydra:variable "title" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/source#byTitle> ] ; ] ;
+                                                                code:link <file:query/filter/source#byTitle> ] ; ] ;
                               hydra:mapping  [ a              hydra:IriTemplateMapping ;
                                                hydra:property hydra:pageIndex ;
                                                hydra:required false ;

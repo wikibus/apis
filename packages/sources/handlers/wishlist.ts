@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import * as resource from '@wikibus/hydra-box-helpers/handlers/hydraResource'
+import * as resource from '@hydrofoil/labyrinth/resource'
 
 export const get = Router()
 

@@ -3,10 +3,10 @@ import clownface, { Clownface } from 'clownface'
 import $rdf from 'rdf-ext'
 import { DatasetCore } from 'rdf-js'
 import { hydra, rdf } from '@tpluscode/rdf-ns-builders'
-import { hex, hydraBox, query } from '@wikibus/core/namespace'
+import { hex, hydraBox, query } from './lib/namespace'
 import { IriTemplate, IriTemplateMixin } from '@rdfine/hydra'
-import { getMemberQuery } from '../../query/collection'
-import { loadLinkedResources } from '@wikibus/hydra-box-helpers/query/eagerLinks'
+import { getMemberQuery } from './lib/query/collection'
+import { loadLinkedResources } from './lib/query/eagerLinks'
 
 const pageSize = 12
 
@@ -36,7 +36,7 @@ export const get = asyncMiddleware(async (req, res) => {
   if (templateVariables.term) {
     template = new IriTemplateMixin.Class(templateVariables.toArray()[0])
   }
-  const pageQuery = getMemberQuery(clownface(req.hydra.api), collection, request, template, pageSize)
+  const pageQuery = getMemberQuery(clownface(req.hydra.api), collection, request, template, pageSize, req.hydra.api.codePath)
 
   const page = await pageQuery.members.execute(req.sparql.query)
   let total = 0

@@ -13,12 +13,12 @@ wba:WishlistCollection a                        hydra:Class ;
                                                   hydra:method       "GET" ;
                                                   wba:include        wbo:source ;
                                                   code:implementedBy [ a         code:EcmaScript ;
-                                                                       code:link <file:express/handlers/source-collection#get> ] ] ;
+                                                                       code:link <node:@hydrofoil/labyrinth/collection#get> ] ] ;
 .
 
 wba:Wishlist a                        hydra:Class ;
              hydra:supportedOperation [ a                  hydra:Operation ;
                                         hydra:method       "GET" ;
                                         code:implementedBy [ a         code:EcmaScript ;
-                                                             code:link <file:express/handlers/wishlist#get> ] ] ;
+                                                             code:link <file:handlers/wishlist#get> ] ] ;
 .

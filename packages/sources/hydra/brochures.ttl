@@ -23,8 +23,8 @@
 wbo:Brochure a                       hydra:Class ;
              query:restrict          schema:containedInPlace,
                                      wba:images ;
-             query:enrichment        [ a         code:EcmaScript ;
-                                       code:link <file:query/source/brochure#enrich> ; ] ;
+             query:preprocess        [ a         code:EcmaScript ;
+                                       code:link <file:query/source/brochure#preprocess> ; ] ;
              query:include           schema:image,
                                      schema:containedInPlace ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
@@ -126,7 +126,7 @@ wba:EditableBrochure rdfs:subclassOf          wbo:Brochure ;
                                                 hydra:expects      wbo:Brochure ;
                                                 hydra:title        "Update brochure" ;
                                                 code:implementedBy [ a         code:EcmaScript ;
-                                                                     code:link <file:express/handlers/source/brochure#put> ; ] ;
+                                                                     code:link <file:handlers/source/brochure#put> ; ] ;
                                                 auth:required      true ;
                                                 auth:permissions   ( "write:sources" ),
                                                                    ( "admin:sources" ) ; ] ;
@@ -143,7 +143,7 @@ wba:wishlistItem a                        rdf:Property,
                                             hydra:title        "Add to wishlist" ;
                                             hydra:description  "Brochure will be scanned to PDF with highest priority" ;
                                             code:implementedBy [ a         code:EcmaScript ;
-                                                                 code:link <file:express/handlers/source/addToWishlist#put> ; ] ;
+                                                                 code:link <file:handlers/source/addToWishlist#put> ; ] ;
                                             auth:required      true ; ] ;
 .
 
@@ -154,7 +154,7 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:method        "GET" ;
                                                   query:include       schema:primaryImageOfPage ;
                                                   code:implementedBy  [ a         code:EcmaScript ;
-                                                                        code:link <file:express/handlers/source-collection#get> ] ] ;
+                                                                        code:link <node:@hydrofoil/labyrinth/collection#get> ] ] ;
                        hydra:supportedOperation [ a                  hydra:Operation,
                                                                      schema:CreateAction ;
                                                   hydra:title        "Create brochure" ;
@@ -162,7 +162,7 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   hydra:expects      wbo:Brochure ;
                                                   hydra:returns      wbo:Brochure ;
                                                   code:implementedBy [ a         code:EcmaScript ;
-                                                                       code:link <file:express/handlers/source/brochure#post> ] ;
+                                                                       code:link <file:handlers/source/brochure#post> ] ;
                                                   auth:permissions   ( "write:sources" ) ] ;
                        query:order             ( [ query:path      ( dcterms:created ) ;
                                                    query:direction ldp:Descending ]
@@ -177,31 +177,31 @@ wba:BrochureCollection-search a              hydra:IriTemplate ;
                                                hydra:required false ;
                                                hydra:variable "title" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/source#byTitle> ] ; ],
+                                                                code:link <file:query/filter/source#byTitle> ] ; ],
                                              [ a              hydra:IriTemplateMapping ;
                                                hydra:property wba:withPdfOnly ;
                                                hydra:required false ;
                                                hydra:variable "withPdfOnly" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/brochure#withPdfOnly> ] ; ],
+                                                                code:link <file:query/filter/brochure#withPdfOnly> ] ; ],
                                              [ a              hydra:IriTemplateMapping ;
                                                hydra:property wba:withoutImages ;
                                                hydra:required false ;
                                                hydra:variable "withoutImages" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/brochure#withoutImages> ] ; ],
+                                                                code:link <file:query/filter/brochure#withoutImages> ] ; ],
                                              [ a              hydra:IriTemplateMapping ;
                                                hydra:property schema:contributor ;
                                                hydra:required false ;
                                                hydra:variable "contributor" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/brochure#byContributor> ] ; ],
+                                                                code:link <file:query/filter/brochure#byContributor> ] ; ],
                                              [ a              hydra:IriTemplateMapping ;
                                                hydra:property dcterms:language ;
                                                hydra:required false ;
                                                hydra:variable "language" ;
                                                query:filter   [ a         code:EcmaScript ;
-                                                                code:link <file:filter/source#byLanguage> ] ; ],
+                                                                code:link <file:query/filter/source#byLanguage> ] ; ],
                                              [ a              hydra:IriTemplateMapping ;
                                                hydra:property hydra:pageIndex ;
                                                hydra:required false ;

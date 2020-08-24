@@ -1,17 +1,17 @@
-import { restrictedHandler } from '@wikibus/hydra-box-helpers/handlers/restrictedResource'
-import { create } from '../../../domain/brochure/create'
+import { protectedResource } from '@hydrofoil/labyrinth/resource'
+import { create } from '../../domain/brochure/create'
 import asyncMiddleware from 'middleware-async'
 import clownface from 'clownface'
 import { RdfineEntity } from '@tpluscode/fun-ddr-rdfine'
-import { Brochure } from '../../../domain'
-import { BrochureMixin } from '../../../domain/brochure'
+import { Brochure } from '../../domain'
+import { BrochureMixin } from '../../domain/brochure'
 import { rdf } from '@tpluscode/rdf-ns-builders'
 import { wbo } from '@wikibus/core/namespace'
-import { brochures } from '../../../repository'
+import { brochures } from '../../repository'
 import { Sources } from '@wikibus/core/permissions'
-import { updateDetails } from '../../../domain/brochure/updateDetails'
+import { updateDetails } from '../../domain/brochure/updateDetails'
 import { Request } from 'express'
-import { setLocation } from '../../../domain/brochure/setLocation'
+import { setLocation } from '../../domain/brochure/setLocation'
 import createError = require('http-errors')
 
 async function getRequestBrochure(req: Request) {
@@ -19,7 +19,7 @@ async function getRequestBrochure(req: Request) {
   return RdfineEntity.factory.createEntity<Brochure>(pointer, [BrochureMixin])
 }
 
-export const post = restrictedHandler(asyncMiddleware(async (req, res, next) => {
+export const post = protectedResource(asyncMiddleware(async (req, res, next) => {
   const brochure = await getRequestBrochure(req)
 
   const contributor = req.user!.id
@@ -34,7 +34,7 @@ export const post = restrictedHandler(asyncMiddleware(async (req, res, next) => 
     .catch(next)
 }))
 
-export const put = restrictedHandler(asyncMiddleware(async (req, res, next) => {
+export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   let aggregate = await brochures.load(req.hydra.resource.term)
   const brochure = await aggregate.state
   if (req.user && brochure && req.user.permissions.includes(Sources.admin) && brochure.ownedBy(req.user.id)) {

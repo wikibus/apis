@@ -60,7 +60,7 @@ hydra:Resource a                        hydra:Class ;
                                           hydra:title        "Get resource" ;
                                           hydra:method       "GET" ;
                                           code:implementedBy [ a         code:EcmaScript ;
-                                                               code:link <node:@wikibus/hydra-box-helpers/handlers/hydraResource#get> ] ]
+                                                               code:link <node:@hydrofoil/labyrinth/resource#get> ] ]
 .
 
 wbo:Source a                        hydra:Class ;
@@ -68,7 +68,7 @@ wbo:Source a                        hydra:Class ;
                                       hydra:title        "Get source" ;
                                       hydra:method       "GET" ;
                                       code:implementedBy [ a         code:EcmaScript ;
-                                                           code:link <node:@wikibus/hydra-box-helpers/handlers/hydraResource#get> ] ]
+                                                           code:link <node:@hydrofoil/labyrinth/resource#get> ] ]
 .
 
 <> a           hydra:Class ;

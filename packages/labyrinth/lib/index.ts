@@ -1,28 +1,29 @@
 import * as hb from 'hydra-box'
 import type Api from 'hydra-box/Api'
 import walk from '@fcostarodrigo/walk'
-import { log } from '../log'
+import { Debugger } from 'debug'
 
 interface ApiInit {
   baseUri: string
   codePath: string
   defaultBase?: string
-  apiSourcePath: string
+  apiPath: string
+  log?: Debugger
 }
 
-export default async function ({ apiSourcePath, baseUri, codePath, defaultBase = 'urn:hydra-box:api' }: ApiInit): Promise<Api> {
+export async function createApi({ apiPath, baseUri, codePath, defaultBase = 'urn:hydra-box:api', log }: ApiInit): Promise<Api> {
   const options: Api.Options = {
     path: '/api',
     codePath,
   }
 
   let api: Api | undefined
-  for await (const file of walk(apiSourcePath)) {
+  for await (const file of walk(apiPath)) {
     if (!file.match(/\.ttl$/)) {
       continue
     }
 
-    log(`Loading api from file ${file}`)
+    log && log(`Loading api from file ${file}`)
     if (api) {
       api = await api.fromFile(file)
     } else {
