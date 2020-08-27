@@ -27,7 +27,7 @@ export const post = protectedResource(asyncMiddleware(async (req, res, next) => 
   create({ brochure, contributor })
     .commit(brochures)
     .then(saved => {
-      res.setLink('Location', saved['@id'])
+      res.setHeader('Location', saved['@id'])
       res.status(201)
       res.dataset(saved._selfGraph.dataset)
     })

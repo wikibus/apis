@@ -5,8 +5,7 @@ import { bibo, opus, wba, wbo } from '@wikibus/core/namespace'
 import { dcterms, hydra, rdfs, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { NamedNode } from 'rdf-js'
 import { Initializer } from '@tpluscode/rdfine/RdfResource'
-import { literal, namedNode } from '@rdfjs/data-model'
-import env from '@wikibus/core/env'
+import { sourcesTerm, literal, namedNode } from '@wikibus/core/dataModel'
 import { SourceMixin } from '../source'
 import URLSlugify = require('url-slugify')
 
@@ -86,7 +85,7 @@ BrochureMixin.appliesTo = wbo.Brochure
 export default function (title: string, contributor: NamedNode, moreProps?: Initializer<Brochure>): Brochure {
   class Impl extends BrochureMixin(RdfineEntity) {
     constructor(slug: string, init: Initializer<Brochure>) {
-      const id = namedNode(`${env.BASE_URI}brochure/${slug}`)
+      const id = sourcesTerm(`brochure/${slug}`)
 
       super(id, { ...moreProps, ...init })
       this.types.add(wbo.Source)
@@ -96,6 +95,7 @@ export default function (title: string, contributor: NamedNode, moreProps?: Init
       this.identifier = slug
       this.file = namedNode(`${id.value}/file`)
       this.imagesLink = namedNode(`${id.value}/images`)
+      this.wishlistItem = sourcesTerm(`wishlist/${slug}`)
     }
   }
 

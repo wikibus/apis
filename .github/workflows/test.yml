@@ -1,0 +1,31 @@
+name: Build & test
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  analyse:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: Install lando
+        run: sh .ci/install-lando.sh
+      - name: Start site
+        run: sh .ci/start-lando.sh
+      - run: docker-compose -f docker-compose.yml -f docker-compose.posix.yml run analyser
+
+  e2e-tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - name: Install lando
+        run: sh .ci/install-lando.sh
+      - name: Start site
+        run: sh .ci/start-lando.sh
+      - run: docker-compose -f docker-compose.yml -f docker-compose.posix.yml run e2e-tests

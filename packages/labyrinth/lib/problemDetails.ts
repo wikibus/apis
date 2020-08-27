@@ -7,7 +7,9 @@ export const httpProblemMiddleware = (mappers: IErrorMapper[]) => {
   const defaultRegistry = new MapperRegistry().registerMapper(new NotFoundErrorMapper()).registerMapper(new UnauthorizedErrorMapper())
 
   const registry = mappers.reduce(
-    (registry, mapper) => registry.registerMapper(mapper),
+    (r, mapper) => {
+      return r.registerMapper(mapper)
+    },
     defaultRegistry)
 
   return HttpProblemResponse({ strategy: new DefaultMappingStrategy(registry) })

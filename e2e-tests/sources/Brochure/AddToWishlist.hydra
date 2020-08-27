@@ -1,0 +1,42 @@
+PREFIX wbo: <https://wikibus.org/ontology#>
+PREFIX wba: <https://wikibus.org/api#>
+PREFIX schema: <http://schema.org/>
+PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
+
+HEADERS {
+    X-Permission "write:sources"
+    X-User "john-doe"
+}
+
+With Class wba:EntryPoint {
+    Expect Link wba:brochures
+}
+
+With Class wba:BrochureCollection {
+    Expect Operation schema:CreateAction {
+        Invoke {
+            Content-Type "application/ld+json"
+
+            ```
+            {
+              "@type": "https://wikibus.org/ontology#Brochure",
+              "http://purl.org/dc/terms/title": "Wishlist test brochure"
+            }
+            ```
+        } => {
+            Expect Status 201
+
+            Expect Property wba:wishlistItem {
+                Expect Operation wba:AddToWishlistAction {
+                    Invoke {
+                        Expect Link wbo:wishlist {
+                            Expect Type hydra:Collection
+                            Expect Type wba:WishlistCollection
+                            Expect Property wbo:user "https://users.wikibus.org/user/john-doe"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

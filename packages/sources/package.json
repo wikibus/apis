@@ -40,6 +40,6 @@
     "typescript": "^3.9.7",
     "@types/http-errors": "^1.8.0",
     "@types/multer": "^1.4.3",
-    "@types/set-link": "^1.0.0"
+    "@types/set-link": "^1.0.1"
   }
 }

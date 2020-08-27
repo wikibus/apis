@@ -1,5 +1,5 @@
 import * as e from 'express'
-import { namedNode } from '@rdfjs/data-model'
+import { usersTerm } from '@wikibus/core/dataModel'
 import { Router } from 'express'
 import jwt = require('express-jwt');
 import jwksRsa = require('jwks-rsa')
@@ -40,7 +40,7 @@ function devAuthHandler(req: e.Request, res: e.Response, next: e.NextFunction) {
 
 function setUserUri(req: e.Request, _: e.Response, next: e.NextFunction) {
   if (req.user) {
-    req.user.id = namedNode(`https://users.wikibus.org/user/${encodeURIComponent(req.user.sub)}`)
+    req.user.id = usersTerm(`user/${encodeURIComponent(req.user.sub)}`)
   }
 
   next()

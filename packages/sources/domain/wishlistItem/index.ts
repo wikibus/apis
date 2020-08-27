@@ -18,6 +18,9 @@ export function WishlistItemMixin<Base extends Constructor<RdfineEntity>>(base: 
 
     @property()
     user!: NamedNode
+
+    @property()
+    wishlist!: NamedNode
   }
 
   return WishlistItemClass
@@ -32,8 +35,8 @@ class WishlistItemImpl extends WishlistItemMixin(RdfineEntity) {
   }
 }
 
-export default function (term: NamedNode, user: NamedNode, source: NamedNode): WishlistItem {
+export default function (term: NamedNode, user: NamedNode, source: NamedNode, wishlist: NamedNode): WishlistItem {
   return new WishlistItemImpl(term, {
-    user, source,
+    user, source, wishlist,
   })
 }

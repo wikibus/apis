@@ -6,6 +6,7 @@ import { SingleContextClownface } from 'clownface'
 declare module 'express-serve-static-core' {
 
   interface Request {
+    absoluteUrl(): string;
     sparql: SparqlHttp;
     user?: {
       id: NamedNode

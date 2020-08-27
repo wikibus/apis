@@ -14,7 +14,7 @@ import ParsingClient from 'sparql-http-client/ParsingClient'
 
 RdfResource.factory.addMixin(...ImageObjectBundle)
 
-const baseUri = env.BASE_URI!
+const baseUri = env.SOURCES_BASE
 const endpointUrl = env.SPARQL_ENDPOINT
 const codePath = __dirname
 const apiPath = path.join(__dirname, 'hydra/')
@@ -38,7 +38,7 @@ program
         codePath,
         apiPath,
         baseUri,
-        errorMappers: Object.values(domainErrors),
+        errorMappers: Object.values(domainErrors).map(Mapper => new Mapper()),
         log,
       })
 

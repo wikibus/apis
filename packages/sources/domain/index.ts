@@ -7,6 +7,7 @@ import { Entity } from '@tpluscode/fun-ddr'
 import { EntityResource } from '@tpluscode/fun-ddr-rdfine/lib/RdfineEntity'
 
 import './brochure/eventHandlers'
+import './wishlist/eventHandlers'
 
 export { BrochureEvents } from './brochure/events'
 
@@ -36,6 +37,7 @@ export interface WishlistItem extends EntityResource, Entity {
   source: NamedNode
   done: boolean
   user: NamedNode
+  wishlist: NamedNode
 }
 
 export interface Image extends Omit<ImageObject, 'id'>, EntityResource {

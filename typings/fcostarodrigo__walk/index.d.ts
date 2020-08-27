@@ -1,3 +1,9 @@
 declare module '@fcostarodrigo/walk' {
-    export default function walk(path: string): AsyncIterable<string>
+  interface Walk {
+    (path?: string, listFolders?: boolean, walkFolder?: (path: string) => boolean): AsyncIterable<string>;
+  }
+
+  const walk: Walk;
+
+  export = walk;
 }

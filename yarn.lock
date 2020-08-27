@@ -1235,6 +1235,15 @@
     "@tpluscode/rdf-ns-builders" "^0.3.6"
     "@tpluscode/rdfine" "^0.4.22"
 
+"@rdfine/schema@^0.4.9":
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/@rdfine/schema/-/schema-0.4.9.tgz#6af8d5122146d148f83be540962d0d0d9dd9a55d"
+  integrity sha512-Qa8M4ooClKvHfogBVLd+2wuhzVsTCJ5WB0ii5h0Jyl0yGjjYejal3MNjZqEM0/IBmQD+uH6GV1CgPkqmWdDYgw==
+  dependencies:
+    "@rdf-esm/data-model" "^0.5.3"
+    "@tpluscode/rdf-ns-builders" "^0.3.6"
+    "@tpluscode/rdfine" "^0.4.23"
+
 "@rdfjs/data-model@^1.0.1", "@rdfjs/data-model@^1.1.0", "@rdfjs/data-model@^1.1.1", "@rdfjs/data-model@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@rdfjs/data-model/-/data-model-1.1.2.tgz#e2f48a422c7e837b8a7d96d240732be3287df713"
@@ -1642,6 +1651,23 @@
   dependencies:
     "@types/rdf-js" "*"
 
+"@types/rdfjs__express-handler@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/rdfjs__express-handler/-/rdfjs__express-handler-1.1.0.tgz#b52cdf80264ebe9701263d37d2f9e84ed09b1342"
+  integrity sha512-QdyLRo0/weqAL3PPqQq3L7QbsjxWpsY1J07cIN/D6HZ1z/66UnxbOdXYxlfTlXHMihQVVJ2TnOGPV93Ttr12Ag==
+  dependencies:
+    "@types/express" "*"
+    "@types/rdf-js" "*"
+    "@types/rdfjs__formats-common" "*"
+
+"@types/rdfjs__formats-common@*":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rdfjs__formats-common/-/rdfjs__formats-common-2.0.0.tgz#344c14eff4e05c156fb5241acda3322f10701850"
+  integrity sha512-sMKreVx5Ij/UVlYFG9tzEwCV3ztn784J+Vb6yp/Roc5LH2FFA87O4V3GtX0y6aZ9Ry/C54GJoe2HY3+1SI+o5Q==
+  dependencies:
+    "@types/rdf-js" "*"
+    "@types/rdfjs__sink-map" "*"
+
 "@types/rdfjs__namespace@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/rdfjs__namespace/-/rdfjs__namespace-1.1.1.tgz#0f4b901fe3936d9b6e4d38560386d37ee1e6a6ad"
@@ -1653,6 +1679,13 @@
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@types/rdfjs__parser-n3/-/rdfjs__parser-n3-1.1.2.tgz#f120321ff6c90c0fa0906704e35301893ab41888"
   integrity sha512-9YDhj3rUjzm5Y61Xl6H3uOexFIvjUbfg6+WHdxN97LjxkHNnmn4yEP/UjShYOvznPkIcjPvfUXrLjvJMdKN1xQ==
+  dependencies:
+    "@types/rdf-js" "*"
+
+"@types/rdfjs__sink-map@*":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rdfjs__sink-map/-/rdfjs__sink-map-1.0.0.tgz#347351314933ab40b0089e3c64e42eea24ec054b"
+  integrity sha512-yci4F5SciD8W8d7elmWYaMv2igiz7cGzga/3LWRKTjA5xW8C22CGUWL7/4nwq9YYpSV9DyNA+21rOxBuGDQQcA==
   dependencies:
     "@types/rdf-js" "*"
 
@@ -1676,10 +1709,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/set-link@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@types/set-link/-/set-link-1.0.0.tgz#c0506e88496846a74ce088a36f24b49935a36341"
-  integrity sha512-lefIvFMFPuB6E0v0ZqhLAghvxry3a5lzxpRNP7o1/Z8hXeK/uN1D0ImL/396K+VDw4Mt9dWDXvkOHrpyxOPM9Q==
+"@types/set-link@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/set-link/-/set-link-1.0.1.tgz#6db4ba77e1b95daa14d547908244fb3135154e98"
+  integrity sha512-VbykkYxJ1gHd0j8lxptS4Sb6jP6cJ9Rn5coX0G2bjzMuDEL8QS0Y0BlggLIVkhb2qXojLesBfMRAfk0dwGQbmA==
   dependencies:
     "@types/express" "*"
 

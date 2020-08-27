@@ -3,7 +3,7 @@
 @prefix wba:   <https://wikibus.org/api#> .
 @prefix wbo:   <https://wikibus.org/ontology#> .
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
-@prefix code:  <https://code.described.at/> .
+@prefix auth:  <http://auth.described.at/> .
 
 <api> hydra:supportedClass wbo:WishlistItem .
 
@@ -12,4 +12,9 @@ wbo:WishlistItem a                       hydra:Class ;
                                            hydra:title    "brochure" ; ] ;
                  hydra:supportedProperty [ hydra:property wbo:done ;
                                            hydra:title    "done" ; ] ;
+                 hydra:supportedProperty [ hydra:property wbo:wishlist ;
+                                           hydra:title    "wishlist" ; ] ;
+                 auth:required           true ;
 .
+
+wbo:wishlist a hydra:Link .

@@ -1,16 +1,18 @@
 name: wikibus-apis
 env_file:
+  - local.env
   - .env
 services:
   sources:
-    type: node:13
+    type: node:custom
     command: yarn nodemon --delay 1 -w packages --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect packages/sources/index.ts
     port: 34566
+    ssl: true
     overrides:
+      image: node:14
       ports:
         - '34567:34567'
       environment:
-        BASE_URI: https://wikibus-sources.lndo.site/
         SPARQL_ENDPOINT: http://store:3030/wikibus/query
         SPARQL_UPDATE_ENDPOINT: http://store:3030/wikibus/update
         SPARQL_GRAPH_ENDPOINT: http://store:3030/wikibus/data
@@ -21,6 +23,17 @@ services:
         NODE_ENV: development
     moreHttpPorts:
       - 34567
+  users:
+    type: node:custom
+    command: node --inspect=0.0.0.0:34667 -r ts-node/register --inspect apis/users/index.ts
+    port: 34666
+    ssl: true
+    moreHttpPorts:
+      - 34667
+    overrides:
+      image: node:14
+      ports:
+        - '34667:34667'
   store:
     type: compose
     services:
@@ -38,3 +51,5 @@ proxy:
     - wikibus-store.lndo.site:3030
   sources:
     - wikibus-sources.lndo.site:34566
+  users:
+    - wikibus-users.lndo.site:34666

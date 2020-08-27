@@ -13,7 +13,13 @@ export function protectedResource(...handlers: any[]) {
   const router = Router()
 
   router.use((req, res, next) => {
-    const authRequired = req.hydra.operation.out(auth.required).value === 'true'
+    const typesRestricted = clownface(req.hydra.api)
+      .node([...req.hydra.resource.types])
+      .out(auth.required)
+      .values
+      .includes('true')
+    const operationRestricted = req.hydra.operation.out(auth.required).value === 'true'
+    const authRequired = operationRestricted || typesRestricted
     const permissions = [...req.hydra.operation.out(auth.permissions).list()]
 
     if (authRequired || permissions.length > 0) {

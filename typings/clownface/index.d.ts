@@ -1,4 +1,4 @@
-import {DatasetCore, Term} from 'rdf-js';
+import {DatasetCore, NamedNode, Term} from 'rdf-js';
 import {AnyContext} from 'clownface';
 
 declare global {
@@ -6,7 +6,13 @@ declare global {
     export interface Clownface<T extends AnyContext, D extends DatasetCore> {
       fetch(): Clownface<T, D>
 
-      failures?: Set<Term>
+      failures?: Map<Term, {
+        term: NamedNode,
+        value: {
+          response: Response | null
+          error?: Error
+        }
+      }>
     }
   }
 }

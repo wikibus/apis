@@ -9,6 +9,7 @@ import { preprocessResource } from './lib/loader'
 import { NotFoundError } from './lib/error'
 import { logRequest, logRequestError } from './lib/logger'
 import { httpProblemMiddleware } from './lib/problemDetails'
+import { IErrorMapper } from 'http-problem-details-mapper'
 
 export { SparqlQueryLoader } from './lib/loader'
 
@@ -20,7 +21,7 @@ interface MiddlewareParams {
   codePath: string
   apiPath: string
   log?: Debugger
-  errorMappers?: any[]
+  errorMappers?: IErrorMapper[]
 }
 
 export async function hydraBox(app: Express, { loader, baseUri, codePath, apiPath, log = debug('app'), errorMappers = [] }: MiddlewareParams) {

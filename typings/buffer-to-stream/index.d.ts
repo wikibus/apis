@@ -1,6 +1,11 @@
 declare module 'buffer-to-stream' {
-  import { Stream } from 'stream'
+  import { Readable } from 'stream'
 
-  function toStream(buffer: Buffer, chunkSize?: number): Stream;
+  interface ToStream {
+    (buffer: string | Buffer, chunkSize?: number): Readable;
+  }
+
+  const toStream: ToStream;
+
   export = toStream
 }

@@ -58,8 +58,8 @@ function createManagesBlockPatterns(member: Variable) {
 type SelectBuilder = ReturnType<typeof SELECT>
 
 function createOrdering(api: SingleContextClownface, collection: SingleContextClownface, subject: Variable): { patterns: SparqlTemplateResult; addClauses(q: SelectBuilder): SelectBuilder } {
-  const orders = api.node(collection.out(rdf.type) as any).out(query.order).toArray()[0].list()
-  if (!orders) {
+  const orders = api.node(collection.out(rdf.type) as any).out(query.order).toArray()
+  if (!orders.length) {
     return {
       patterns: sparql``,
       addClauses: q => q,
@@ -70,7 +70,7 @@ function createOrdering(api: SingleContextClownface, collection: SingleContextCl
   let patterns = sparql``
   const clauses: Array<{ variable: Variable; descending: boolean }> = []
 
-  for (const order of orders) {
+  for (const order of orders[0].list()) {
     const propertyPath = order.out(query.path).list()
     if (!propertyPath) continue
 

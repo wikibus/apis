@@ -1,6 +1,7 @@
 import asyncMiddleware from 'middleware-async'
-import { addToWishlist } from '../../domain/brochure/addToWishlist'
+import { ConcurrencyError } from '@tpluscode/fun-ddr/lib/errors'
 import { protectedResource } from '@hydrofoil/labyrinth/resource'
+import { addToWishlist } from '../../domain/brochure/addToWishlist'
 import { brochures, wishlistItems } from '../../repository'
 
 export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
@@ -10,18 +11,21 @@ export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   }
 
   const wishlistItem = await brochure.factory(addToWishlist)(command)
-  const state = await wishlistItem.state
-
-  if (state && await wishlistItems.load(state.id)) {
-    res.dataset(state._selfGraph.dataset)
-    return
-  }
 
   return wishlistItem.commit(wishlistItems)
     .then(saved => {
       res.status(201)
       res.setLink('Location', saved['@id'])
       res.dataset(saved._selfGraph.dataset)
+    })
+    .catch(async e => {
+      if (!(e instanceof ConcurrencyError)) {
+        throw e
+      }
+
+      const { id } = (await wishlistItem.state)!
+      const existing = await (await wishlistItems.load(id)).state
+      res.dataset(existing!._selfGraph.dataset)
     })
     .catch(next)
 }))
