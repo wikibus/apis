@@ -16,7 +16,7 @@ With Class api:EntryPoint {
     Expect Link api:brochures
 }
 
-With Class wbo:BrochureCollection {
+With Class api:BrochureCollection {
     Expect Operation schema:CreateAction {
         Invoke {
             Content-Type "application/ld+json"
@@ -54,7 +54,7 @@ With Class wbo:BrochureCollection {
     }
 
     Expect Link hydra:search (
-        schema:contributor = "https://users.wikibus.org/user/find-me"
+        schema:contributor = "http://users:34666/user/find-me"
     ) {
         Expect Property hydra:totalItems 1
     }
