@@ -1,8 +1,8 @@
 import { Term, Variable } from 'rdf-js'
-import { SingleContextClownface } from 'clownface'
+import { GraphPointer } from 'clownface'
 
 export interface Pattern {
   subject: Variable
   predicate: Term
-  object: SingleContextClownface
+  object: GraphPointer
 }

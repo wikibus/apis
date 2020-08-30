@@ -4,8 +4,8 @@
   "dependencies": {
     "@wikibus/hydra-box-helpers": "*",
     "@tpluscode/rdf-ns-builders": "^0.3.7",
-    "@tpluscode/rdfine": "^0.4.24",
-    "@rdfine/schema": "^0.4.9",
+    "@tpluscode/rdfine": "^0.5",
+    "@rdfine/schema": "^0.4.10",
     "@rdfjs/data-model": "^1.1.2",
     "@rdfjs/express-handler": "^1.2.0",
     "absolute-url": "^1.2.2",

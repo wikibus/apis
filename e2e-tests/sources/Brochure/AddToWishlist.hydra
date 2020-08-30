@@ -5,7 +5,7 @@ PREFIX hydra: <http://www.w3.org/ns/hydra/core#>
 
 HEADERS {
     X-Permission "write:sources"
-    X-User "john-doe"
+    X-User "foo|bar"
 }
 
 With Class wba:EntryPoint {
@@ -32,7 +32,9 @@ With Class wba:BrochureCollection {
                         Expect Link wbo:wishlist {
                             Expect Type hydra:Collection
                             Expect Type wba:WishlistCollection
-                            Expect Property wbo:user "https://users.wikibus.org/user/john-doe"
+                            Expect Property wbo:user {
+                                Expect Id <http://users:34666/user/foo%7Cbar>
+                            }
                         }
                     }
                 }

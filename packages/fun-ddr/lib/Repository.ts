@@ -59,7 +59,7 @@ export class SparqlRepository<E extends EntityResource, T extends Record<string,
       throw new ConcurrencyError(state['@id'], latestVersion, nextVersion)
     }
 
-    await this.client.store.put(toStream(state._selfGraph.dataset))
+    await this.client.store.put(toStream(state.pointer.dataset))
     await this.__updateVersion(state.id, nextVersion)
   }
 

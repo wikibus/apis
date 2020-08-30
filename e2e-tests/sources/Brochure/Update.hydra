@@ -15,7 +15,7 @@ With Class api:EntryPoint {
     Expect Link api:brochures
 }
 
-With Class wbo:BrochureCollection {
+With Class api:BrochureCollection {
     Expect Operation schema:CreateAction {
         Invoke {
             Content-Type "application/ld+json"
@@ -70,6 +70,6 @@ With Operation schema:UpdateAction {
         }
         ```
     } => {
-        Expect Status 403
+        Expect Status 405
     }
 }

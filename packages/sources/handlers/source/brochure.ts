@@ -12,6 +12,7 @@ import { Sources } from '@wikibus/core/permissions'
 import { updateDetails } from '../../domain/brochure/updateDetails'
 import { Request } from 'express'
 import { setLocation } from '../../domain/brochure/setLocation'
+import { preprocess } from '../../query/source/brochure'
 import createError = require('http-errors')
 
 async function getRequestBrochure(req: Request) {
@@ -29,7 +30,8 @@ export const post = protectedResource(asyncMiddleware(async (req, res, next) => 
     .then(saved => {
       res.setHeader('Location', saved['@id'])
       res.status(201)
-      res.dataset(saved._selfGraph.dataset)
+      preprocess(req, saved.pointer)
+      res.dataset(saved.pointer.dataset)
     })
     .catch(next)
 }))
@@ -49,9 +51,9 @@ export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   }
 
   return aggregate.commit(brochures)
-    .then(() => {
-      res.status(204)
-      res.end()
+    .then(saved => {
+      preprocess(req, saved.pointer)
+      res.dataset(saved.pointer.dataset)
     })
     .catch(next)
 }))

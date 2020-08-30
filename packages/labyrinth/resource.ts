@@ -20,10 +20,19 @@ export function protectedResource(...handlers: any[]) {
       .includes('true')
     const operationRestricted = req.hydra.operation.out(auth.required).value === 'true'
     const authRequired = operationRestricted || typesRestricted
-    const permissions = [...req.hydra.operation.out(auth.permissions).list()]
+    const permissions = req.hydra.operation
+      .out(auth.permissions).toArray()
+      .reduce<string[][]>((permissionSets, listPtr) => {
+      const permissionList = listPtr.list()
+      if (!permissionList) {
+        return permissionSets
+      }
+
+      return [...permissionSets, [...permissionList].map(p => p.value)]
+    }, [])
 
     if (authRequired || permissions.length > 0) {
-      return permission.check(permissions.map(p => p.value))(req, res, next)
+      return permission.check(permissions)(req, res, next)
     }
 
     next()

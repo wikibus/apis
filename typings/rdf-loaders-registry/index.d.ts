@@ -1,5 +1,5 @@
 declare module 'rdf-loaders-registry' {
-    import {Clownface} from 'clownface';
+    import {AnyPointer} from 'clownface';
 
     namespace LoaderRegistry {
         interface Loader {
@@ -7,7 +7,7 @@ declare module 'rdf-loaders-registry' {
     }
 
     class LoaderRegistry {
-        load<T extends any = any>(pointer: Clownface, options?: { basePath?: string }): T;
+        load<T extends any = any>(pointer: AnyPointer, options?: { basePath?: string }): T;
     }
 
     export = LoaderRegistry

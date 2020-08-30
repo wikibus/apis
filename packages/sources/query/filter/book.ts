@@ -1,12 +1,12 @@
 import { sparql } from '@tpluscode/rdf-string'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { Term, Variable } from 'rdf-js'
-import { SafeClownface } from 'clownface'
+import { MultiPointer } from 'clownface'
 
 interface Pattern {
   subject: Variable
   predicate: Term
-  object: SafeClownface
+  object: MultiPointer
 }
 
 export function byAuthor({ subject, object }: Pattern) {

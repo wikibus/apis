@@ -12,4 +12,4 @@ get.use((req, res, next) => {
   next()
 })
 
-get.use(resource.get as any)
+get.use(resource.get)

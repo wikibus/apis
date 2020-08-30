@@ -1,5 +1,6 @@
 import { DomainError, factory } from '@tpluscode/fun-ddr'
 import { NamedNode } from 'rdf-js'
+import { AnyPointer } from 'clownface'
 import clownface from 'clownface-io'
 import { BrochureEvents } from './events'
 import { sourcesTerm, namedNode } from '@wikibus/core/dataModel'
@@ -13,8 +14,9 @@ interface AddToWishlistCommand {
 }
 
 export const addToWishlist = factory<Brochure, AddToWishlistCommand, WishlistItem, BrochureEvents>(async (brochure, command, emitter) => {
-  const user = await clownface().namedNode(command.user).fetch()
-  const userId = user.namedNode(decodeURI(command.user.value)).out(schema.identifier).value
+  const user: AnyPointer = await clownface().namedNode(command.user).fetch()
+  const userId = user.namedNode(command.user.value).out(schema.identifier).value ||
+    user.namedNode(decodeURI(command.user.value)).out(schema.identifier).value
 
   if (!userId) {
     logClownfaceIoErrors(user)

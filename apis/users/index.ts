@@ -18,9 +18,10 @@ program
   .action(() => {
     const app = express()
 
+    app.enable('trust proxy')
     app.use(rdfHandler())
     app.use(absoluteUrl())
-    app.get('/user/:id', (req: any, res: any) => {
+    app.get('/user/:id', (req, res) => {
       const userPointer = clownface({ dataset: $rdf.dataset() }).namedNode(req.absoluteUrl())
 
       const person = new PersonMixin.Class(userPointer, {
@@ -32,7 +33,7 @@ program
         },
       })
 
-      res.dataset(person._selfGraph.dataset)
+      res.dataset(person.pointer.dataset)
     })
 
     app.listen(34666, () => log('App ready'))

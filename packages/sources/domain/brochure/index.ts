@@ -41,7 +41,7 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
     contributor!: NamedNode
 
     get month() {
-      const { value } = this._selfGraph.out(opus.month)
+      const { value } = this.pointer.out(opus.month)
       if (value) {
         return parseInt(value)
       }
@@ -50,14 +50,14 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
     }
 
     set month(value) {
-      this._selfGraph.deleteOut(opus.month)
+      this.pointer.deleteOut(opus.month)
       if (value) {
-        this._selfGraph.addOut(opus.month, literal(value.toString(), xsd.gMonth))
+        this.pointer.addOut(opus.month, literal(value.toString(), xsd.gMonth))
       }
     }
 
     get year() {
-      const { value } = this._selfGraph.out(opus.year)
+      const { value } = this.pointer.out(opus.year)
       if (value) {
         return parseInt(value)
       }
@@ -66,9 +66,9 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
     }
 
     set year(value) {
-      this._selfGraph.deleteOut(opus.year)
+      this.pointer.deleteOut(opus.year)
       if (value) {
-        this._selfGraph.addOut(opus.year, literal(value.toString(), xsd.gYear))
+        this.pointer.addOut(opus.year, literal(value.toString(), xsd.gYear))
       }
     }
 

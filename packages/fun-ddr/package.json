@@ -6,7 +6,7 @@
     "@rdfjs/data-model": "^1.1.2",
     "@tpluscode/fun-ddr": "^0.6.1",
     "@tpluscode/rdf-ns-builders": "^0.3.7",
-    "@tpluscode/rdfine": "^0.4.22",
+    "@tpluscode/rdfine": "^0.5",
     "@tpluscode/sparql-builder": "^0.3.9",
     "clownface": "^1.0.0",
     "rdf-dataset-ext": "^1.0.0",

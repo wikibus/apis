@@ -1,14 +1,14 @@
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
 import { hydra, ldp, rdf } from '@tpluscode/rdf-ns-builders'
 import * as $rdf from '@rdfjs/data-model'
-import { Clownface, SingleContextClownface } from 'clownface'
+import { AnyPointer, GraphPointer } from 'clownface'
 import { sparql, SparqlTemplateResult } from '@tpluscode/rdf-string'
 import { IriTemplate, IriTemplateMapping } from '@rdfine/hydra'
 import { Variable } from 'rdf-js'
 import { loaders } from '../rdfLoaders'
 import { query } from '../namespace'
 
-function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownface, basePath: string) {
+function createTemplateVariablePatterns(subject: Variable, queryPointer: AnyPointer, basePath: string) {
   return (patterns: unknown[], mapping: IriTemplateMapping): unknown[] => {
     const property = mapping.property
 
@@ -21,7 +21,7 @@ function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownfa
       return patterns
     }
 
-    const queryFilters = mapping._selfGraph.out(query.filter)
+    const queryFilters = mapping.pointer.out(query.filter)
     if (!queryFilters.value) {
       return patterns
     }
@@ -36,7 +36,7 @@ function createTemplateVariablePatterns(subject: Variable, queryPointer: Clownfa
 }
 
 function createManagesBlockPatterns(member: Variable) {
-  return function (previous: SparqlTemplateResult, manages: SingleContextClownface): SparqlTemplateResult {
+  return function (previous: SparqlTemplateResult, manages: GraphPointer): SparqlTemplateResult {
     const subject = manages.out(hydra.subject).term
     const predicate = manages.out(hydra.property).term
     const object = manages.out(hydra.object).term
@@ -57,7 +57,7 @@ function createManagesBlockPatterns(member: Variable) {
 
 type SelectBuilder = ReturnType<typeof SELECT>
 
-function createOrdering(api: SingleContextClownface, collection: SingleContextClownface, subject: Variable): { patterns: SparqlTemplateResult; addClauses(q: SelectBuilder): SelectBuilder } {
+function createOrdering(api: GraphPointer, collection: GraphPointer, subject: Variable): { patterns: SparqlTemplateResult; addClauses(q: SelectBuilder): SelectBuilder } {
   const orders = api.node(collection.out(rdf.type) as any).out(query.order).toArray()
   if (!orders.length) {
     return {
@@ -70,7 +70,7 @@ function createOrdering(api: SingleContextClownface, collection: SingleContextCl
   let patterns = sparql``
   const clauses: Array<{ variable: Variable; descending: boolean }> = []
 
-  for (const order of orders[0].list()) {
+  for (const order of orders[0].list()!) {
     const propertyPath = order.out(query.path).list()
     if (!propertyPath) continue
 
@@ -100,7 +100,7 @@ function createOrdering(api: SingleContextClownface, collection: SingleContextCl
   }
 }
 
-export function getMemberQuery(api: SingleContextClownface, collection: SingleContextClownface, query: Clownface, variables: IriTemplate | null, pageSize: number, basePath: string) {
+export function getMemberQuery(api: GraphPointer, collection: GraphPointer, query: AnyPointer, variables: IriTemplate | null, pageSize: number, basePath: string) {
   const subject = $rdf.variable('member')
   const managesBlockPatterns = collection.out(hydra.manages).toArray().reduce(createManagesBlockPatterns(subject), sparql``)
   const filterPatters = variables ? variables.mapping.reduce(createTemplateVariablePatterns(subject, query, basePath), []) : []

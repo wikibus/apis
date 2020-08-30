@@ -1,5 +1,5 @@
 import asyncMiddleware from 'middleware-async'
-import clownface, { Clownface } from 'clownface'
+import clownface, { AnyPointer } from 'clownface'
 import $rdf from 'rdf-ext'
 import { DatasetCore } from 'rdf-js'
 import { hydra, rdf } from '@tpluscode/rdf-ns-builders'
@@ -10,7 +10,7 @@ import { loadLinkedResources } from './lib/query/eagerLinks'
 
 const pageSize = 12
 
-function templateParamsForPage(query: Clownface, page: number) {
+function templateParamsForPage(query: AnyPointer, page: number) {
   const clone = clownface({ dataset: $rdf.dataset([...query.dataset]) })
     .in().toArray()[0]
 
@@ -34,7 +34,7 @@ export const get = asyncMiddleware(async (req, res) => {
 
   let template: IriTemplate | null = null
   if (templateVariables.term) {
-    template = new IriTemplateMixin.Class(templateVariables.toArray()[0])
+    template = new IriTemplateMixin.Class(templateVariables.toArray()[0] as any)
   }
   const pageQuery = getMemberQuery(clownface(req.hydra.api), collection, request, template, pageSize, req.hydra.api.codePath)
 

@@ -15,8 +15,8 @@ export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   return wishlistItem.commit(wishlistItems)
     .then(saved => {
       res.status(201)
-      res.setLink('Location', saved['@id'])
-      res.dataset(saved._selfGraph.dataset)
+      res.header('Location', saved['@id'])
+      res.dataset(saved.pointer.dataset)
     })
     .catch(async e => {
       if (!(e instanceof ConcurrencyError)) {
@@ -25,7 +25,7 @@ export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
 
       const { id } = (await wishlistItem.state)!
       const existing = await (await wishlistItems.load(id)).state
-      res.dataset(existing!._selfGraph.dataset)
+      res.dataset(existing!.pointer.dataset)
     })
     .catch(next)
 }))
