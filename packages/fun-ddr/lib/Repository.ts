@@ -7,11 +7,11 @@ import { namedNode } from '@rdfjs/data-model'
 import { CONSTRUCT, DELETE, SELECT } from '@tpluscode/sparql-builder'
 import { AggregateNotFoundError, ConcurrencyError } from '@tpluscode/fun-ddr/lib/errors'
 import { vaem } from '@tpluscode/rdf-ns-builders'
-import StreamClient = require('sparql-http-client/StreamClient')
-import rdf = require('rdf-ext')
-import toStream = require('rdf-dataset-ext/toStream')
-import clownface = require('clownface')
-import ToQuad = require('rdf-transform-triple-to-quad')
+import StreamClient from 'sparql-http-client/StreamClient'
+import rdf from 'rdf-ext'
+import toStream from 'rdf-dataset-ext/toStream'
+import clownface from 'clownface'
+import ToQuad from 'rdf-transform-triple-to-quad'
 
 export class SparqlRepository<E extends EntityResource, T extends Record<string, any> = Record<string, any>> implements Repository<E> {
   private client: StreamClient;

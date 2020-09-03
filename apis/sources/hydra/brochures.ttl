@@ -26,7 +26,8 @@ wbo:Brochure a                       hydra:Class ;
              query:preprocess        [ a         code:EcmaScript ;
                                        code:link <file:query/source/brochure#preprocess> ; ] ;
              query:include           schema:image,
-                                     schema:containedInPlace ;
+                                     schema:containedInPlace ,
+                                     schema:associatedMedia ;
              hydra:supportedProperty [ a               hydra:SupportedProperty ;
                                        hydra:property  dcterms:title ;
                                        hydra:readable  true ;
@@ -130,6 +131,12 @@ wba:EditableBrochure rdfs:subclassOf          wbo:Brochure ;
                                                 auth:required      true ;
                                                 auth:permissions   ( "write:sources" ),
                                                                    ( "admin:sources" ) ; ] ;
+                     hydra:supportedProperty [ a               hydra:SupportedProperty ;
+                                               hydra:property  wba:uploadPdf ;
+                                               hydra:readable  false ;
+                                               hydra:writeable false ;
+                                               hydra:title     "Upload PDF" ;
+                                               hydra:required  false ; ]
 .
 
 wba:wishlistItem a                        rdf:Property,
@@ -146,6 +153,26 @@ wba:wishlistItem a                        rdf:Property,
                                                                  code:link <file:handlers/source/addToWishlist#put> ; ] ;
                                             auth:required      true ; ] ;
 .
+
+wba:uploadPdf a                        hydra:Link ;
+              rdfs:range               hydra:Resource ;
+              hydra:supportedOperation [ a                  hydra:Operation,
+                                                            schema:TransferAction ;
+                                         hydra:method       "POST" ;
+                                         hydra:expects      schema:MediaObject ;
+                                         hydra:returns      owl:Nothing ;
+                                         hydra:title        "Upload PDF" ;
+                                         auth:required      true ;
+                                         code:implementedBy [ a         code:EcmaScript ;
+                                                              code:link <file:handlers/source/uploadPdf#post> ] ] ;
+.
+
+schema:MediaObject a                       hydra:Class ;
+                   hydra:supportedProperty [ hydra:property schema:associatedMedia ;
+                                             hydra:title    "Contents" ] ;
+.
+
+schema:associatedMedia rdfs:range schema:MediaObject .
 
 wba:BrochureCollection a                        hydra:Class ;
                        hydra:supportedOperation [ a                   hydra:Operation ;
@@ -164,11 +191,11 @@ wba:BrochureCollection a                        hydra:Class ;
                                                   code:implementedBy [ a         code:EcmaScript ;
                                                                        code:link <file:handlers/source/brochure#post> ] ;
                                                   auth:permissions   ( "write:sources" ) ] ;
-                       query:order             ( [ query:path      ( dcterms:created ) ;
-                                                   query:direction ldp:Descending ]
-                                                 [ query:path      ( dcterms:modified ) ;
-                                                   query:direction ldp:Descending ]
-                                                 [ query:path ( dcterms:title ) ] ) ;
+                       query:order              ( [ query:path      ( dcterms:created ) ;
+                                                    query:direction ldp:Descending ]
+                                                  [ query:path      ( dcterms:modified ) ;
+                                                    query:direction ldp:Descending ]
+                                                  [ query:path ( dcterms:title ) ] ) ;
 .
 
 wba:BrochureCollection-search a              hydra:IriTemplate ;

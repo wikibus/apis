@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@hydrofoil/labyrinth": "*",
+    "buffer-to-stream": "^1.0.0",
     "commander": "^6.0.0",
     "express": "^4.17.1",
     "hydra-box": "zazuko/hydra-box#load-request-access",
@@ -20,6 +21,7 @@
     "@rdfine/hydra": "^0.3.11",
     "@rdfine/schema": "^0.4.10",
     "@wikibus/core": "*",
+    "@wikibus/azure": "*",
     "clownface": "^1.0.0",
     "@tpluscode/fun-ddr": "^0.6.1",
     "@tpluscode/fun-ddr-rdfine": "*",

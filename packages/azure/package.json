@@ -1,0 +1,9 @@
+{
+  "name": "@wikibus/azure",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@azure/storage-blob": "^12.2.0-preview.1",
+    "@wikibus/core": "*"
+  }
+}

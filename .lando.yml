@@ -5,7 +5,7 @@ env_file:
 services:
   sources:
     type: node:custom
-    command: yarn nodemon --delay 1 -w packages --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect apis/sources/index.ts
+    command: yarn nodemon --delay 1 -w packages -w apis --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect apis/sources/index.ts
     port: 34566
     ssl: true
     overrides:

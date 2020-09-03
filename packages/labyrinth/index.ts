@@ -10,6 +10,7 @@ import { NotFoundError } from './lib/error'
 import { logRequest, logRequestError } from './lib/logger'
 import { httpProblemMiddleware } from './lib/problemDetails'
 import { IErrorMapper } from 'http-problem-details-mapper'
+import { removeHydraTypes } from './lib/middleware'
 
 export { SparqlQueryLoader } from './lib/loader'
 
@@ -34,7 +35,10 @@ export async function hydraBox(app: Express, { loader, baseUri, codePath, apiPat
     {
       loader,
       middleware: {
-        resource: preprocessResource(codePath),
+        resource: [
+          removeHydraTypes,
+          preprocessResource(codePath),
+        ],
       },
     }))
 

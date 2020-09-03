@@ -25,7 +25,7 @@ program
       const app = express()
 
       app.enable('trust proxy')
-      app.use(authentication(process.env.NODE_ENV !== 'development'))
+      app.use(authentication())
       const loader = new SparqlQueryLoader({
         client: new ParsingClient({ endpointUrl }),
       })

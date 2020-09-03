@@ -27,11 +27,11 @@ export const post = protectedResource(asyncMiddleware(async (req, res, next) => 
 
   create({ brochure, contributor })
     .commit(brochures)
-    .then(saved => {
+    .then(async saved => {
       res.setHeader('Location', saved['@id'])
       res.status(201)
-      preprocess(req, saved.pointer)
-      res.dataset(saved.pointer.dataset)
+      await preprocess(req, saved.pointer)
+      return res.dataset(saved.pointer.dataset)
     })
     .catch(next)
 }))
@@ -51,9 +51,9 @@ export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   }
 
   return aggregate.commit(brochures)
-    .then(saved => {
-      preprocess(req, saved.pointer)
-      res.dataset(saved.pointer.dataset)
+    .then(async saved => {
+      await preprocess(req, saved.pointer)
+      return res.dataset(saved.pointer.dataset)
     })
     .catch(next)
 }))

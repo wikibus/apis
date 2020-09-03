@@ -6,6 +6,10 @@ const handler = {
       }
     }
 
+    if (prop === 'production') {
+      return env.NODE_ENV !== 'development'
+    }
+
     const value = env[prop]
 
     if (!value) {
@@ -18,10 +22,12 @@ const handler = {
 
 export default new Proxy(process.env, handler) as typeof process['env'] & {
   has(name: string): boolean
+  production: boolean
   SOURCES_BASE: string
   USERS_BASE: string
   CLOUDINARY_BROCHURES_FOLDER: string
   SPARQL_ENDPOINT: string
   SPARQL_GRAPH_ENDPOINT: string
   SPARQL_UPDATE_ENDPOINT: string
+  AZURE_STORAGE_CONNECTION_STRING: string
 }

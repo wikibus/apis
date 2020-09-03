@@ -2,5 +2,11 @@
   "extends": [ "@tpluscode" ],
   "parserOptions": {
     "project": "./tsconfig.json"
-  }
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "plugins": [
+    "jest"
+  ]
 }

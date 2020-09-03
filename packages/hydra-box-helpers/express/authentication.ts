@@ -1,6 +1,7 @@
 import * as e from 'express'
 import { usersTerm } from '@wikibus/core/dataModel'
 import { Router } from 'express'
+import env from '@wikibus/core/env'
 import jwt = require('express-jwt');
 import jwksRsa = require('jwks-rsa')
 
@@ -27,7 +28,7 @@ function devAuthHandler(req: e.Request, res: e.Response, next: e.NextFunction) {
 
   if (!req.user && sub) {
     const permissionHeader = req.headers['x-permission']
-    const permissions = typeof permissionHeader === 'string' ? [permissionHeader] : permissionHeader || []
+    const permissions = typeof permissionHeader === 'string' ? permissionHeader.split(',').map(s => s.trim()) : permissionHeader || []
 
     req.user = {
       sub,
@@ -46,15 +47,15 @@ function setUserUri(req: e.Request, _: e.Response, next: e.NextFunction) {
   next()
 }
 
-export default (production: boolean) => {
+export default () => {
   const router = Router()
 
   router.use(createJwtHandler(false))
 
-  if (!production) {
-    router.use(devAuthHandler as any)
+  if (!env.production) {
+    router.use(devAuthHandler)
   }
-  router.use(setUserUri as any)
+  router.use(setUserUri)
 
   return router
 }

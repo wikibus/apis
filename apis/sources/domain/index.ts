@@ -8,6 +8,7 @@ import { EntityResource } from '@tpluscode/fun-ddr-rdfine/lib/RdfineEntity'
 
 import './brochure/eventHandlers'
 import './wishlist/eventHandlers'
+import { FileMixin } from './files'
 
 export { BrochureEvents } from './brochure/events'
 
@@ -43,5 +44,14 @@ export interface WishlistItem extends EntityResource, Entity {
 export interface Image extends Omit<ImageObject, 'id'>, EntityResource {
 }
 
+export interface File extends EntityResource, Entity {
+  contentSize: string
+  byteSize: number
+  encodingFormat: string
+  contentUrl: NamedNode
+  name: string
+}
+
 RdfineEntity.factory.addMixin(BrochureMixin)
 RdfineEntity.factory.addMixin(WishlistItemMixin)
+RdfineEntity.factory.addMixin(FileMixin)

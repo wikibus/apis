@@ -1,5 +1,7 @@
 import { Term } from 'rdf-js'
 import $rdf from 'rdf-ext'
+import { RequestHandler } from 'express'
+import asyncMiddleware from 'middleware-async'
 import { PropertyResource, Resource, ResourceLoader } from 'hydra-box'
 import { CONSTRUCT, SELECT } from '@tpluscode/sparql-builder'
 import debug from 'debug'
@@ -9,12 +11,11 @@ import TermSet from '@rdfjs/term-set'
 import { rdf } from '@tpluscode/rdf-ns-builders'
 import { query } from './namespace'
 import { loaders } from './rdfLoaders'
-import { RequestHandler } from 'express'
 
 const log = debug('hydra:store')
 
 export function preprocessResource(basePath: string): RequestHandler {
-  return (req, res, next) => {
+  return asyncMiddleware(async (req, res, next) => {
     const resourcePointer = clownface(req.hydra.resource)
 
     const enrichment = clownface(req.hydra.api)
@@ -22,10 +23,10 @@ export function preprocessResource(basePath: string): RequestHandler {
       .out(query.preprocess)
       .map(pointer => loaders.load(pointer, { basePath }))
 
-    enrichment.forEach(enrich => enrich(req, resourcePointer))
+    await Promise.all(enrichment.map(enrich => enrich(req, resourcePointer)))
 
     next()
-  }
+  })
 }
 
 export class SparqlQueryLoader implements ResourceLoader {

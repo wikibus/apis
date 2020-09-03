@@ -1,7 +1,8 @@
 import { NamedNode } from 'rdf-js'
 import { handler } from '@tpluscode/fun-ddr'
+import { SourceEvents } from '../source/events'
 
-export interface BrochureEvents {
+export interface BrochureEvents extends SourceEvents {
   addedToWishlist: {
     brochure: NamedNode
     user: NamedNode
