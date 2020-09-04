@@ -9,4 +9,7 @@ module.exports = {
   moduleNameMapper: {
     '@rdf-esm/(.*)': '@rdfjs/$1',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(fun-ddr-rdfine)/)',
+  ],
 }

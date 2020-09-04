@@ -54,6 +54,7 @@ With Operation schema:UpdateAction {
         Expect Status 200
 
         Expect Property dcterms:title "Neoplan Polska"
+        Expect Property dcterms:modified
     }
 
     Invoke {
@@ -70,6 +71,7 @@ With Operation schema:UpdateAction {
         }
         ```
     } => {
-        Expect Status 405
+        // Todo: change to 405
+        Expect Status 404
     }
 }

@@ -4,10 +4,11 @@ import { RdfineEntity } from '@tpluscode/fun-ddr-rdfine'
 import { NamedNode } from 'rdf-js'
 import { Initializer } from '@tpluscode/rdfine/RdfResource'
 import { File } from '..'
+import { BaseMixin } from '../baseMixin'
 
 export function FileMixin<Base extends Constructor<RdfineEntity>>(base: Base) {
   @namespace(schema)
-  class FileClass extends base implements File {
+  class FileClass extends BaseMixin(base) implements File {
     constructor(...args: any[]) {
       super(...args)
 

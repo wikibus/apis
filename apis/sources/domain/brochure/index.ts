@@ -6,8 +6,8 @@ import { dcterms, hydra, rdfs, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { NamedNode } from 'rdf-js'
 import { Initializer } from '@tpluscode/rdfine/RdfResource'
 import { sourcesTerm, literal, namedNode } from '@wikibus/core/dataModel'
+import URLSlugify from 'url-slugify'
 import { SourceMixin } from '../source'
-import URLSlugify = require('url-slugify')
 
 const urlSlugify = new URLSlugify()
 
@@ -19,7 +19,7 @@ export function BrochureMixin<Base extends Constructor<RdfineEntity>>(base: Base
     @property.literal({ path: dcterms.identifier })
     code?: string;
 
-    @property.literal({ path: dcterms.date })
+    @property.literal({ path: dcterms.date, datatype: xsd.date, type: Date })
     date?: Date;
 
     @property.literal({ path: rdfs.comment })

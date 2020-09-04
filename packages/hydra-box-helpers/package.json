@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@rdfjs/data-model": "^1.1.2",
+    "@rdfjs/data-model": "^1.2",
     "@tpluscode/fun-ddr": "^0.6.1",
     "@wikibus/core": "*",
     "debug": "^4.1.1",

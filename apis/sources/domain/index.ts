@@ -12,7 +12,12 @@ import { FileMixin } from './files'
 
 export { BrochureEvents } from './brochure/events'
 
-export interface Source extends EntityResource, Entity {
+export interface WikibusEntity extends Entity {
+  created: Date
+  modified?: Date
+}
+
+export interface Source extends EntityResource, WikibusEntity {
   readonly file: NamedNode
   readonly imagesLink: NamedNode
   images: NamedNode[]
@@ -34,7 +39,7 @@ export interface Brochure extends Source {
   ownedBy(userId: NamedNode): boolean
 }
 
-export interface WishlistItem extends EntityResource, Entity {
+export interface WishlistItem extends EntityResource, WikibusEntity {
   source: NamedNode
   done: boolean
   user: NamedNode
@@ -44,7 +49,7 @@ export interface WishlistItem extends EntityResource, Entity {
 export interface Image extends Omit<ImageObject, 'id'>, EntityResource {
 }
 
-export interface File extends EntityResource, Entity {
+export interface File extends EntityResource, WikibusEntity {
   contentSize: string
   byteSize: number
   encodingFormat: string

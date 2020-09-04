@@ -20,6 +20,5 @@
     ],
     "@babel/proposal-object-rest-spread",
     "@babel/plugin-proposal-optional-chaining"
-  ],
-  "ignore": ["**/node_modules/"]
+  ]
 }

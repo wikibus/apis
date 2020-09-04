@@ -51,7 +51,6 @@ With Class wba:BrochureCollection {
             Expect Property bibo:pages 12
             Expect Property opus:year "2019"
             Expect Property dcterms:created
-            Expect Property dcterms:modified
 
             // Expect No Property dcterms:language
 

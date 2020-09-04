@@ -4,12 +4,13 @@ import { namespace, property, Constructor } from '@tpluscode/rdfine'
 import { wbo } from '@wikibus/core/namespace'
 import { literal } from '@rdfjs/data-model'
 import { hydra, xsd } from '@tpluscode/rdf-ns-builders'
-import { WishlistItem } from '../index'
 import { Initializer } from '@tpluscode/rdfine/RdfResource'
+import { WishlistItem } from '../index'
+import { BaseMixin } from '../baseMixin'
 
 export function WishlistItemMixin<Base extends Constructor<RdfineEntity>>(base: Base) {
   @namespace(wbo)
-  class WishlistItemClass extends base implements WishlistItem {
+  class WishlistItemClass extends BaseMixin(base) implements WishlistItem {
     @property()
     source!: NamedNode
 
