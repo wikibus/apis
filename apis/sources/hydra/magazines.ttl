@@ -6,7 +6,7 @@
 @prefix code:      <https://code.described.at/> .
 @prefix dcterms:   <http://purl.org/dc/terms/> .
 @prefix schema:    <http://schema.org/> .
-@prefix query:     <http://query.described.at/> .
+@prefix query:     <http://hypermedia.app/query#> .
 
 <api> hydra:supportedClass wba:MagazineCollection .
 

@@ -1262,6 +1262,35 @@
   resolved "https://registry.yarnpkg.com/@fcostarodrigo/walk/-/walk-5.0.0.tgz#534580a98c13c9864f9fdf3451b3ed70b8a2ea30"
   integrity sha512-Vb8+yDShWLXmyjjHVVpUAR3Ccvxgy9yChWCmzj/ysn7qD5rGGzGSKap85Q4HpYWWlQXvb1lrMfwoW2ukvek4tw==
 
+"@hydrofoil/labyrinth@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@hydrofoil/labyrinth/-/labyrinth-0.1.2.tgz#331c0f4d11216c8d5f128387cc51e0dcff790f6b"
+  integrity sha512-LCx0OqQkOOlH4Lui1ZthrOvRKVr12qpGXlMvGGZ6c/LNOwvhYutAoJ+urzYwKph2w8Ww2pNS7S4FtgsV331JOA==
+  dependencies:
+    "@fcostarodrigo/walk" "^5.0.0"
+    "@rdfine/hydra" "^0.3.12"
+    "@rdfjs/data-model" "^1.2"
+    "@rdfjs/namespace" "^1.1.0"
+    "@rdfjs/term-set" "^1.0.1"
+    "@tpluscode/rdf-ns-builders" "^0.4.0"
+    "@tpluscode/rdf-string" "^0.2.18"
+    "@tpluscode/rdfine" "^0.5.4"
+    "@tpluscode/sparql-builder" "^0.3.9"
+    clownface "^1.0.0"
+    cors "^2.8.5"
+    debug "^4.1.1"
+    express "^4.17.1"
+    express-http-problem-details "^0.2.1"
+    express-jwt-permissions "^1.3.3"
+    http-errors "^1.8.0"
+    http-problem-details "^0.1.5"
+    http-problem-details-mapper "^0.1.6"
+    middleware-async "^1.2.7"
+    rdf-ext "^1.3.0"
+    rdf-loader-code "^0.3.1"
+    rdf-loaders-registry "^0.2.0"
+    sparql-http-client "^2.2.2"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -2384,6 +2413,18 @@
     "@tpluscode/rdfine" "^0.5.0"
     es6-url-template "^1.0.4"
 
+"@rdfine/hydra@^0.3.12":
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/@rdfine/hydra/-/hydra-0.3.12.tgz#0e46e34d69c256d00c4e4ef5217c8c1912a9495c"
+  integrity sha512-yLMCcCT55QLLlZ8CE8KofYI2AgCLV6yGGI8q+5fNWRB2VF0xVVAqY16AMdPO8qx5nXCfBZVh3ZMylFogpGt8VQ==
+  dependencies:
+    "@rdf-esm/data-model" "^0.5.3"
+    "@rdfine/rdf" "^0.3.9"
+    "@rdfine/rdfs" "^0.3.9"
+    "@tpluscode/rdf-ns-builders" "^0.3.6"
+    "@tpluscode/rdfine" "^0.5.4"
+    es6-url-template "^1.0.4"
+
 "@rdfine/rdf@^0.3.9":
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@rdfine/rdf/-/rdf-0.3.9.tgz#96c018640869d697f096f40158dbafbe2941611a"
@@ -2597,6 +2638,13 @@
   dependencies:
     "@rdf-esm/namespace" "^0.5.1"
 
+"@tpluscode/rdf-ns-builders@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@tpluscode/rdf-ns-builders/-/rdf-ns-builders-0.4.0.tgz#338ffc6aac3fafad3708c35ef69138196534ec3a"
+  integrity sha512-q1m16FJCqGI6E+uqSo9NvEja4l5oJvB3UEtjEZ5yutGx6kaHihaPMBpF3E8k7NY8HHWyMuRKdl9XymrvDEtEng==
+  dependencies:
+    "@rdf-esm/namespace" "^0.5.1"
+
 "@tpluscode/rdf-string@^0.2.16", "@tpluscode/rdf-string@^0.2.17":
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/@tpluscode/rdf-string/-/rdf-string-0.2.17.tgz#b002b8e1d2aad6d890d88c3fdb812b7bb0efe208"
@@ -2731,7 +2779,7 @@
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
 
-"@types/express-jwt@0.0.42":
+"@types/express-jwt@0.0.42", "@types/express-jwt@^0.0.42":
   version "0.0.42"
   resolved "https://registry.yarnpkg.com/@types/express-jwt/-/express-jwt-0.0.42.tgz#4f04e1fadf9d18725950dc041808a4a4adf7f5ae"
   integrity sha512-WszgUddvM1t5dPpJ3LhWNH8kfNN8GPIBrAGxgIYXVCEGx6Bx4A036aAuf/r5WH9DIEdlmp7gHOYvSM6U87B0ag==
@@ -5300,10 +5348,10 @@ expect@^26.4.2:
     jest-message-util "^26.3.0"
     jest-regex-util "^26.0.0"
 
-express-http-problem-details@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/express-http-problem-details/-/express-http-problem-details-0.2.0.tgz#de6f017ff6b576b78505df8f5db10a112493f1a2"
-  integrity sha512-DuxL84nQudzDE4w2K12soNv4TwNHIhi9UrauWRjwYsV2J06Co594FAR3D+OrjKqIbjiDjLZwC8aADmhn4RXENA==
+express-http-problem-details@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/express-http-problem-details/-/express-http-problem-details-0.2.1.tgz#ef2aabe0c5b012dc762b236a19d2421c5f41bda9"
+  integrity sha512-SLS3oijSB5PqqRW3c2hM5in5/BOge/xLeMFu0Bx0HnycFiYdMMhUUEplVVv+QcfKlqqK59rXfceeI6U7mbSLmg==
   dependencies:
     http-problem-details "^0.1.2"
     http-problem-details-mapper "^0.1.4"
@@ -7898,7 +7946,7 @@ middleware-async@^1.2.5:
   resolved "https://registry.yarnpkg.com/middleware-async/-/middleware-async-1.2.5.tgz#ef3df793625428c8ba5a9346ecf5920836fbc714"
   integrity sha512-98AjXz7LfbWXMMDOVrT+OhypeYtUWtu4UAlTmxpL6/deyx74hqPg4ujmlUGaxWLSl6xo/OpobKdaC9k+eHbgUQ==
 
-middleware-async@^1.2.6:
+middleware-async@^1.2.6, middleware-async@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/middleware-async/-/middleware-async-1.2.7.tgz#a4b9feda755145601b5f96d906092e10c0b08d64"
   integrity sha512-g72DIgSHFG7vHOTT6jiZ80t+dtm2yAdI6cZk5pDhLh+GzUcscIt8u6ch87tpN7dBH2ZbSeMYbn/itJhDU57yGA==

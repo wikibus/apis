@@ -12,8 +12,8 @@
 @prefix bibo:      <http://purl.org/ontology/bibo/> .
 @prefix opus:      <http://lsdis.cs.uga.edu/projects/semdis/opus#> .
 @prefix owl:       <http://www.w3.org/2002/07/owl#> .
-@prefix query:     <http://query.described.at/> .
-@prefix auth:      <http://auth.described.at/> .
+@prefix query:     <http://hypermedia.app/query#> .
+@prefix auth:      <http://hypermedia.app/auth#> .
 @prefix ldp:       <http://www.w3.org/ns/ldp#> .
 
 <api> hydra:supportedClass wba:BrochureCollection,

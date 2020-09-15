@@ -3,7 +3,7 @@
 @prefix wba:   <https://wikibus.org/api#> .
 @prefix wbo:   <https://wikibus.org/ontology#> .
 @prefix hydra: <http://www.w3.org/ns/hydra/core#> .
-@prefix auth:  <http://auth.described.at/> .
+@prefix auth:  <http://hypermedia.app/auth#> .
 
 <api> hydra:supportedClass wbo:WishlistItem .
 

@@ -4,18 +4,16 @@ import program from 'commander'
 import authentication from '@wikibus/hydra-box-helpers/express/authentication'
 import { error, log } from '@wikibus/hydra-box-helpers/log'
 import env from '@wikibus/core/env'
-import { hydraBox, SparqlQueryLoader } from '@hydrofoil/labyrinth'
+import { hydraBox } from '@hydrofoil/labyrinth'
 import * as domainErrors from '@wikibus/hydra-box-helpers/error/DomainErrors'
 import { client } from '@wikibus/sparql'
 import { bootstrapResources } from './initialize'
 import { ImageObjectBundle } from '@rdfine/schema/bundles'
 import RdfResource from '@tpluscode/rdfine'
-import ParsingClient from 'sparql-http-client/ParsingClient'
 
 RdfResource.factory.addMixin(...ImageObjectBundle)
 
 const baseUri = env.SOURCES_BASE
-const endpointUrl = env.SPARQL_ENDPOINT
 const codePath = __dirname
 const apiPath = path.join(__dirname, 'hydra/')
 
@@ -26,20 +24,16 @@ program
 
       app.enable('trust proxy')
       app.use(authentication())
-      const loader = new SparqlQueryLoader({
-        client: new ParsingClient({ endpointUrl }),
-      })
-      app.use((req, _, next) => {
-        req.sparql = client
-        next()
-      })
       await hydraBox(app, {
-        loader,
         codePath,
         apiPath,
         baseUri,
         errorMappers: Object.values(domainErrors).map(Mapper => new Mapper()),
-        log,
+        sparql: {
+          endpointUrl: env.SPARQL_ENDPOINT,
+          storeUrl: env.SPARQL_GRAPH_ENDPOINT,
+          updateUrl: env.SPARQL_UPDATE_ENDPOINT,
+        },
       })
 
       await bootstrapResources(client, baseUri)
