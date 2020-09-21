@@ -13,7 +13,7 @@
     "packages/*",
     "apis/*"
   ],
-  "dependencies": {
+  "devDependencies": {
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
