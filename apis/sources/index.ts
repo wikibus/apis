@@ -31,8 +31,10 @@ program
         errorMappers: Object.values(domainErrors).map(Mapper => new Mapper()),
         sparql: {
           endpointUrl: env.SPARQL_ENDPOINT,
-          storeUrl: env.SPARQL_GRAPH_ENDPOINT,
+          storeUrl: env.maybe.SPARQL_GRAPH_ENDPOINT,
           updateUrl: env.SPARQL_UPDATE_ENDPOINT,
+          user: env.maybe.SPARQL_USER,
+          password: env.maybe.SPARQL_PASSWORD,
         },
       })
 

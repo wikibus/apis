@@ -10,6 +10,10 @@ const handler = {
       return env.NODE_ENV !== 'development'
     }
 
+    if (prop === 'maybe') {
+      return env
+    }
+
     const value = env[prop]
 
     if (!value) {
@@ -20,14 +24,22 @@ const handler = {
   },
 }
 
-export default new Proxy(process.env, handler) as typeof process['env'] & {
+type KnownVariableNames = 'SOURCES_BASE'
+| 'USERS_BASE'
+| 'CLOUDINARY_BROCHURES_FOLDER'
+| 'SPARQL_ENDPOINT'
+| 'SPARQL_GRAPH_ENDPOINT'
+| 'SPARQL_UPDATE_ENDPOINT'
+| 'AZURE_STORAGE_CONNECTION_STRING'
+| 'SPARQL_USER'
+| 'SPARQL_PASSWORD'
+
+type KnownVariables = {
+  [P in KnownVariableNames]: string
+}
+
+export default new Proxy(process.env, handler) as typeof process['env'] & KnownVariables & {
   has(name: string): boolean
+  maybe: KnownVariables
   production: boolean
-  SOURCES_BASE: string
-  USERS_BASE: string
-  CLOUDINARY_BROCHURES_FOLDER: string
-  SPARQL_ENDPOINT: string
-  SPARQL_GRAPH_ENDPOINT: string
-  SPARQL_UPDATE_ENDPOINT: string
-  AZURE_STORAGE_CONNECTION_STRING: string
 }
