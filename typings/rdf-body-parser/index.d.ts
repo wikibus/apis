@@ -7,21 +7,5 @@ declare module 'express-serve-static-core' {
 
   interface Request {
     sparql: SparqlHttp;
-    user?: {
-      id: NamedNode
-      sub: string
-      permissions: string[]
-    },
-    hydra: {
-      api: typeof Api;
-      store: Store & Source;
-      term: NamedNode;
-      resource: {
-        term: NamedNode;
-        dataset: DatasetCore;
-        types: Set<NamedNode>;
-      };
-      operation: GraphPointer
-    };
   }
 }

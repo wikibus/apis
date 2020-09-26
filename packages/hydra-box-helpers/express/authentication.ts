@@ -5,6 +5,13 @@ import env from '@wikibus/core/env'
 import jwt = require('express-jwt');
 import jwksRsa = require('jwks-rsa')
 
+declare module '@hydrofoil/labyrinth' {
+  export interface User {
+    sub: string
+    permissions: string[]
+  }
+}
+
 const createJwtHandler = (credentialsRequired: boolean) => jwt({
   // Dynamically provide a signing key
   // based on the kid in the header and

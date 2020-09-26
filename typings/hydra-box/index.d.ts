@@ -1,64 +1,53 @@
 declare module 'hydra-box' {
-  import {Request} from 'express';
+  import { Request, RequestHandler, Router } from 'express'
   import Api = require('hydra-box/Api');
-  import middleware = require('hydra-box/middleware');
-  import {DatasetCore, Term} from 'rdf-js';
+  import { DatasetCore, Term, NamedNode } from 'rdf-js'
+  import type { GraphPointer } from 'clownface'
 
   namespace hydraBox {
     interface Resource {
-      term: Term,
-      dataset: DatasetCore,
+      term: Term
+      dataset: DatasetCore
       types: Set<Term>
     }
 
     interface PropertyResource extends Resource {
-      property: Term;
-      object: Term;
+      property: Term
+      object: Term
     }
 
     interface ResourceLoader {
       forClassOperation (term: Term, req: Request): Promise<Array<Resource>>
       forPropertyOperation (term: Term, req: Request): Promise<Array<PropertyResource>>
     }
-  }
 
-  const hydraBox: {
-    Api: Api;
-    middleware: typeof middleware;
-  }
-
-  export = hydraBox
-}
-
-declare module 'hydra-box/Api' {
-  import { DatasetCore, NamedNode, Term } from 'rdf-js'
-
-  namespace Api {
-    interface Options {
-      term?: Term;
-      dataset?: DatasetCore;
-      graph?: NamedNode;
-      path: string;
-      codePath: string;
+    interface HydraBox {
+      api: Api
+      term: NamedNode
+      resource: {
+        term: NamedNode
+        dataset: DatasetCore
+        types: Set<NamedNode>
+      }
+      operation: GraphPointer
     }
   }
 
-  interface Api {
-    initialized: boolean;
-    path: string;
-    codePath: string;
-    graph: NamedNode;
-    dataset: DatasetCore;
-    term: Term;
-    init(): void;
-    fromFile(filePath: string, options?: Api.Options): Promise<this>;
-    rebase(from: string, to: string): this;
+  interface Options {
+    baseIriFromRequest?: boolean
+    loader?: hydraBox.ResourceLoader
+    store?: any
+    middleware?: {
+      resource: RequestHandler | RequestHandler[]
+    }
   }
 
-  class Api {
-    public constructor(options?: Api.Options)
-    public static fromFile (filePath: string, options?: Api.Options): Promise<Api>
+  function middleware(api: Api, options: Options): Router
+
+  const hydraBox: {
+    Api: Api
+    middleware: typeof middleware
   }
 
-  export = Api
+  export = hydraBox
 }

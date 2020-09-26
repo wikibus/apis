@@ -7,7 +7,7 @@ import { brochures, wishlistItems } from '../../repository'
 export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   const brochure = await brochures.load(req.hydra.resource.term)
   const command = {
-    user: req.user!.id,
+    user: req.user!.id!,
   }
 
   const wishlistItem = await brochure.factory(addToWishlist)(command)

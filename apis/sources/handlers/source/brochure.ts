@@ -23,7 +23,7 @@ async function getRequestBrochure(req: Request) {
 export const post = protectedResource(asyncMiddleware(async (req, res, next) => {
   const brochure = await getRequestBrochure(req)
 
-  const contributor = req.user!.id
+  const contributor = req.user!.id!
 
   create({ brochure, contributor })
     .commit(brochures)
@@ -39,7 +39,7 @@ export const post = protectedResource(asyncMiddleware(async (req, res, next) => 
 export const put = protectedResource(asyncMiddleware(async (req, res, next) => {
   let aggregate = await brochures.load(req.hydra.resource.term)
   const brochure = await aggregate.state
-  if (req.user && brochure && req.user.permissions.includes(Sources.admin) && brochure.ownedBy(req.user.id)) {
+  if (req.user && brochure && req.user.permissions.includes(Sources.admin) && brochure.ownedBy(req.user.id!)) {
     return next(new createError.ForbiddenError())
   }
 
