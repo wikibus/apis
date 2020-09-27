@@ -15,8 +15,7 @@
       hydra:supportedClass hydra:Resource,
                            <api#Entrypoint>,
                            wbo:Source,
-                           wba:EntryPoint,
-                           <> .
+                           wba:EntryPoint .
 
 wba:EntryPoint a                       hydra:Class ;
                hydra:supportedProperty [ hydra:property    wba:brochures ;
@@ -69,8 +68,4 @@ wbo:Source a                        hydra:Class ;
                                       hydra:method       "GET" ;
                                       code:implementedBy [ a         code:EcmaScript ;
                                                            code:link <node:@hydrofoil/labyrinth/resource#get> ] ]
-.
-
-<> a           hydra:Class ;
-   hydra:title "Wikibus sources home" ;
 .
