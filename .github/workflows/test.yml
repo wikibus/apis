@@ -21,6 +21,9 @@ jobs:
       - name: Start site
         run: sh .ci/start-lando.sh
       - run: docker-compose -f docker-compose.yml -f docker-compose.posix.yml run analyser
+      - name: logs on fail
+        if: ${{ failure() }}
+        run: lando logs -s sources
 
   e2e-tests:
     runs-on: [ubuntu-latest]
