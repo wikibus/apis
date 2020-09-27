@@ -1262,10 +1262,10 @@
   resolved "https://registry.yarnpkg.com/@fcostarodrigo/walk/-/walk-5.0.0.tgz#534580a98c13c9864f9fdf3451b3ed70b8a2ea30"
   integrity sha512-Vb8+yDShWLXmyjjHVVpUAR3Ccvxgy9yChWCmzj/ysn7qD5rGGzGSKap85Q4HpYWWlQXvb1lrMfwoW2ukvek4tw==
 
-"@hydrofoil/labyrinth@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@hydrofoil/labyrinth/-/labyrinth-0.1.8.tgz#d30bd428efed3086f1f0f755a61999340281c0e4"
-  integrity sha512-C26p5z1BV7xVaMlyKi/F97ucOJW5u624lIe51KD/kMN2CNPVxKhDm7atCE/t9W3VvrPKN3SIdEkdG/RV5Acvbg==
+"@hydrofoil/labyrinth@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@hydrofoil/labyrinth/-/labyrinth-0.1.9.tgz#eed459b1fa53e0a6df1e5bad166047610486a52e"
+  integrity sha512-wucIDMOdAJjdR9f6L4En/lK05D1lkBwntQX9Iw2qqslm1D47mufwKmBwp0xfneZzjT70qKU8Dy+nMNLgyt/lkA==
   dependencies:
     "@fcostarodrigo/walk" "^5.0.0"
     "@rdfine/hydra" "^0.3.12"

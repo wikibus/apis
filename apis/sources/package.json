@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@hydrofoil/labyrinth": "^0.1.8",
+    "@hydrofoil/labyrinth": "^0.1.9",
     "buffer-to-stream": "^1.0.0",
     "commander": "^6.0.0",
     "express": "^4.17.1",
