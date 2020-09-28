@@ -43,6 +43,7 @@ RUN yarn install --production --frozen-lockfile
 COPY --from=builder dist/apis ./apis/
 COPY --from=builder dist/packages/ ./packages/
 COPY ./apis/sources/hydra/*.ttl ./apis/sources/hydra/
+COPY ./apis/bff/hydra/*.ttl ./apis/bff/hydra/
 
 RUN apk add --no-cache tini
 ENTRYPOINT ["tini", "--", "node"]
