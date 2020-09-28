@@ -36,7 +36,7 @@ program
       res.dataset(person.pointer.dataset)
     })
 
-    app.listen(34666, () => log('App ready'))
+    app.listen(8080, () => log('App ready'))
   })
 
 program.parse(process.argv)

@@ -41,7 +41,7 @@ program
 
       await bootstrapResources(initial, client, baseUri)
 
-      app.listen(34566, () => log('App ready'))
+      app.listen(8080, () => log('App ready'))
     }).catch(err => {
       error('Failed to start: %O', err)
       process.exit(1)

@@ -26,8 +26,8 @@ Promise.resolve()
 
     await bootstrapResources(initial, client, env.BFF_BASE)
 
-    app.listen(process.env.PORT, () => {
-      log(`listening on port ${process.env.PORT}`)
+    app.listen(8080, () => {
+      log('app ready')
     })
   })
   .catch(error)

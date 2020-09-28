@@ -6,7 +6,7 @@ services:
   sources:
     type: node:custom
     command: yarn nodemon --delay 1 -w packages -w apis --verbose --ext ts,ttl,js,trig --ignore **/*.spec.ts --ignore **/*.spec-graphs.ts --exec node --inspect=0.0.0.0:34567 -r ts-node/register --inspect apis/sources/index.ts
-    port: 34566
+    port: 80
     ssl: true
     overrides:
       image: node:14
@@ -23,7 +23,6 @@ services:
   users:
     type: node:custom
     command: node --inspect=0.0.0.0:34667 -r ts-node/register --inspect apis/users/index.ts
-    port: 34666
     ssl: true
     moreHttpPorts:
       - 34667
@@ -34,7 +33,6 @@ services:
   bff:
     type: node:custom
     command: node --inspect=0.0.0.0:34767 -r ts-node/register --inspect apis/bff/index.ts
-    port: 34766
     ssl: true
     moreHttpPorts:
       - 34767
@@ -43,7 +41,6 @@ services:
       ports:
         - '34767:34767'
       environment:
-        PORT: 34766
         DEBUG: app,app:*,hydra,hydra:*,hydra-box,hydra-box:*
   store:
     type: compose
@@ -61,8 +58,8 @@ proxy:
   store:
     - wikibus-store.lndo.site:3030
   sources:
-    - wikibus-sources.lndo.site:34566
+    - wikibus-sources.lndo.site:8080
   users:
-    - wikibus-users.lndo.site:34666
+    - wikibus-users.lndo.site:8080
   bff:
-    - wikibus-bff.lndo.site:34766
+    - wikibus-bff.lndo.site:8080
