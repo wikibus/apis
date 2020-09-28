@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@rdfjs/data-model": "^1.2",
+    "@rdfjs/parser-n3": "^1.1.4",
     "@tpluscode/fun-ddr": "^0.6.1",
     "@wikibus/core": "*",
     "debug": "^4.1.1",

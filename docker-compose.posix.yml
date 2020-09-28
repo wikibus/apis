@@ -3,6 +3,9 @@ services:
   analyser:
     volumes:
       - ~/.lando/certs/lndo.site.crt:/lndo.site.crt
-  e2e-tests:
+  e2e-tests-sources:
+    volumes:
+      - ~/.lando/certs/lndo.site.crt:/lndo.site.crt
+  e2e-tests-bff:
     volumes:
       - ~/.lando/certs/lndo.site.crt:/lndo.site.crt

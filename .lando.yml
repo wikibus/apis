@@ -31,6 +31,20 @@ services:
       image: node:14
       ports:
         - '34667:34667'
+  bff:
+    type: node:custom
+    command: node --inspect=0.0.0.0:34767 -r ts-node/register --inspect apis/bff/index.ts
+    port: 34766
+    ssl: true
+    moreHttpPorts:
+      - 34767
+    overrides:
+      image: node:14
+      ports:
+        - '34767:34767'
+      environment:
+        PORT: 34766
+        DEBUG: app,app:*,hydra,hydra:*,hydra-box,hydra-box:*
   store:
     type: compose
     services:
@@ -50,3 +64,5 @@ proxy:
     - wikibus-sources.lndo.site:34566
   users:
     - wikibus-users.lndo.site:34666
+  bff:
+    - wikibus-bff.lndo.site:34766

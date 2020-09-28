@@ -2638,7 +2638,7 @@
   dependencies:
     "@rdf-esm/namespace" "^0.5.1"
 
-"@tpluscode/rdf-ns-builders@^0.4.0":
+"@tpluscode/rdf-ns-builders@^0.4", "@tpluscode/rdf-ns-builders@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@tpluscode/rdf-ns-builders/-/rdf-ns-builders-0.4.0.tgz#338ffc6aac3fafad3708c35ef69138196534ec3a"
   integrity sha512-q1m16FJCqGI6E+uqSo9NvEja4l5oJvB3UEtjEZ5yutGx6kaHihaPMBpF3E8k7NY8HHWyMuRKdl9XymrvDEtEng==
@@ -2663,6 +2663,16 @@
     "@rdf-esm/data-model" "^0.5.3"
     "@rdf-esm/term-map" "^0.5.0"
     "@tpluscode/rdf-ns-builders" "^0.3.6"
+    "@zazuko/rdf-vocabularies" "^2020.6.29"
+
+"@tpluscode/rdf-string@^0.2.20":
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/@tpluscode/rdf-string/-/rdf-string-0.2.20.tgz#f026c67f09d8c7ea67be8b0c4f993874a00894d7"
+  integrity sha512-3CY/nWge3EwNPoApQRP/HMlWlLyn6G+ePHvb/OOhhBd2/k08cWK4X2tCfMKU0weuLTtsDyBduMu7tsjxfQu9Fw==
+  dependencies:
+    "@rdf-esm/data-model" "^0.5.3"
+    "@rdf-esm/term-map" "^0.5.0"
+    "@tpluscode/rdf-ns-builders" "^0.4"
     "@zazuko/rdf-vocabularies" "^2020.6.29"
 
 "@tpluscode/rdfine@^0.5", "@tpluscode/rdfine@^0.5.0", "@tpluscode/rdfine@^0.5.4":
@@ -2990,6 +3000,15 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/rdfjs__express-handler/-/rdfjs__express-handler-1.1.1.tgz#b3860b3ffe4953e04829895777b331ec01966c0d"
   integrity sha512-7kQWFNxK8IEN2RKS8X5OfrMGdOzLRLRNHBJCoFGzm7ZraKlGEanMOnwpFBqeENFqZXCBSGo41vl878ncNR2c0A==
+  dependencies:
+    "@types/express" "*"
+    "@types/rdf-js" "*"
+    "@types/rdfjs__formats-common" "*"
+
+"@types/rdfjs__express-handler@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/rdfjs__express-handler/-/rdfjs__express-handler-1.1.2.tgz#3f74c09b015bd36baa0967011b15ec4a2fcf5a88"
+  integrity sha512-PMKBU6OC9x/h+9Mbj956slk/FQ4CpPfUagGUbLaFEok6H6DAYZo5c8uxWvVIjqrATHWACscP6jko8zHq6e3fnA==
   dependencies:
     "@types/express" "*"
     "@types/rdf-js" "*"

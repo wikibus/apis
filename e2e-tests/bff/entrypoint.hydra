@@ -1,0 +1,5 @@
+PREFIX api: <https://wikibus.org/api#>
+
+With Class api:EntryPoint {
+  Expect Link api:library
+}

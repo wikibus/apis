@@ -8,8 +8,7 @@ services:
       ENTRYPOINT_URL: "https://wikibus-sources.lndo.site/"
     volumes:
       - ~/.lando/certs/lndo.site.crt:/lndo.site.crt
-      - ./e2e-tests/sources:/tests
-  e2e-tests:
+  e2e-tests-sources:
     image: hydrofoil/hypertest:0.6.4
     network_mode: "host"
     environment:
@@ -18,3 +17,12 @@ services:
     volumes:
       - ~/.lando/certs/lndo.site.crt:/lndo.site.crt
       - ./e2e-tests/sources:/tests
+  e2e-tests-bff:
+    image: hydrofoil/hypertest:0.6.4
+    network_mode: "host"
+    environment:
+      NODE_EXTRA_CA_CERTS: "/lndo.site.crt"
+      BASE_URI: "https://wikibus-bff.lndo.site/"
+    volumes:
+      - ~/.lando/certs/lndo.site.crt:/lndo.site.crt
+      - ./e2e-tests/bff:/tests

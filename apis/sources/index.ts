@@ -7,9 +7,10 @@ import env from '@wikibus/core/env'
 import { hydraBox } from '@hydrofoil/labyrinth'
 import * as domainErrors from '@wikibus/hydra-box-helpers/error/DomainErrors'
 import { client } from '@wikibus/sparql'
-import { bootstrapResources } from './initialize'
+import { bootstrapResources } from '@wikibus/hydra-box-helpers/bootstrap-resources'
 import { ImageObjectBundle } from '@rdfine/schema/bundles'
 import RdfResource from '@tpluscode/rdfine'
+import initial from './hydra/initial'
 
 RdfResource.factory.addMixin(...ImageObjectBundle)
 
@@ -38,7 +39,7 @@ program
         },
       })
 
-      await bootstrapResources(client, baseUri)
+      await bootstrapResources(initial, client, baseUri)
 
       app.listen(34566, () => log('App ready'))
     }).catch(err => {

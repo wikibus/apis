@@ -26,6 +26,7 @@ const handler = {
 
 type KnownVariableNames = 'SOURCES_BASE'
 | 'USERS_BASE'
+| 'BFF_BASE'
 | 'CLOUDINARY_BROCHURES_FOLDER'
 | 'SPARQL_ENDPOINT'
 | 'SPARQL_UPDATE_ENDPOINT'

@@ -1,0 +1,35 @@
+@base              <https://wikibus-bff.lndo.site/> .
+@prefix api:       <https://wikibus.org/api#> .
+@prefix hydra:     <http://www.w3.org/ns/hydra/core#> .
+@prefix code:      <https://code.described.at/> .
+@prefix hydra-box: <http://hydra-box.org/schema/> .
+
+<api> a                hydra:ApiDocumentation ;
+  hydra:entrypoint     <> ;
+  hydra:supportedClass api:EntryPoint .
+
+## Entrypoint
+
+api:EntryPoint a           hydra:Class ;
+  hydra:title              "Home resource of all wikibus.org APIs" ;
+  hydra:supportedProperty  [
+                             hydra:property api:library ;
+                             hydra:title    "Links to wikibus library"
+                           ] ;
+  hydra:supportedProperty  [
+                             hydra:property api:dataSheets ;
+                             hydra:title    "Link to data sheets API"
+                           ] ;
+  hydra:supportedOperation [
+                             a                  hydra:SupportedOperation ;
+                             hydra:title        "Get the entrypoint resource" ;
+                             hydra:method       "GET" ;
+                             code:implementedBy [
+                                                  a         code:EcmaScript ;
+                                                  code:link <file:handlers/entrypoint#get>
+                                                ]
+                           ] .
+
+api:library a hydra:Link .
+
+api:dataSheets a hydra:Link .

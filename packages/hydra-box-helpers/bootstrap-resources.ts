@@ -1,11 +1,10 @@
 import Parser from '@rdfjs/parser-n3'
-import initial from './hydra/initial'
-import { log } from '@wikibus/hydra-box-helpers/log'
 import type StreamClient from 'sparql-http-client/StreamClient'
+import { log } from './log'
 
 const parser = new Parser()
 
-export async function bootstrapResources(client: StreamClient, baseIRI: string) {
+export async function bootstrapResources(initial: (base: string) => NodeJS.ReadableStream, client: StreamClient, baseIRI: string) {
   const initialQuads = parser.import(initial(baseIRI), { baseIRI })
 
   log('Bootstrapping API resources')
